@@ -9,12 +9,14 @@
 import UIKit
 import LocalAuthentication
 
-class ClientViewController: UIViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ClientViewController: UIViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var clientNameLabel: UILabel!
     @IBOutlet weak var passesLabel: UILabel!
     @IBOutlet weak var checkInDatePicker: UIDatePicker!
     @IBOutlet weak var checkInButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var passTextField: UITextField!
 
     // Hideable
     @IBOutlet weak var unlockMoreOptionsLabel: UIButton!
@@ -24,8 +26,8 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     @IBOutlet weak var deleteUserButton: UIButton!
 
     var client : Client? = nil
-
     var allowNegative = false
+    var ifAddClicked = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,24 +35,16 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
         toggleMoreOptions()
         populateClientInfo()
         setupDatePicker()
+        setupPickerView()
+    }
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    /*************/
-    /* Set image */
-    /*************/
-    @IBAction func imageClicked(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
-            imagePicker.allowsEditing = false
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
     }
 
     /*********************/
@@ -75,30 +69,55 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     /*********************/
     /* Update Class Pass */
     /*********************/
-    func updateClassPath(add: Bool) {
-        if let client = self.client {
-            var changedPasses = 0
-            switch addClassPassesButtons.selectedSegmentIndex {
-            case 0:
-                changedPasses = 1
-            case 1:
-                changedPasses = 12
-            case 2:
-                changedPasses = 20
-            case 3:
-                changedPasses = 30
-            default:
-                break;
+    func setupPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        passTextField.inputView = pickerView
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(ClientViewController.donePressed))
+        let pickerToolbar = UIToolbar(frame: CGRectMake(0, self.view.frame.size.height/6, self.view.frame.size.width, 40.0))
+        pickerToolbar.setItems([flexSpace, doneButton], animated: true)
+        passTextField.inputAccessoryView = pickerToolbar
+
+        passTextField.text = "1"
+    }
+
+    func donePressed() {
+        passTextField.resignFirstResponder()
+        if let passes = passTextField.text {
+            if let passNumber = Int(passes) {
+                addPassActivity(passNumber)
             }
-            changedPasses = add ? changedPasses : changedPasses * -1
-            client.passes += changedPasses
-            client.update()
+        }
+    }
+
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 99
+    }
+
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(row + 1)
+    }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        passTextField.text = String(row + 1)
+    }
+
+    func addPassActivity(passes : Int) {
+        if let client = self.client {
+            let changedPasses = ifAddClicked ? passes : passes * -1
+            client.addPasses(changedPasses)
             populateClientInfo()
 
             let addString = "The " + String(changedPasses) + " class pass was added successfully."
             let wasWere = changedPasses == -1 ? " was" : "es were"
             let removeString =  String(changedPasses * -1) + " class pass" + wasWere + " removed successfully."
-            let message = add ? addString : removeString
+            let message = ifAddClicked ? addString : removeString
 
 
             let passAddedAlert = UIAlertController(title: "Pass Added", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -107,15 +126,39 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
 
             presentViewController(passAddedAlert, animated: true, completion: nil)
         }
+    }
 
+    func updateClassPath() {
+        var changedPasses = 0
+        switch addClassPassesButtons.selectedSegmentIndex {
+        case 0:
+            changedPasses = 1
+        case 1:
+            changedPasses = 12
+        case 2:
+            changedPasses = 20
+        case 3:
+            changedPasses = 30
+        default:
+            changedPasses = 0
+            break;
+        }
+        if(changedPasses == 0) {
+            passTextField.becomeFirstResponder()
+        }
+        else {
+            addPassActivity(changedPasses)
+        }
     }
 
     @IBAction func addClassPass(sender: AnyObject) {
-        updateClassPath(true)
+        ifAddClicked = true
+        updateClassPath()
     }
 
     @IBAction func removeClassPath(sender: AnyObject) {
-        updateClassPath(false)
+        ifAddClicked = false
+        updateClassPath()
     }
 
 
@@ -162,7 +205,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let client : Client = client {
-            return client.checkIns.count
+            return client.activities.count
         }
         return 0
     }
@@ -175,7 +218,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
             dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-            cell.label.text = dateFormatter.stringFromDate(client.checkIns[indexPath.row].date)
+            cell.label.text = dateFormatter.stringFromDate(client.activities[indexPath.row].date)
         }
 
         return cell

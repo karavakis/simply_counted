@@ -44,21 +44,41 @@ public class ClientCollection: NSObject {
     }
 
     public func load(success : () -> Void) {
-        let query = PFQuery(className:"Client")
+        let getClients = PFQuery(className:"Client")
         if let currentUser = PFUser.currentUser() {
-            query.whereKey("user", equalTo:currentUser)
-            query.findObjectsInBackgroundWithBlock {
+            getClients.whereKey("user", equalTo:currentUser)
+            getClients.findObjectsInBackgroundWithBlock {
                 (objects:[PFObject]?, error:NSError?) -> Void in
                 if error == nil {
                     if let objects = objects {
-                        self.clients = [String : Client]()
+                        self.clients.removeAll()
                         for object in objects {
                             let newClient = Client(clientObject : object)
-                            self.clients[newClient.id] = newClient
+
+                            //get check-ins
+                            let getCheckIns = PFQuery(className: "CheckIn")
+                            getCheckIns.whereKey("user", equalTo:currentUser)
+                            getCheckIns.whereKey("clientId", equalTo:newClient.id)
+                            getCheckIns.addDescendingOrder("date")
+                            do {
+                                let objects = try getCheckIns.findObjects()
+                                for object in objects {
+                                    let newCheckIn = CheckIn(activityObject : object)
+                                    newClient.activities.append(newCheckIn)
+                                }
+                                if let lastCheckIn = newClient.activities.first {
+                                    newClient.lastCheckIn = lastCheckIn.date
+                                }
+                                self.clients[newClient.id] = newClient
+                            }
+                            catch let error as NSError {
+                                print("Error: \(error) \(error.userInfo)")
+                            }
                         }
                         success()
                     }
-                } else {
+                }
+                else {
                     // Log details of the failure
                     print("Error: \(error!) \(error!.userInfo)")
                 }

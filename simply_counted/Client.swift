@@ -14,7 +14,7 @@ public class Client: NSObject {
     let id: String
     var name: String
     var passes: Int
-    var checkIns = [CheckIn]()
+    var activities = [Activity]()
     var pfObject: PFObject? = nil
     var checkInsLoaded = false
     var lastCheckIn : NSDate? = nil
@@ -38,7 +38,7 @@ public class Client: NSObject {
         self.passes = passes
 
         super.init()
-        self.loadCheckIns(checkInsLoadSuccess)
+//        self.loadActivity(activityLoadSuccess)
     }
 
     init(clientObject: PFObject!) {
@@ -49,7 +49,7 @@ public class Client: NSObject {
         self.pfObject = clientObject
 
         super.init()
-        self.loadCheckIns(checkInsLoadSuccess)
+//        self.loadActivity(activityLoadSuccess)
     }
 
 
@@ -90,46 +90,23 @@ public class Client: NSObject {
     /*************/
     /* Check-Ins */
     /*************/
-    func checkInsLoadSuccess() -> Void {
-        checkInsLoaded = true
-    }
 
     public func checkIn(date: NSDate) {
         let checkIn = CheckIn(clientId: self.id, date: date)
         checkIn.save()
-        self.checkIns.append(checkIn)
-        sortCheckIns()
+        self.activities.append(checkIn)
         self.passes = self.passes - 1
         self.update() 
     }
 
-    func sortCheckIns() {
-        self.checkIns.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
-        self.lastCheckIn = self.checkIns[0].date
-    }
-
-    func loadCheckIns(success : () -> Void) {
-        let query = PFQuery(className:"CheckIn")
-        if let currentUser = PFUser.currentUser() {
-            query.whereKey("clientId", equalTo:id)
-            query.whereKey("user", equalTo:currentUser)
-            query.findObjectsInBackgroundWithBlock {
-                (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    if let objects = objects {
-                        self.checkIns = [CheckIn]()
-                        for object in objects {
-                            let newCheckIn = CheckIn(checkInObject : object)
-                            self.checkIns.append(newCheckIn)
-                            self.sortCheckIns()
-                        }
-                        success()
-                    }
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-        }
+    /**********/
+    /* Passes */
+    /**********/
+    public func addPasses(passesAdded: Int) {
+        self.passes += passesAdded
+        let passActivity = PassActivity(clientId: self.id, date: NSDate(), passesAdded: passesAdded)
+        passActivity.save()
+        self.activities.append(passActivity)
+        self.update()
     }
 }

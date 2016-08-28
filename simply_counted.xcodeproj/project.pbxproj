@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
+		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
 		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D6353F1D6FA5B000D9B15F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635031D6FA5B000D9B15F /* Bolts.framework */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
+		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635031D6FA5B000D9B15F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				B9D635211D6FA5B000D9B15F /* ClassDate.swift */,
 				B9D635231D6FA5B000D9B15F /* Client.swift */,
 				B9D635241D6FA5B000D9B15F /* ClientCollection.swift */,
+				B96CA3EB1D71586A008166E2 /* Activity.swift */,
+				B96CA3E91D715474008166E2 /* PassActivity.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			files = (
 				B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */,
 				B9D635681D6FA5B000D9B15F /* Util.swift in Sources */,
+				B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */,
 				B9D635631D6FA5B000D9B15F /* LoginViewController.swift in Sources */,
 				B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */,
 				B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */,
@@ -347,6 +354,7 @@
 				B9D6355A1D6FA5B000D9B15F /* ClassTableViewController.swift in Sources */,
 				B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */,
 				B9D6355C1D6FA5B000D9B15F /* ClientCollection.swift in Sources */,
+				B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */,
 				B9D635621D6FA5B000D9B15F /* JoinViewController.swift in Sources */,
 				B9D635581D6FA5B000D9B15F /* ClassCollection.swift in Sources */,
 				B9D635671D6FA5B000D9B15F /* TextFieldValidator.m in Sources */,

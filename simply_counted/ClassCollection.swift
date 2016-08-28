@@ -36,7 +36,7 @@ public class ClassCollection: NSObject {
                 if error == nil {
                     if let objects = objects {
                         for object in objects {
-                            let newCheckIn = CheckIn(checkInObject : object)
+                            let newCheckIn = CheckIn(activityObject : object)
                             var foundDate = false
                             for classDate in self.classDates {
                                 if(NSCalendar.currentCalendar().isDate(classDate.date, inSameDayAsDate: newCheckIn.date)) {

@@ -21,20 +21,7 @@ class CheckInTableViewController: UITableViewController {
         isLoading = false
         clientsIndexedList = clients.getIndexedList()
         clientIndexes = Array(clientsIndexedList.keys).sort(<)
-        if let lastIndex = clientIndexes.last {
-            if let lastClientIndex = clientsIndexedList[lastIndex] {
-                let lastClient = lastClientIndex.last
-                if let lastClient = lastClient {
-                    if(lastClient.checkInsLoaded) {
-                        checkInTableView.reloadData()
-                        return
-                    }
-                }
-                delay(1.0) {
-                    self.clientsDidLoad()
-                }
-            }
-        }
+        checkInTableView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -71,7 +58,6 @@ class CheckInTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
         if(section == 0){
             return ""
         }
