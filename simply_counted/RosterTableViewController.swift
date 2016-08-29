@@ -1,5 +1,5 @@
 //
-//  CheckInViewController.swift
+//  RosterTableViewController.swift
 //  simply_counted
 //
 //  Created by Jennifer Karavakis on 8/19/16.
@@ -9,9 +9,9 @@
 import UIKit
 import Parse
 
-class CheckInTableViewController: UITableViewController {
+class RosterTableViewController: UITableViewController {
 
-    @IBOutlet weak var checkInTableView: UITableView!
+    @IBOutlet weak var RosterTableView: UITableView!
     var clients = ClientCollection()
     var clientsIndexedList = [String:[Client]]()
     var clientIndexes = [String]()
@@ -21,7 +21,7 @@ class CheckInTableViewController: UITableViewController {
         isLoading = false
         clientsIndexedList = clients.getIndexedList()
         clientIndexes = Array(clientsIndexedList.keys).sort(<)
-        checkInTableView.reloadData()
+        RosterTableView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -116,7 +116,7 @@ class CheckInTableViewController: UITableViewController {
             func completionHandler() -> Void {
                 isLoading = true
                 clients.load(clientsDidLoad)
-                self.checkInTableView.reloadData()
+                self.RosterTableView.reloadData()
             }
 
             cell.completionHandler = completionHandler
@@ -143,8 +143,8 @@ class CheckInTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "CheckIn") {
             let controller = (segue.destinationViewController as! ClientViewController)
-            let section = self.checkInTableView.indexPathForSelectedRow!.section
-            let row = self.checkInTableView.indexPathForSelectedRow!.row
+            let section = self.RosterTableView.indexPathForSelectedRow!.section
+            let row = self.RosterTableView.indexPathForSelectedRow!.row
             let client = clientsIndexedList[clientIndexes[section-1]]![row]
             controller.client = client
         }

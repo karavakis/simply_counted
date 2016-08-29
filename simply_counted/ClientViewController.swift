@@ -17,19 +17,26 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     @IBOutlet weak var checkInButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var passTextField: UITextField!
+    @IBOutlet weak var activitiesTableView: UITableView!
 
     // Hideable
     @IBOutlet weak var unlockMoreOptionsLabel: UIButton!
     @IBOutlet weak var addClassPassButton: UIButton!
     @IBOutlet weak var removeClassPathButton: UIButton!
     @IBOutlet weak var addClassPassesButtons: UISegmentedControl!
-    @IBOutlet weak var deleteUserButton: UIButton!
 
     var client : Client? = nil
     var allowNegative = false
     var ifAddClicked = true
 
+    func activitiesLoaded() -> Void {
+        activitiesTableView.reloadData()
+    }
+
     override func viewDidLoad() {
+        if let client = self.client {
+            client.loadActivities(activitiesLoaded)
+        }
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         toggleMoreOptions()
@@ -110,10 +117,16 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
 
     func addPassActivity(passes : Int) {
         if let client = self.client {
+
+            //Update client model
             let changedPasses = ifAddClicked ? passes : passes * -1
             client.addPasses(changedPasses)
-            populateClientInfo()
 
+            //Update data on screen
+            populateClientInfo()
+            activitiesTableView.reloadData()
+
+            //Show alert for passes added
             let addString = "The " + String(changedPasses) + " class pass was added successfully."
             let wasWere = changedPasses == -1 ? " was" : "es were"
             let removeString =  String(changedPasses * -1) + " class pass" + wasWere + " removed successfully."
@@ -128,7 +141,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
         }
     }
 
-    func updateClassPath() {
+    func updateClassPass() {
         var changedPasses = 0
         switch addClassPassesButtons.selectedSegmentIndex {
         case 0:
@@ -140,25 +153,21 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
         case 3:
             changedPasses = 30
         default:
-            changedPasses = 0
-            break;
-        }
-        if(changedPasses == 0) {
+            //Show picker to choose a pass value
             passTextField.becomeFirstResponder()
+            return
         }
-        else {
-            addPassActivity(changedPasses)
-        }
+        addPassActivity(changedPasses)
     }
 
     @IBAction func addClassPass(sender: AnyObject) {
         ifAddClicked = true
-        updateClassPath()
+        updateClassPass()
     }
 
     @IBAction func removeClassPath(sender: AnyObject) {
         ifAddClicked = false
-        updateClassPath()
+        updateClassPass()
     }
 
 
@@ -191,7 +200,6 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
         removeClassPathButton.hidden = !removeClassPathButton.hidden
         addClassPassesButtons.hidden = !addClassPassesButtons.hidden
         unlockMoreOptionsLabel.hidden = !addClassPassesButtons.hidden
-        deleteUserButton.hidden = !unlockMoreOptionsLabel.hidden
         allowNegative = !addClassPassesButtons.hidden
     }
 
@@ -218,7 +226,13 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
             dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-            cell.label.text = dateFormatter.stringFromDate(client.activities[indexPath.row].date)
+            let dateText = dateFormatter.stringFromDate(client.activities[indexPath.row].date)
+            var passText = ""
+            if let passActivity = client.activities[indexPath.row] as? PassActivity {
+                passText = String(passActivity.passesAdded) + " Pass"
+            }
+            cell.label.text = dateText
+            cell.label2.text = passText
         }
 
         return cell
@@ -228,6 +242,10 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
         return true
     }
 
+
+    /**********/
+    /* Segues */
+    /**********/
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "CheckInClicked") {
             if let client = client {
@@ -241,22 +259,6 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
                 else {
                     client.checkIn(checkInDatePicker.date)
                 }
-            }
-        }
-        if (segue.identifier == "DeleteClicked") {
-            if let client = client {
-                let deleteAlert = UIAlertController(title: "Warning", message: "You are about to delete this user. This action cannot be undone.", preferredStyle: UIAlertControllerStyle.Alert)
-                deleteAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                    func deleteSuccess() {
-                        segue.perform()
-                    }
-                    client.deleteClient(deleteSuccess)
-                }))
-                deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
-                    //Do nothing
-                }))
-
-                presentViewController(deleteAlert, animated: true, completion: nil)
             }
         }
     }

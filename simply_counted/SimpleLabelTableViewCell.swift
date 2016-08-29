@@ -11,6 +11,7 @@ import UIKit
 class SimpleLabelTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var label2: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

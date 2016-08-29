@@ -26,7 +26,7 @@
 		B9D635541D6FA5B000D9B15F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9D635191D6FA5B000D9B15F /* LaunchScreen.storyboard */; };
 		B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9D6351B1D6FA5B000D9B15F /* Main.storyboard */; };
 		B9D635561D6FA5B000D9B15F /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6351E1D6FA5B000D9B15F /* CheckIn.swift */; };
-		B9D635571D6FA5B000D9B15F /* CheckInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6351F1D6FA5B000D9B15F /* CheckInTableViewController.swift */; };
+		B9D635571D6FA5B000D9B15F /* RosterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6351F1D6FA5B000D9B15F /* RosterTableViewController.swift */; };
 		B9D635581D6FA5B000D9B15F /* ClassCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635201D6FA5B000D9B15F /* ClassCollection.swift */; };
 		B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635211D6FA5B000D9B15F /* ClassDate.swift */; };
 		B9D6355A1D6FA5B000D9B15F /* ClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635221D6FA5B000D9B15F /* ClassTableViewController.swift */; };
@@ -75,7 +75,7 @@
 		B9D6351C1D6FA5B000D9B15F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9D6351D1D6FA5B000D9B15F /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		B9D6351E1D6FA5B000D9B15F /* CheckIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
-		B9D6351F1D6FA5B000D9B15F /* CheckInTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInTableViewController.swift; sourceTree = "<group>"; };
+		B9D6351F1D6FA5B000D9B15F /* RosterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosterTableViewController.swift; sourceTree = "<group>"; };
 		B9D635201D6FA5B000D9B15F /* ClassCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassCollection.swift; sourceTree = "<group>"; };
 		B9D635211D6FA5B000D9B15F /* ClassDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDate.swift; sourceTree = "<group>"; };
 		B9D635221D6FA5B000D9B15F /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		B9D6356F1D6FA5FA00D9B15F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B9D6351F1D6FA5B000D9B15F /* CheckInTableViewController.swift */,
+				B9D6351F1D6FA5B000D9B15F /* RosterTableViewController.swift */,
 				B9D635221D6FA5B000D9B15F /* ClassTableViewController.swift */,
 				B9D635261D6FA5B000D9B15F /* ClientTableViewController.swift */,
 				B9D635271D6FA5B000D9B15F /* ClientViewController.swift */,
@@ -358,7 +358,7 @@
 				B9D635621D6FA5B000D9B15F /* JoinViewController.swift in Sources */,
 				B9D635581D6FA5B000D9B15F /* ClassCollection.swift in Sources */,
 				B9D635671D6FA5B000D9B15F /* TextFieldValidator.m in Sources */,
-				B9D635571D6FA5B000D9B15F /* CheckInTableViewController.swift in Sources */,
+				B9D635571D6FA5B000D9B15F /* RosterTableViewController.swift in Sources */,
 				B9D6355B1D6FA5B000D9B15F /* Client.swift in Sources */,
 				B9D6355D1D6FA5B000D9B15F /* ClientTableViewCell.swift in Sources */,
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,

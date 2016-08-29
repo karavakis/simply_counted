@@ -54,26 +54,7 @@ public class ClientCollection: NSObject {
                         self.clients.removeAll()
                         for object in objects {
                             let newClient = Client(clientObject : object)
-
-                            //get check-ins
-                            let getCheckIns = PFQuery(className: "CheckIn")
-                            getCheckIns.whereKey("user", equalTo:currentUser)
-                            getCheckIns.whereKey("clientId", equalTo:newClient.id)
-                            getCheckIns.addDescendingOrder("date")
-                            do {
-                                let objects = try getCheckIns.findObjects()
-                                for object in objects {
-                                    let newCheckIn = CheckIn(activityObject : object)
-                                    newClient.activities.append(newCheckIn)
-                                }
-                                if let lastCheckIn = newClient.activities.first {
-                                    newClient.lastCheckIn = lastCheckIn.date
-                                }
-                                self.clients[newClient.id] = newClient
-                            }
-                            catch let error as NSError {
-                                print("Error: \(error) \(error.userInfo)")
-                            }
+                            self.clients[newClient.id] = newClient
                         }
                         success()
                     }
