@@ -178,20 +178,26 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     @IBAction func unlockOptions(sender: AnyObject) {
         let context = LAContext()
 
-        context.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { [weak self] (success, error) in
+        if (LAContext().canEvaluatePolicy(.DeviceOwnerAuthentication, error: nil)) {
+            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { [weak self] (success, error) in
 
-            guard success else {
-                dispatch_async(dispatch_get_main_queue()) {
-                    // show something here to block the user from continuing
+                guard success else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // show something here to block the user from continuing
+                    }
+
+                    return
                 }
 
-                return
+                dispatch_async(dispatch_get_main_queue()) {
+                    // do something here to continue loading your app, e.g. call a delegate method
+                    self!.toggleMoreOptions()
+                }
             }
-
-            dispatch_async(dispatch_get_main_queue()) {
-                // do something here to continue loading your app, e.g. call a delegate method
-                self!.toggleMoreOptions()
-            }
+        }
+        else {
+            //Passcode not set
+            self.toggleMoreOptions()
         }
     }
 
