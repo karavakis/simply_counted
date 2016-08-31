@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
 		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
+		B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* NotesViewController.swift */; };
 		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D6353F1D6FA5B000D9B15F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635031D6FA5B000D9B15F /* Bolts.framework */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
 		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		B96CA3F11D764FBA008166E2 /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635031D6FA5B000D9B15F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				B9D635271D6FA5B000D9B15F /* ClientViewController.swift */,
 				B9D6352A1D6FA5B000D9B15F /* JoinViewController.swift */,
 				B9D6352B1D6FA5B000D9B15F /* LoginViewController.swift */,
+				B96CA3F11D764FBA008166E2 /* NotesViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				B9D635571D6FA5B000D9B15F /* RosterTableViewController.swift in Sources */,
 				B9D6355B1D6FA5B000D9B15F /* Client.swift in Sources */,
 				B9D6355D1D6FA5B000D9B15F /* ClientTableViewCell.swift in Sources */,
+				B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */,
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,
 				B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */,
 				B9D6355F1D6FA5B000D9B15F /* ClientViewController.swift in Sources */,

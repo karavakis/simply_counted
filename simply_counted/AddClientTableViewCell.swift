@@ -32,7 +32,7 @@ class AddClientTableViewCell: UITableViewCell {
         
         if let name = self.nameTextField.text {
             if name != "" {
-                let newClient = Client(name: name, passes:0)
+                let newClient = Client(name: name)
                 newClient.save()
 
                 self.nameTextField.text = ""

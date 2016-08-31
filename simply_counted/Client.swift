@@ -14,6 +14,7 @@ public class Client: NSObject {
     let id: String
     var name: String
     var passes: Int
+    var notes : String
     var activities = [Activity]()
     var pfObject: PFObject? = nil
     var lastCheckIn : NSDate? = nil
@@ -25,15 +26,17 @@ public class Client: NSObject {
     override init() {
         self.id = ""
         self.name = "name"
+        self.notes = ""
         self.passes = 0
 
         super.init()
     }
 
-    init(name: String, passes: Int) {
+    init(name: String) {
         self.id = ""
         self.name = name
-        self.passes = passes
+        self.passes = 0
+        self.notes = ""
 
         super.init()
     }
@@ -42,6 +45,7 @@ public class Client: NSObject {
         self.id = clientObject!.objectId!
         self.name = clientObject!["name"] as! String
         self.passes = clientObject!["passes"] as! Int
+        self.notes = clientObject!["notes"] as! String
         self.lastCheckIn = clientObject!["lastCheckIn"] as? NSDate
         self.pfObject = clientObject
 
@@ -56,6 +60,7 @@ public class Client: NSObject {
         if let client : PFObject = pfObject! {
             client["name"] = self.name
             client["passes"] = self.passes
+            client["notes"] = self.notes
             if let lastCheckIn = self.lastCheckIn {
                 client["lastCheckIn"] = lastCheckIn
             }
@@ -70,6 +75,7 @@ public class Client: NSObject {
         let client = PFObject(className: "Client")
         client["name"] = self.name
         client["passes"] = self.passes
+        client["notes"] = self.notes
         if let lastCheckIn = self.lastCheckIn {
             client["lastCheckIn"] = lastCheckIn
         }

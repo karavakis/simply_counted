@@ -34,6 +34,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     }
 
     override func viewDidLoad() {
+        setupBarButtonItems()
         if let client = self.client {
             client.loadActivities(activitiesLoaded)
         }
@@ -249,6 +250,18 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
     }
 
 
+    /*********/
+    /* Notes */
+    /*********/
+    func setupBarButtonItems() {
+        let notesButton = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: #selector(ClientViewController.notesClicked))
+        self.navigationItem.rightBarButtonItem = notesButton
+    }
+
+    func notesClicked() {
+        performSegueWithIdentifier("NotesClicked", sender: nil)
+    }
+
     /**********/
     /* Segues */
     /**********/
@@ -265,6 +278,12 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIImagePicker
                 else {
                     client.checkIn(checkInDatePicker.date)
                 }
+            }
+        }
+        if (segue.identifier == "NotesClicked") {
+            if let client = client {
+                let controller = (segue.destinationViewController as! NotesViewController)
+                controller.client = client
             }
         }
     }
