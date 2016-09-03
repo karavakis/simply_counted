@@ -30,8 +30,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         }
         setupButtonHiding()
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        //addKeyboardNotifications()
         addRoundCorners()
         //addValidators()
         addFacebookPermissions()

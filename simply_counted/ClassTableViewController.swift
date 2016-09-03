@@ -64,13 +64,12 @@ class ClassTableViewController: UITableViewController {
             dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
             dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
             cell.label.text = dateFormatter.stringFromDate(classDate.date)
+
+            cell.label2.text = String(classDate.checkIns.count)
         }
 
-        return cell
-    }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("classClicked", sender: self);
+        return cell
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

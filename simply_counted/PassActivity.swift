@@ -11,27 +11,32 @@ import Parse
 
 public class PassActivity: Activity {
     var passesAdded : Int
+    var price : String
 
     override init() {
         self.passesAdded = 0
+        self.price = "0"
         super.init()
         self.className = "PassActivity"
     }
 
     override init(clientId: String, date: NSDate) {
         self.passesAdded = 0
+        self.price = "0"
         super.init(clientId: clientId, date: date)
         self.className = "PassActivity"
     }
 
-    init(clientId: String, date: NSDate, passesAdded: Int) {
-        self.passesAdded = passesAdded
+    init(clientId: String, date: NSDate, passType: PassType) {
+        self.passesAdded = passType.passCount
+        self.price = String(passType.price)
         super.init(clientId: clientId, date: date)
         self.className = "PassActivity"
     }
 
     override init(activityObject: PFObject!) {
         self.passesAdded = activityObject!["passesAdded"] as! Int
+        self.price = activityObject!["price"] as! String
         super.init(activityObject: activityObject)
         self.className = "PassActivity"
     }
@@ -42,6 +47,7 @@ public class PassActivity: Activity {
         passActivity["clientId"] = self.clientId
         passActivity["date"] = self.date
         passActivity["passesAdded"] = self.passesAdded
+        passActivity["price"] = self.price
         passActivity["user"] = PFUser.currentUser()!
         passActivity.saveInBackground()
     }

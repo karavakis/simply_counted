@@ -26,19 +26,10 @@ class RosterTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
         isLoading = true
-
         clients.load(clientsDidLoad)
-    }
 
-    //TODO: Don't load events here, find a way to just load new ones.
-    override func viewDidAppear(animated: Bool) {
-        if( !isLoading ) {
-            isLoading = true
-            clients.load(clientsDidLoad)
-        }
+        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -133,7 +124,7 @@ class RosterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.section > 0) {
-            self.performSegueWithIdentifier("CheckIn", sender: self)
+            self.performSegueWithIdentifier("ClientClicked", sender: self)
         }
         else {
             tableView.cellForRowAtIndexPath(indexPath)?.selected = false
@@ -141,7 +132,7 @@ class RosterTableViewController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "CheckIn") {
+        if (segue.identifier == "ClientClicked") {
             let controller = (segue.destinationViewController as! ClientViewController)
             let section = self.RosterTableView.indexPathForSelectedRow!.section
             let row = self.RosterTableView.indexPathForSelectedRow!.row

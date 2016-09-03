@@ -10,6 +10,7 @@
 		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
 		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
 		B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* NotesViewController.swift */; };
+		B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */; };
 		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D6353F1D6FA5B000D9B15F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635031D6FA5B000D9B15F /* Bolts.framework */; };
@@ -53,12 +54,16 @@
 		B9D635821D6FA8C100D9B15F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635811D6FA8C100D9B15F /* SystemConfiguration.framework */; };
 		B9D635841D6FA8CB00D9B15F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635831D6FA8CB00D9B15F /* libz.tbd */; };
 		B9D635861D6FA8D700D9B15F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635851D6FA8D700D9B15F /* libsqlite3.tbd */; };
+		B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */; };
+		B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7941D7A64DC0018E568 /* PassType.swift */; };
+		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
 		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		B96CA3F11D764FBA008166E2 /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassTypeTableViewCell.swift; sourceTree = "<group>"; };
 		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635031D6FA5B000D9B15F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -106,6 +111,9 @@
 		B9D635811D6FA8C100D9B15F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B9D635831D6FA8CB00D9B15F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B9D635851D6FA8D700D9B15F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassViewController.swift; sourceTree = "<group>"; };
+		B9EFE7941D7A64DC0018E568 /* PassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassType.swift; sourceTree = "<group>"; };
+		B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTypeCollection.swift; sourceTree = "<group>"; };
 		B9F7301F1D67A57F0031E099 /* simply_counted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simply_counted.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -208,6 +216,7 @@
 				B9D6352A1D6FA5B000D9B15F /* JoinViewController.swift */,
 				B9D6352B1D6FA5B000D9B15F /* LoginViewController.swift */,
 				B96CA3F11D764FBA008166E2 /* NotesViewController.swift */,
+				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -224,6 +233,7 @@
 				B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */,
 				B9D635251D6FA5B000D9B15F /* ClientTableViewCell.swift */,
 				B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */,
+				B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -238,6 +248,8 @@
 				B9D635241D6FA5B000D9B15F /* ClientCollection.swift */,
 				B96CA3EB1D71586A008166E2 /* Activity.swift */,
 				B96CA3E91D715474008166E2 /* PassActivity.swift */,
+				B9EFE7941D7A64DC0018E568 /* PassType.swift */,
+				B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -352,9 +364,12 @@
 				B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */,
 				B9D635631D6FA5B000D9B15F /* LoginViewController.swift in Sources */,
 				B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */,
+				B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */,
 				B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */,
+				B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */,
 				B9D635561D6FA5B000D9B15F /* CheckIn.swift in Sources */,
 				B9D6355A1D6FA5B000D9B15F /* ClassTableViewController.swift in Sources */,
+				B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */,
 				B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */,
 				B9D6355C1D6FA5B000D9B15F /* ClientCollection.swift in Sources */,
 				B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */,
@@ -368,6 +383,7 @@
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,
 				B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */,
 				B9D6355F1D6FA5B000D9B15F /* ClientViewController.swift in Sources */,
+				B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

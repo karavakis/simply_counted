@@ -121,10 +121,12 @@ public class Client: NSObject {
     /**********/
     /* Passes */
     /**********/
-    public func addPasses(passesAdded: Int) {
-        self.passes += passesAdded
+    public func addPasses(passTypeAdded: PassType) {
+        self.passes += passTypeAdded.passCount
         self.update()
-        let passActivity = PassActivity(clientId: self.id, date: NSDate(), passesAdded: passesAdded)
+        let passActivity = PassActivity(clientId: self.id,
+                                        date: NSDate(),
+                                        passType: passTypeAdded)
         passActivity.save()
         self.activities.insert(passActivity, atIndex: 0)
     }
@@ -133,6 +135,9 @@ public class Client: NSObject {
     /* Activities */
     /**************/
     public func loadActivities(success : () -> Void) {
+        //clear activities
+        activities = [Activity]()
+
         //get check-ins
         let getCheckIns = PFQuery(className: "CheckIn")
         if let currentUser = PFUser.currentUser() {

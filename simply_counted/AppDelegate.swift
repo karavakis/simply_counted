@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  simply_counted
 //
