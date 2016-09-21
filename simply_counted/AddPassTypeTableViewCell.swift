@@ -15,7 +15,7 @@ class AddPassTypeTableViewCell: UITableViewCell {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var savedLabel: UILabel!
 
-    var completionHandler:(()->Void)!
+    var completionHandler:((passType:PassType)->Void)!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,20 +35,21 @@ class AddPassTypeTableViewCell: UITableViewCell {
                 if let priceString = self.priceTextField.text {
                     let price = priceString == "" ? NSDecimalNumber(integer: 0) : NSDecimalNumber(string: priceString)
                     let newPassType = PassType(passCount: passCount, price: price)
-                    newPassType.save()
+
+                    func saveComplete() {
+                        self.addButton.hidden = false
+                        self.savedLabel.hidden = true
+                        if self.completionHandler != nil {
+                            self.completionHandler(passType: newPassType)
+                        }
+                    }
+
+                    newPassType.save(saveComplete)
 
                     self.passCountTextField.text = ""
                     self.priceTextField.text = ""
                     self.addButton.hidden = true
                     self.savedLabel.hidden = false
-
-                    delay(1.0) {
-                        self.addButton.hidden = false
-                        self.savedLabel.hidden = true
-                        if self.completionHandler != nil {
-                            self.completionHandler()
-                        }
-                    }
                 }
             }
         }

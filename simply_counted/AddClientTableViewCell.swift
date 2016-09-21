@@ -15,7 +15,7 @@ class AddClientTableViewCell: UITableViewCell {
     @IBOutlet weak var savedLabel: UILabel!
     @IBOutlet weak var presentInView: UIView!
     
-    var completionHandler:(()->Void)!
+    var completionHandler:((client: Client)->Void)!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,18 +33,20 @@ class AddClientTableViewCell: UITableViewCell {
         if let name = self.nameTextField.text {
             if name != "" {
                 let newClient = Client(name: name)
-                newClient.save()
+
+                func saveComplete() {
+                    self.savedLabel.hidden = true
+                    self.addButton.hidden = false
+                    if self.completionHandler != nil {
+                        self.completionHandler(client: newClient)
+                    }
+                }
+
+                newClient.save(saveComplete)
 
                 self.nameTextField.text = ""
                 self.addButton.hidden = true
                 self.savedLabel.hidden = false
-                delay(1.0) {
-                    self.savedLabel.hidden = true
-                    self.addButton.hidden = false
-                    if self.completionHandler != nil {
-                        self.completionHandler()
-                    }
-                }
             }
         }
     }

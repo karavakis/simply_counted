@@ -10,7 +10,13 @@
 		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
 		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
 		B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* NotesViewController.swift */; };
+		B99E4CCF1D8A126D00AF52E2 /* CloudKitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E4CCE1D8A126D00AF52E2 /* CloudKitRecord.swift */; };
+		B99E4CD11D8C9FC000AF52E2 /* CloudKitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E4CD01D8C9FC000AF52E2 /* CloudKitCollection.swift */; };
 		B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */; };
+		B9AD0C4A1D7B321500DF529F /* US Dollar-52.png in Resources */ = {isa = PBXBuildFile; fileRef = B9AD0C491D7B321500DF529F /* US Dollar-52.png */; };
+		B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */; };
+		B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4D1D7B343000DF529F /* PassCollection.swift */; };
+		B9AD0C511D7F4EE300DF529F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9AD0C501D7F4EE300DF529F /* CloudKit.framework */; };
 		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D6353F1D6FA5B000D9B15F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D635031D6FA5B000D9B15F /* Bolts.framework */; };
@@ -37,8 +43,6 @@
 		B9D6355D1D6FA5B000D9B15F /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635251D6FA5B000D9B15F /* ClientTableViewCell.swift */; };
 		B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635261D6FA5B000D9B15F /* ClientTableViewController.swift */; };
 		B9D6355F1D6FA5B000D9B15F /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635271D6FA5B000D9B15F /* ClientViewController.swift */; };
-		B9D635621D6FA5B000D9B15F /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352A1D6FA5B000D9B15F /* JoinViewController.swift */; };
-		B9D635631D6FA5B000D9B15F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352B1D6FA5B000D9B15F /* LoginViewController.swift */; };
 		B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */; };
 		B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352E1D6FA5B000D9B15F /* simply_counted.xcdatamodeld */; };
 		B9D635671D6FA5B000D9B15F /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D635311D6FA5B000D9B15F /* TextFieldValidator.m */; };
@@ -63,7 +67,14 @@
 		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
 		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		B96CA3F11D764FBA008166E2 /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		B99E4CCE1D8A126D00AF52E2 /* CloudKitRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitRecord.swift; sourceTree = "<group>"; };
+		B99E4CD01D8C9FC000AF52E2 /* CloudKitCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitCollection.swift; sourceTree = "<group>"; };
 		B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassTypeTableViewCell.swift; sourceTree = "<group>"; };
+		B9AD0C491D7B321500DF529F /* US Dollar-52.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "US Dollar-52.png"; sourceTree = "<group>"; };
+		B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTableViewController.swift; sourceTree = "<group>"; };
+		B9AD0C4D1D7B343000DF529F /* PassCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCollection.swift; sourceTree = "<group>"; };
+		B9AD0C4F1D7E62A800DF529F /* simply_counted.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = simply_counted.entitlements; sourceTree = "<group>"; };
+		B9AD0C501D7F4EE300DF529F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635031D6FA5B000D9B15F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -92,8 +103,6 @@
 		B9D635261D6FA5B000D9B15F /* ClientTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTableViewController.swift; sourceTree = "<group>"; };
 		B9D635271D6FA5B000D9B15F /* ClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		B9D635291D6FA5B000D9B15F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9D6352A1D6FA5B000D9B15F /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
-		B9D6352B1D6FA5B000D9B15F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleLabelTableViewCell.swift; sourceTree = "<group>"; };
 		B9D6352F1D6FA5B000D9B15F /* simply_counted.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = simply_counted.xcdatamodel; sourceTree = "<group>"; };
 		B9D635301D6FA5B000D9B15F /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
@@ -127,6 +136,7 @@
 				B9D635821D6FA8C100D9B15F /* SystemConfiguration.framework in Frameworks */,
 				B9D635801D6FA8B600D9B15F /* StoreKit.framework in Frameworks */,
 				B9D6357E1D6FA8AE00D9B15F /* Security.framework in Frameworks */,
+				B9AD0C511D7F4EE300DF529F /* CloudKit.framework in Frameworks */,
 				B9D6357A1D6FA8A100D9B15F /* CoreGraphics.framework in Frameworks */,
 				B9D6357B1D6FA8A100D9B15F /* CoreLocation.framework in Frameworks */,
 				B9D6357C1D6FA8A100D9B15F /* QuartzCore.framework in Frameworks */,
@@ -167,6 +177,7 @@
 		B9D635151D6FA5B000D9B15F /* simply_counted */ = {
 			isa = PBXGroup;
 			children = (
+				B9AD0C4F1D7E62A800DF529F /* simply_counted.entitlements */,
 				B9D635171D6FA5B000D9B15F /* AppDelegate.swift */,
 				B9D6351D1D6FA5B000D9B15F /* Bridging-Header.h */,
 				B9D635291D6FA5B000D9B15F /* Info.plist */,
@@ -213,10 +224,9 @@
 				B9D635221D6FA5B000D9B15F /* ClassTableViewController.swift */,
 				B9D635261D6FA5B000D9B15F /* ClientTableViewController.swift */,
 				B9D635271D6FA5B000D9B15F /* ClientViewController.swift */,
-				B9D6352A1D6FA5B000D9B15F /* JoinViewController.swift */,
-				B9D6352B1D6FA5B000D9B15F /* LoginViewController.swift */,
 				B96CA3F11D764FBA008166E2 /* NotesViewController.swift */,
 				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
+				B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -230,6 +240,7 @@
 				B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */,
 				B9D635011D6FA5B000D9B15F /* Ok-48.png */,
 				B9D6353C1D6FA5B000D9B15F /* Todo List-50.png */,
+				B9AD0C491D7B321500DF529F /* US Dollar-52.png */,
 				B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */,
 				B9D635251D6FA5B000D9B15F /* ClientTableViewCell.swift */,
 				B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */,
@@ -250,6 +261,9 @@
 				B96CA3E91D715474008166E2 /* PassActivity.swift */,
 				B9EFE7941D7A64DC0018E568 /* PassType.swift */,
 				B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */,
+				B9AD0C4D1D7B343000DF529F /* PassCollection.swift */,
+				B99E4CCE1D8A126D00AF52E2 /* CloudKitRecord.swift */,
+				B99E4CD01D8C9FC000AF52E2 /* CloudKitCollection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -264,6 +278,7 @@
 		B9F730161D67A57F0031E099 = {
 			isa = PBXGroup;
 			children = (
+				B9AD0C501D7F4EE300DF529F /* CloudKit.framework */,
 				B9D635151D6FA5B000D9B15F /* simply_counted */,
 				B9D635331D6FA5B000D9B15F /* simply_counted.xcodeproj */,
 				B9F730201D67A57F0031E099 /* Products */,
@@ -311,6 +326,11 @@
 					B9F7301E1D67A57F0031E099 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = B3N8BR97GQ;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -346,6 +366,7 @@
 				B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */,
 				B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */,
 				B9D6356D1D6FA5B000D9B15F /* Todo List-50.png in Resources */,
+				B9AD0C4A1D7B321500DF529F /* US Dollar-52.png in Resources */,
 				B9D635541D6FA5B000D9B15F /* LaunchScreen.storyboard in Resources */,
 				B9D635531D6FA5B000D9B15F /* Assets.xcassets in Resources */,
 				B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */,
@@ -359,10 +380,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */,
 				B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */,
 				B9D635681D6FA5B000D9B15F /* Util.swift in Sources */,
 				B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */,
-				B9D635631D6FA5B000D9B15F /* LoginViewController.swift in Sources */,
 				B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */,
 				B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */,
 				B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */,
@@ -373,15 +394,17 @@
 				B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */,
 				B9D6355C1D6FA5B000D9B15F /* ClientCollection.swift in Sources */,
 				B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */,
-				B9D635621D6FA5B000D9B15F /* JoinViewController.swift in Sources */,
 				B9D635581D6FA5B000D9B15F /* ClassCollection.swift in Sources */,
 				B9D635671D6FA5B000D9B15F /* TextFieldValidator.m in Sources */,
 				B9D635571D6FA5B000D9B15F /* RosterTableViewController.swift in Sources */,
 				B9D6355B1D6FA5B000D9B15F /* Client.swift in Sources */,
+				B99E4CD11D8C9FC000AF52E2 /* CloudKitCollection.swift in Sources */,
 				B9D6355D1D6FA5B000D9B15F /* ClientTableViewCell.swift in Sources */,
 				B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */,
+				B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */,
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,
 				B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */,
+				B99E4CCF1D8A126D00AF52E2 /* CloudKitRecord.swift in Sources */,
 				B9D6355F1D6FA5B000D9B15F /* ClientViewController.swift in Sources */,
 				B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */,
 			);
@@ -498,13 +521,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = simply_counted/simply_counted.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/parse-library-1";
 				INFOPLIST_FILE = simply_counted/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.karavakis.simply-counted";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jennifer.karavakis.simply-counted";
 				PRODUCT_NAME = simply_counted;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "simply_counted/Bridging-Header.h";
@@ -515,13 +539,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = simply_counted/simply_counted.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/parse-library-1";
 				INFOPLIST_FILE = simply_counted/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.karavakis.simply-counted";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jennifer.karavakis.simply-counted";
 				PRODUCT_NAME = simply_counted;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "simply_counted/Bridging-Header.h";

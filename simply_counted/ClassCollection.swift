@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
-public class ClassCollection: NSObject {
+public class ClassCollection: CloudKitContainer {
 
     //Make an array for each month
     var classDates = [ClassDate]()
@@ -26,38 +26,36 @@ public class ClassCollection: NSObject {
         return self.classDates.count
     }
 
-    public func load(success : () -> Void) {
-        classDates = [ClassDate]()
-        let query = PFQuery(className:"CheckIn")
-        if let currentUser = PFUser.currentUser() {
-            query.whereKey("user", equalTo:currentUser)
-            query.findObjectsInBackgroundWithBlock {
-                (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    if let objects = objects {
-                        for object in objects {
-                            let newCheckIn = CheckIn(activityObject : object)
-                            var foundDate = false
-                            for classDate in self.classDates {
-                                if(NSCalendar.currentCalendar().isDate(classDate.date, inSameDayAsDate: newCheckIn.date)) {
-                                    classDate.append(newCheckIn)
-                                    foundDate = true
-                                    break
-                                }
-                            }
-                            if( !foundDate ) {
-                                let newClassDate = ClassDate(checkIn: newCheckIn)
-                                self.classDates.append(newClassDate)
-                            }
-                        }
-                        self.classDates.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
-                        success()
+    public func load(successHandler:(()->Void)) {
+        let predicate = NSPredicate(format: "TRUEPREDICATE")
+        let query = CKQuery(recordType: "CheckIn", predicate: predicate)
+
+        func createClassList(records: [CKRecord]) {
+            classDates.removeAll()
+
+            for record in records {
+                let newCheckIn = CheckIn(activityRecord : record)
+                var foundDate = false
+                for classDate in self.classDates {
+                    if(NSCalendar.currentCalendar().isDate(classDate.date, inSameDayAsDate: newCheckIn.date)) {
+                        classDate.append(newCheckIn)
+                        foundDate = true
+                        break
                     }
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
+                }
+                if( !foundDate ) {
+                    let newClassDate = ClassDate(checkIn: newCheckIn)
+                    self.classDates.append(newClassDate)
                 }
             }
+            self.classDates.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            successHandler()
         }
+
+        func errorHandler(error: NSError) {
+            print("Error: \(error) \(error.userInfo)")
+        }
+
+        performQuery(query, successHandler: createClassList, errorHandler: errorHandler)
     }
 }

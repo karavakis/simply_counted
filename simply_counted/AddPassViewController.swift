@@ -61,8 +61,8 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
             var cell : AddPassTypeTableViewCell
             cell = tableView.dequeueReusableCellWithIdentifier("AddPassTypeCell") as! AddPassTypeTableViewCell
 
-            func completionHandler() -> Void {
-                passTypes.load(passTypesDidLoad)
+            func completionHandler(passType: PassType) -> Void {
+                passTypes.add(passType)
                 self.passTypeTableView.reloadData()
             }
 
@@ -102,6 +102,22 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+
+            func deleteSuccess() {
+                passTypes.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+
+            func errorHandler(error: NSError) {
+                print("Error: \(error) \(error.userInfo)")
+            }
+
+            passTypes[indexPath.row]?.deleteRecord(deleteSuccess, errorHandler: errorHandler)
+        }
     }
 
 }

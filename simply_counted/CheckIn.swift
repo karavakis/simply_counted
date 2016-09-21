@@ -7,21 +7,15 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
 public class CheckIn: Activity {
-    override init() {
-        super.init()
-        self.className = "CheckIn"
+    
+    init(clientId: CKRecordID, date: NSDate) {
+        super.init(className: "CheckIn", clientId: clientId, date: date)
     }
 
-    override init(clientId: String, date: NSDate) {
-        super.init(clientId: clientId, date: date)
-        self.className = "CheckIn"
-    }
-
-    override init(activityObject: PFObject!) {
-        super.init(activityObject: activityObject)
-        self.className = "CheckIn"
+    override init(activityRecord: CKRecord!) {
+        super.init(activityRecord: activityRecord)
     }
 }

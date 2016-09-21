@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
-public class PassTypeCollection: NSObject {
+public class PassTypeCollection: CloudKitContainer {
 
     //Make an array for each month
     var passTypes = [PassType]()
@@ -26,27 +26,37 @@ public class PassTypeCollection: NSObject {
         return self.passTypes.count
     }
 
-    public func load(success : () -> Void) {
-        passTypes = [PassType]()
-        let query = PFQuery(className:"PassType")
-        if let currentUser = PFUser.currentUser() {
-            query.whereKey("user", equalTo:currentUser)
-            query.orderByAscending("passCount,price")
-            query.findObjectsInBackgroundWithBlock {
-                (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    if let objects = objects {
-                        for object in objects {
-                            let newPassType = PassType(activityObject : object)
-                            self.passTypes.append(newPassType)
-                        }
-                        success()
-                    }
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
+    public func add(passType: PassType) {
+        passTypes.append(passType)
+        passTypes.sortInPlace { $0.passCount > $1.passCount }
+        passTypes.sortInPlace { $0.price.compare($1.price) == .OrderedDescending }
+    }
+
+    public func removeAtIndex(index:Int) -> Void {
+        passTypes.removeAtIndex(index)
+    }
+
+    public func load(successHandler:(()->Void)) {
+        let predicate = NSPredicate(format: "TRUEPREDICATE")
+        let sortPassCount = NSSortDescriptor(key: "passCount", ascending: false)
+        let sortPrice = NSSortDescriptor(key: "price", ascending: false)
+        let query = CKQuery(recordType: "PassType", predicate: predicate)
+        query.sortDescriptors = [sortPassCount, sortPrice]
+
+        func createPassTypeLists(records: [CKRecord]) {
+            passTypes = [PassType]()
+
+            for record in records {
+                let newPassType = PassType(passTypeRecord : record)
+                self.passTypes.append(newPassType)
             }
+            successHandler()
         }
+
+        func errorHandler(error: NSError) {
+            print("Error: \(error) \(error.userInfo)")
+        }
+
+        performQuery(query, successHandler: createPassTypeLists, errorHandler: errorHandler)
     }
 }

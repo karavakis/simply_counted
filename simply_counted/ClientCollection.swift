@@ -7,22 +7,26 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
-public class ClientCollection: NSObject {
+public class ClientCollection: CloudKitContainer {
 
-    var clients = [String: Client]()
+    var clients = [CKRecordID: Client]()
 
     override init() {
         super.init()
     }
 
-    subscript(id:String) -> Client? {
+    subscript(id:CKRecordID) -> Client? {
         return self.clients[id]
     }
 
     public func count() -> Int {
         return self.clients.count
+    }
+
+    public func append(client:Client) {
+        clients[client.record!.recordID] = client
     }
 
     func getIndexedList() -> [String:[Client]] {
@@ -43,27 +47,24 @@ public class ClientCollection: NSObject {
         return indexedList
     }
 
-    public func load(success : () -> Void) {
-        let getClients = PFQuery(className:"Client")
-        if let currentUser = PFUser.currentUser() {
-            getClients.whereKey("user", equalTo:currentUser)
-            getClients.findObjectsInBackgroundWithBlock {
-                (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    if let objects = objects {
-                        self.clients.removeAll()
-                        for object in objects {
-                            let newClient = Client(clientObject : object)
-                            self.clients[newClient.id] = newClient
-                        }
-                        success()
-                    }
-                }
-                else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
+    func load(successHandler:(()->Void)) {
+
+        let predicate = NSPredicate(format: "TRUEPREDICATE")
+        let query = CKQuery(recordType: "Client", predicate: predicate)
+
+        func createClientList(records: [CKRecord]) {
+            self.clients.removeAll()
+            for record in records {
+                let newClient = Client(clientRecord : record)
+                self.clients[newClient.record!.recordID] = newClient
             }
+            successHandler()
         }
+
+        func errorHandler(error: NSError) {
+            print("Error: \(error) \(error.userInfo)")
+        }
+
+        performQuery(query, successHandler: createClientList, errorHandler: errorHandler)
     }
 }

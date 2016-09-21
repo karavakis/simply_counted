@@ -7,92 +7,50 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
-public class Client: NSObject {
+public class Client: CloudKitRecord {
 
-    let id: String
     var name: String
     var passes: Int
     var notes : String
     var activities = [Activity]()
-    var pfObject: PFObject? = nil
     var lastCheckIn : NSDate? = nil
-
 
     /****************/
     /* Initializers */
     /****************/
-    override init() {
-        self.id = ""
-        self.name = "name"
-        self.notes = ""
-        self.passes = 0
-
-        super.init()
-    }
-
     init(name: String) {
-        self.id = ""
         self.name = name
         self.passes = 0
         self.notes = ""
 
         super.init()
+        self.record = CKRecord(recordType: "Client")
     }
 
-    init(clientObject: PFObject!) {
-        self.id = clientObject!.objectId!
-        self.name = clientObject!["name"] as! String
-        self.passes = clientObject!["passes"] as! Int
-        self.notes = clientObject!["notes"] as! String
-        self.lastCheckIn = clientObject!["lastCheckIn"] as? NSDate
-        self.pfObject = clientObject
+    init(clientRecord: CKRecord!) {
+        self.name = clientRecord.objectForKey("name") as! String
+        self.passes = clientRecord.objectForKey("passes") as! Int
+        self.notes = clientRecord.objectForKey("notes") as! String
+        self.lastCheckIn = clientRecord.objectForKey("lastCheckIn") as? NSDate
 
         super.init()
+        self.record = clientRecord
     }
-
 
     /****************/
     /* DB Functions */
     /****************/
-    public func update() {
-        if let client : PFObject = pfObject! {
-            client["name"] = self.name
-            client["passes"] = self.passes
-            client["notes"] = self.notes
-            if let lastCheckIn = self.lastCheckIn {
-                client["lastCheckIn"] = lastCheckIn
-            }
-            client.saveInBackground()
-        }
-        else {
-            self.save()
-        }
-    }
-
-    public func save() {
-        let client = PFObject(className: "Client")
-        client["name"] = self.name
-        client["passes"] = self.passes
-        client["notes"] = self.notes
+    public func save(successHandler:(()->Void)?) {
+        record!.setObject(self.name, forKey: "name")
+        record!.setObject(self.passes, forKey: "passes")
+        record!.setObject(self.notes, forKey: "notes")
         if let lastCheckIn = self.lastCheckIn {
-            client["lastCheckIn"] = lastCheckIn
+            record!.setObject(lastCheckIn, forKey: "lastCheckIn")
         }
-        client["user"] = PFUser.currentUser()!
-        client.saveInBackground()
-    }
 
-    public func deleteClient(deleteSuccess : () -> Void) {
-        pfObject!.deleteInBackgroundWithBlock( { (success, error) -> Void in
-            if error == nil {
-                if success {
-                    deleteSuccess()
-                }
-            } else {
-                print("Error : \(error?.localizedDescription) \(error?.userInfo)")
-            }
-        })
+        self.saveRecord(successHandler, errorHandler: nil)
     }
 
     /*************/
@@ -100,12 +58,12 @@ public class Client: NSObject {
     /*************/
 
     public func checkIn(date: NSDate) {
-        let checkIn = CheckIn(clientId: self.id, date: date)
+        let checkIn = CheckIn(clientId: self.record!.recordID, date: date)
         checkIn.save()
         self.activities.insert(checkIn, atIndex: 0)
         self.passes = self.passes - 1
         self.updateLastCheckIn(date)
-        self.update()
+        self.save(nil)
     }
 
     func updateLastCheckIn(newCheckIn: NSDate) {
@@ -123,8 +81,8 @@ public class Client: NSObject {
     /**********/
     public func addPasses(passTypeAdded: PassType) {
         self.passes += passTypeAdded.passCount
-        self.update()
-        let passActivity = PassActivity(clientId: self.id,
+        self.save(nil)
+        let passActivity = PassActivity(clientId: self.record!.recordID,
                                         date: NSDate(),
                                         passType: passTypeAdded)
         passActivity.save()
@@ -134,64 +92,78 @@ public class Client: NSObject {
     /**************/
     /* Activities */
     /**************/
-    public func loadActivities(success : () -> Void) {
+    public func loadActivities(successHandler:(()->Void)) {
         //clear activities
         activities = [Activity]()
 
         //get check-ins
-        let getCheckIns = PFQuery(className: "CheckIn")
-        if let currentUser = PFUser.currentUser() {
-            getCheckIns.whereKey("user", equalTo:currentUser)
-            getCheckIns.whereKey("clientId", equalTo:self.id)
-            getCheckIns.addDescendingOrder("date")
-            getCheckIns.findObjectsInBackgroundWithBlock {
-                (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    if let checkInObjects = objects {
+        let clientReference = CKReference(recordID: record!.recordID, action: .DeleteSelf)
+        let predicate = NSPredicate(format: "client == %@", clientReference)
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        let getCheckInsQuery = CKQuery(recordType: "CheckIn", predicate: predicate)
+        getCheckInsQuery.sortDescriptors = [sort]
 
-                        //get pass activities
-                        let getPassActivities = PFQuery(className: "PassActivity")
-                        getPassActivities.whereKey("user", equalTo:currentUser)
-                        getPassActivities.whereKey("clientId", equalTo:self.id)
-                        getPassActivities.addAscendingOrder("date")
-                        getPassActivities.findObjectsInBackgroundWithBlock {
-                            (objects:[PFObject]?, error:NSError?) -> Void in
-                            if error == nil {
-                                if let objects = objects {
-                                    var passActivityObjects = objects
-                                    func getNextPassActivity() -> PassActivity? {
-                                        if let nextPassActivityObject = passActivityObjects.popLast() {
-                                            return PassActivity(activityObject: nextPassActivityObject)
-                                        }
-                                        return nil
-                                    }
 
-                                    var nextPassActivity = getNextPassActivity()
-                                    for checkInObject in checkInObjects {
-                                        let newCheckIn = CheckIn(activityObject : checkInObject)
-
-                                        //Append any Pass Activity that occurs before this checkIn
-                                        while(nextPassActivity != nil && nextPassActivity!.date.compare(newCheckIn.date) == NSComparisonResult.OrderedDescending) {
-                                            self.activities.append(nextPassActivity!)
-                                            nextPassActivity = getNextPassActivity()
-                                        }
-
-                                        self.activities.append(newCheckIn)
-                                    }
-                                    while(nextPassActivity != nil) {
-                                        self.activities.append(nextPassActivity!)
-                                        nextPassActivity = getNextPassActivity()
-                                    }
-                                    if let lastCheckInObject = checkInObjects.first {
-                                        self.lastCheckIn = lastCheckInObject["date"] as? NSDate
-                                    }
-                                    success()
-                                }
-                            }
-                        }
-                    }
-                }
+        func checkInErrorHandler(error: NSError) {
+            if(error.domain == CKErrorDomain && error.code == 11) {
+                checkInsLoadSuccess([])
+            }
+            else {
+                print("Error: \(error) \(error.userInfo)")
             }
         }
+
+        func checkInsLoadSuccess(records: [CKRecord]) {
+            var checkInRecords = records
+
+            func passActivitiesLoadSuccess(records: [CKRecord]) {
+                var passActivityRecords = records
+
+                //Process Activities and Check-ins
+                func getNextPassActivity() -> PassActivity? {
+                    if let nextPassActivityObject = passActivityRecords.popLast() {
+                        return PassActivity(activityRecord: nextPassActivityObject)
+                    }
+                    return nil
+                }
+
+                var nextPassActivity = getNextPassActivity()
+
+                for checkInRecord in checkInRecords {
+                    let newCheckIn = CheckIn(activityRecord : checkInRecord)
+
+                    //Append any Pass Activity that occurs before this checkIn
+                    while(nextPassActivity != nil && nextPassActivity!.date.compare(newCheckIn.date) == NSComparisonResult.OrderedDescending) {
+                        self.activities.append(nextPassActivity!)
+                        nextPassActivity = getNextPassActivity()
+                    }
+
+                    self.activities.append(newCheckIn)
+                }
+                while(nextPassActivity != nil) {
+                    self.activities.append(nextPassActivity!)
+                    nextPassActivity = getNextPassActivity()
+                }
+                if let lastCheckInRecord = checkInRecords.first {
+                    self.lastCheckIn = lastCheckInRecord.objectForKey("date") as? NSDate
+                }
+                successHandler()
+            }
+
+            func passActivityErrorHandler(error: NSError) {
+                if(error.domain == CKErrorDomain && error.code == 11) {
+                    passActivitiesLoadSuccess([])
+                }
+                else {
+                    print("Error: \(error) \(error.userInfo)")
+                }
+            }
+
+            let getPassActivitiesQuery = CKQuery(recordType: "PassActivity", predicate: predicate)
+            getPassActivitiesQuery.sortDescriptors = [sort]
+            self.performQuery(getPassActivitiesQuery, successHandler: passActivitiesLoadSuccess, errorHandler: passActivityErrorHandler)
+        }
+
+        self.performQuery(getCheckInsQuery, successHandler: checkInsLoadSuccess, errorHandler: checkInErrorHandler)
     }
 }

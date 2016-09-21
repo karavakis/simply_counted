@@ -9,14 +9,14 @@
 import UIKit
 
 class NotesViewController: UIViewController {
-    var client = Client()
+    var client:Client? = nil //passed in from last view
     @IBOutlet weak var notesTextField: UITextView!
 
     override func viewDidLoad() {
         setupBarButtonItems()
-        self.navigationItem.title = client.name;
+        self.navigationItem.title = client!.name;
         super.viewDidLoad()
-        notesTextField.text = client.notes
+        notesTextField.text = client!.notes
     }
 
     /********/
@@ -28,8 +28,8 @@ class NotesViewController: UIViewController {
     }
 
     func saveClicked() {
-        client.notes = notesTextField.text
-        client.update()
+        client!.notes = notesTextField.text
+        client!.save(nil)
         navigationController?.popViewControllerAnimated(true)
     }
 

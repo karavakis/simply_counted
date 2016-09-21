@@ -39,7 +39,6 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
         }
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        toggleMoreOptions()
         populateClientInfo()
         setupDatePicker()
 //        setupPickerView()
@@ -73,103 +72,6 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
         }
     }
 
-    /*********************/
-    /* Update Class Pass */
-    /*********************/
-//    func setupPickerView() {
-//        let pickerView = UIPickerView()
-//        pickerView.delegate = self
-//        passTextField.inputView = pickerView
-//
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(ClientViewController.donePressed))
-//        let pickerToolbar = UIToolbar(frame: CGRectMake(0, self.view.frame.size.height/6, self.view.frame.size.width, 40.0))
-//        pickerToolbar.setItems([flexSpace, doneButton], animated: true)
-//        passTextField.inputAccessoryView = pickerToolbar
-//
-//        passTextField.text = "1"
-//    }
-//
-//    func donePressed() {
-//        passTextField.resignFirstResponder()
-//        if let passes = passTextField.text {
-//            if let passNumber = Int(passes) {
-//                addPassActivity(passNumber)
-//            }
-//        }
-//    }
-//
-//    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return 99
-//    }
-//
-//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return String(row + 1)
-//    }
-//
-//    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        passTextField.text = String(row + 1)
-//    }
-//
-//    func addPassActivity(passes : Int) {
-//        if let client = self.client {
-//
-//            //Update client model
-//            let changedPasses = ifAddClicked ? passes : passes * -1
-//            client.addPasses(changedPasses)
-//
-//            //Update data on screen
-//            populateClientInfo()
-//            activitiesTableView.reloadData()
-//
-//            //Show alert for passes added
-//            let addString = "The " + String(changedPasses) + " class pass was added successfully."
-//            let wasWere = changedPasses == -1 ? " was" : "es were"
-//            let removeString =  String(changedPasses * -1) + " class pass" + wasWere + " removed successfully."
-//            let message = ifAddClicked ? addString : removeString
-//
-//
-//            let passAddedAlert = UIAlertController(title: "Pass Added", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-//            passAddedAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-//            }))
-//
-//            presentViewController(passAddedAlert, animated: true, completion: nil)
-//        }
-//    }
-//
-//    func updateClassPass() {
-//        var changedPasses = 0
-//        switch addClassPassesButtons.selectedSegmentIndex {
-//        case 0:
-//            changedPasses = 1
-//        case 1:
-//            changedPasses = 12
-//        case 2:
-//            changedPasses = 20
-//        case 3:
-//            changedPasses = 30
-//        default:
-//            //Show picker to choose a pass value
-//            passTextField.becomeFirstResponder()
-//            return
-//        }
-//        addPassActivity(changedPasses)
-//    }
-//
-//    @IBAction func addClassPass(sender: AnyObject) {
-//        ifAddClicked = true
-//        updateClassPass()
-//    }
-//
-//    @IBAction func removeClassPath(sender: AnyObject) {
-//        ifAddClicked = false
-//        updateClassPass()
-//    }
-
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
@@ -178,12 +80,11 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /*********************/
     /* Authenticate User */
     /*********************/
-
-    @IBAction func unlockOptions(sender: AnyObject) {
+    func unlockUser(unlockSuccess: () -> Void) {
         let context = LAContext()
 
         if (LAContext().canEvaluatePolicy(.DeviceOwnerAuthentication, error: nil)) {
-            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { [weak self] (success, error) in
+            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { (success, error) in
 
                 guard success else {
                     dispatch_async(dispatch_get_main_queue()) {
@@ -195,24 +96,16 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
 
                 dispatch_async(dispatch_get_main_queue()) {
                     // do something here to continue loading your app, e.g. call a delegate method
-                    self!.toggleMoreOptions()
+                    unlockSuccess()
                 }
             }
         }
         else {
             //Passcode not set
-            self.toggleMoreOptions()
+            unlockSuccess()
         }
+        return
     }
-
-    func toggleMoreOptions() {
-        addClassPassButton.hidden = !addClassPassButton.hidden
-        removeClassPathButton.hidden = !removeClassPathButton.hidden
-        addClassPassesButtons.hidden = !addClassPassesButtons.hidden
-        addPassButton.hidden = !addClassPassesButtons.hidden
-        allowNegative = !addClassPassesButtons.hidden
-    }
-
 
     /*******************/
     /* Load Table View */
@@ -265,24 +158,50 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
         performSegueWithIdentifier("NotesClicked", sender: nil)
     }
 
+    /************/
+    /* Check-In */
+    /************/
+    @IBAction func checkInClicked(sender: AnyObject) {
+        if let client = client {
+            if (client.passes <= 0) {
+                let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.Alert)
+                noPassesAlert.addAction(UIAlertAction(title: "Unlock", style: .Default, handler: { (action: UIAlertAction!) in
+                    self.unlockUser(self.checkIn)
+                }))
+                noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+                }))
+                presentViewController(noPassesAlert, animated: true, completion: nil)
+            }
+            else {
+                self.checkIn()
+            }
+        }
+    }
+
+    func checkIn() {
+        client!.checkIn(checkInDatePicker.date)
+        navigationController?.popViewControllerAnimated(true)
+    }
+
+    /************/
+    /* Add Pass */
+    /************/
+    @IBAction func addPassClicked(sender: AnyObject) {
+        func addPass() {
+            performSegueWithIdentifier("AddPassClicked", sender: self)
+        }
+        unlockUser(addPass)
+    }
+
+    func passAddedHandler() {
+        reloadActivitiesTable()
+        populateClientInfo()
+    }
+
     /**********/
     /* Segues */
     /**********/
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "CheckInClicked") {
-            if let client = client {
-                if (client.passes <= 0 && !allowNegative) {
-                    let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.Alert)
-                    noPassesAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                    }))
-
-                    presentViewController(noPassesAlert, animated: true, completion: nil)
-                }
-                else {
-                    client.checkIn(checkInDatePicker.date)
-                }
-            }
-        }
         if (segue.identifier == "NotesClicked") {
             if let client = client {
                 let controller = (segue.destinationViewController as! NotesViewController)
@@ -294,9 +213,11 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
             popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
             popoverViewController.popoverPresentationController!.delegate = self
             popoverViewController.client = client
-            popoverViewController.passAddedHandler = reloadActivitiesTable
+            popoverViewController.passAddedHandler = passAddedHandler
             fixIOS9PopOverAnchor(segue)
         }
     }
+
+    
 }
 

@@ -7,58 +7,32 @@
 //
 
 import UIKit
-import Parse
+import CloudKit
 
-public class Activity: NSObject {
+public class Activity: CloudKitRecord {
 
-    let id: String
-    var clientId: String
+    var clientReference: CKReference?
     var date: NSDate
-    let pfObject: PFObject?
-    var className = "Activity"
 
-    override init() {
-        self.id = ""
-        self.clientId = ""
-        self.date = NSDate()
-        self.pfObject = nil
-
-        super.init()
-    }
-
-    init(clientId: String, date: NSDate) {
-        self.id = ""
-        self.clientId = clientId
+    init(className: String, clientId: CKRecordID, date: NSDate) {
+        self.clientReference = CKReference(recordID: clientId, action: .DeleteSelf)
         self.date = date
-        self.pfObject = nil
 
         super.init()
+        self.record = CKRecord(recordType: className)
     }
 
-    init(activityObject: PFObject!) {
-        self.id = activityObject!.objectId!
-        self.clientId = activityObject!["clientId"] as! String
-        self.date = activityObject!["date"] as! NSDate
-        self.pfObject = activityObject
+    init(activityRecord: CKRecord!) {
+        self.clientReference = activityRecord.objectForKey("client") as? CKReference
+        self.date = activityRecord.objectForKey("date") as! NSDate
+
+        super.init()
+        self.record = activityRecord
     }
 
     public func save() {
-        let checkIn = PFObject(className: className)
-        checkIn["clientId"] = self.clientId
-        checkIn["date"] = self.date
-        checkIn["user"] = PFUser.currentUser()!
-        checkIn.saveInBackground()
-    }
-
-    public func deleteCheckIn(deleteSuccess : () -> Void) {
-        pfObject!.deleteInBackgroundWithBlock( { (success, error) -> Void in
-            if error == nil {
-                if success {
-                    deleteSuccess()
-                }
-            } else {
-                print("Error : \(error?.localizedDescription) \(error?.userInfo)")
-            }
-        })
+        record!.setObject(self.clientReference, forKey: "client")
+        record!.setObject(self.date, forKey: "date")
+        self.saveRecord(nil, errorHandler: nil)
     }
 }

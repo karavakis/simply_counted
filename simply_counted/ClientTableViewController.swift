@@ -15,11 +15,10 @@ class ClientTableViewController: UITableViewController {
     var classDate = ClassDate()
     var fullClientList = ClientCollection()
 
-
     override func viewDidLoad() {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "E, MMM d, yyyy"
-        self.navigationItem.title = dateFormatter.stringFromDate(classDate.date);
+        self.navigationItem.title = dateFormatter.stringFromDate(classDate.date) + " - " + String(classDate.checkIns.count);
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -42,7 +41,7 @@ class ClientTableViewController: UITableViewController {
         cell = tableView.dequeueReusableCellWithIdentifier("ClientCell") as! SimpleLabelTableViewCell
 
         //TODO add errors
-        if let client = fullClientList[classDate.checkIns[indexPath.row].clientId] {
+        if let client = fullClientList[classDate.checkIns[indexPath.row].clientReference!.recordID] {
 
             cell.label.text = client.name
         }
@@ -58,7 +57,7 @@ class ClientTableViewController: UITableViewController {
         if (segue.identifier == "ClientClicked") {
             let controller = (segue.destinationViewController as! ClientViewController)
             let row = self.clientTableView.indexPathForSelectedRow!.row
-            let client = fullClientList[classDate.checkIns[row].clientId]
+            let client = fullClientList[classDate.checkIns[row].clientReference!.recordID]
             controller.client = client
         }
     }

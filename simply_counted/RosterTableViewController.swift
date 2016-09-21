@@ -21,7 +21,7 @@ class RosterTableViewController: UITableViewController {
         isLoading = false
         clientsIndexedList = clients.getIndexedList()
         clientIndexes = Array(clientsIndexedList.keys).sort(<)
-        RosterTableView.reloadData()
+        self.tableView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -32,6 +32,14 @@ class RosterTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        RosterTableView.reloadData()
+    }
+
+    /*******************/
+    /* Load Table View */
+    /*******************/
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if isLoading {
             return 1
@@ -104,10 +112,10 @@ class RosterTableViewController: UITableViewController {
             var cell : AddClientTableViewCell
             cell = tableView.dequeueReusableCellWithIdentifier("AddClientCell") as! AddClientTableViewCell
 
-            func completionHandler() -> Void {
+            func completionHandler(client: Client) -> Void {
                 isLoading = true
-                clients.load(clientsDidLoad)
-                self.RosterTableView.reloadData()
+                clients.append(client)
+                clientsDidLoad()
             }
 
             cell.completionHandler = completionHandler
@@ -116,10 +124,6 @@ class RosterTableViewController: UITableViewController {
         }
 
         return returnCell
-    }
-
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -131,6 +135,9 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
+    /**********/
+    /* Segues */
+    /**********/
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "ClientClicked") {
             let controller = (segue.destinationViewController as! ClientViewController)
@@ -140,12 +147,12 @@ class RosterTableViewController: UITableViewController {
             controller.client = client
         }
         if (segue.identifier == "ClassListClicked") {
-            let controller = (segue.destinationViewController as! ClassTableViewController)
-            controller.fullClientList = clients
-        }
-        if (segue.identifier == "LogoutClicked") {
-            let controller = (segue.destinationViewController as! LoginViewController)
-            controller.logoutClicked = true
+            let tabBarController = (segue.destinationViewController as! UITabBarController)
+            let classTableVC = tabBarController.viewControllers?[0] as! ClassTableViewController
+            let passTableVC = tabBarController.viewControllers?[1] as! PassTableViewController
+
+            classTableVC.fullClientList = clients
+            passTableVC.fullClientList = clients
         }
     }
 
