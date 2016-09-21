@@ -7,18 +7,29 @@
 //
 
 import UIKit
-import Parse
 
 class ClientTableViewController: UITableViewController {
 
     @IBOutlet weak var clientTableView: UITableView!
     var classDate = ClassDate()
     var fullClientList = ClientCollection()
+    var sortedClientList = [Client]()
 
     override func viewDidLoad() {
+        //Set header
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "E, MMM d, yyyy"
         self.navigationItem.title = dateFormatter.stringFromDate(classDate.date) + " - " + String(classDate.checkIns.count);
+
+        //Sort clients
+        for checkIn in classDate.checkIns {
+            if let client = fullClientList[checkIn.clientReference!.recordID] {
+                sortedClientList.append(client)
+            }
+        }
+
+        sortedClientList.sortInPlace { $0.name.compare($1.name) == .OrderedAscending }
+
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -32,7 +43,7 @@ class ClientTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classDate.checkIns.count
+        return sortedClientList.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -41,10 +52,9 @@ class ClientTableViewController: UITableViewController {
         cell = tableView.dequeueReusableCellWithIdentifier("ClientCell") as! SimpleLabelTableViewCell
 
         //TODO add errors
-        if let client = fullClientList[classDate.checkIns[indexPath.row].clientReference!.recordID] {
+        let client = sortedClientList[indexPath.row]
 
-            cell.label.text = client.name
-        }
+        cell.label.text = client.name
 
         return cell
     }
@@ -57,7 +67,7 @@ class ClientTableViewController: UITableViewController {
         if (segue.identifier == "ClientClicked") {
             let controller = (segue.destinationViewController as! ClientViewController)
             let row = self.clientTableView.indexPathForSelectedRow!.row
-            let client = fullClientList[classDate.checkIns[row].clientReference!.recordID]
+            let client = sortedClientList[row]
             controller.client = client
         }
     }

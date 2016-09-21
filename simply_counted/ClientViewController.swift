@@ -10,7 +10,6 @@ import UIKit
 import LocalAuthentication
 
 class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
-    @IBOutlet weak var clientNameLabel: UILabel!
     @IBOutlet weak var passesLabel: UILabel!
     @IBOutlet weak var checkInDatePicker: UIDatePicker!
     @IBOutlet weak var checkInButton: UIButton!
@@ -33,8 +32,12 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     }
 
     override func viewDidLoad() {
+
         setupBarButtonItems()
         if let client = self.client {
+            //Set header
+            self.navigationItem.title = client.name
+
             client.loadActivities(reloadActivitiesTable)
         }
         super.viewDidLoad()
@@ -67,7 +70,6 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /************************/
     func populateClientInfo() {
         if let client : Client = client {
-            clientNameLabel.text = client.name
             passesLabel.text = "Passes Remaining: " + String(client.passes)
         }
     }
