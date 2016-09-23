@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jennifer Karavakis. All rights reserved.
 //
 import UIKit
-import Parse
 
 class ClassTableViewController: UITableViewController {
 

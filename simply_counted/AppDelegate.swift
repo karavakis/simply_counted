@@ -1,15 +1,13 @@
- //
-//  AppDelegate.swift
-//  simply_counted
 //
-//  Created by Jennifer Karavakis on 8/19/16.
-//  Copyright © 2016 Jennifer Karavakis. All rights reserved.
+//  AppDelegate.swift
+//  mystery shop helper
+//
+//  Created by Jeni Karavakis on 10/18/15.
+//  Copyright © 2015 Jennifer Karavakis. All rights reserved.
 //
 
 import UIKit
 import CoreData
-import Parse
-import ParseFacebookUtilsV4
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,32 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Parse.enableLocalDatastore()
-
-        let configuration = ParseClientConfiguration {
-            $0.applicationId = "simply-counted"
-            $0.clientKey = "simply-counted-client-key"
-            $0.server = "https://simply-counted.herokuapp.com/parse"
-        }
-        Parse.initializeWithConfiguration(configuration)
-
-        // [Optional] Track statistics around application opens.
-        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        // Override point for customization after application launch.
-
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
-        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
-        
         return true
-    }
-
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(
-            application,
-            openURL: url,
-            sourceApplication: sourceApplication,
-            annotation: annotation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -74,14 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.karavakis.simply_counted" in the application's documents Application Support directory.
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.jennifer.karavakis.mystery_shop" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("simply_counted", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("mystery_shop", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 
@@ -106,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
-        
+
         return coordinator
     }()
 
@@ -133,6 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
 }
 
