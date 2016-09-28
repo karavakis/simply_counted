@@ -31,14 +31,14 @@ class ClassTableViewController: UITableViewController {
     }
 
     //TODO: Don't load events here, find a way to just load new ones.
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if( !isLoading ) {
             isLoading = true
             classes.load(classesDidLoad)
         }
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if isLoading {
             return 0
         }
@@ -47,22 +47,22 @@ class ClassTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classes.count()
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         var cell : SimpleLabelTableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier("ClassCell") as! SimpleLabelTableViewCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell") as! SimpleLabelTableViewCell
 
         //TODO add errors
         if let classDate = classes[indexPath.row] {
 
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-            dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-            cell.label.text = dateFormatter.stringFromDate(classDate.date)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.full
+            dateFormatter.timeStyle = DateFormatter.Style.none
+            cell.label.text = dateFormatter.string(from: classDate.date)
 
             cell.label2.text = String(classDate.checkIns.count)
         }
@@ -71,9 +71,9 @@ class ClassTableViewController: UITableViewController {
         return cell
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "classClicked") {
-            let controller = (segue.destinationViewController as! ClientTableViewController)
+            let controller = (segue.destination as! ClientTableViewController)
             let row = self.classTableView.indexPathForSelectedRow!.row
             let classDate = classes[row]
             if let classDate = classDate {

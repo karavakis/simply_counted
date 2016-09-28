@@ -15,38 +15,38 @@ class AddClientTableViewCell: UITableViewCell {
     @IBOutlet weak var savedLabel: UILabel!
     @IBOutlet weak var presentInView: UIView!
     
-    var completionHandler:((client: Client)->Void)!
+    var completionHandler:((_ client: Client)->Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func addButtonClicked(sender: AnyObject) {
+    @IBAction func addButtonClicked(_ sender: AnyObject) {
         
         if let name = self.nameTextField.text {
             if name != "" {
                 let newClient = Client(name: name)
 
                 func saveComplete() {
-                    self.savedLabel.hidden = true
-                    self.addButton.hidden = false
+                    self.savedLabel.isHidden = true
+                    self.addButton.isHidden = false
                     if self.completionHandler != nil {
-                        self.completionHandler(client: newClient)
+                        self.completionHandler?(newClient)
                     }
                 }
 
                 newClient.save(saveComplete)
 
                 self.nameTextField.text = ""
-                self.addButton.hidden = true
-                self.savedLabel.hidden = false
+                self.addButton.isHidden = true
+                self.savedLabel.isHidden = false
             }
         }
     }

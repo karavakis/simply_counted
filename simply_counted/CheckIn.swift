@@ -9,9 +9,9 @@
 import UIKit
 import CloudKit
 
-public class CheckIn: Activity {
+open class CheckIn: Activity {
     
-    init(clientId: CKRecordID, date: NSDate) {
+    init(clientId: CKRecordID, date: Date) {
         super.init(className: "CheckIn", clientId: clientId, date: date)
     }
 

@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-public class PassCollection: CloudKitContainer {
+open class PassCollection: CloudKitContainer {
 
     //Make an array for each month
     var passActivities = [String:[PassActivity]]()
@@ -18,20 +18,20 @@ public class PassCollection: CloudKitContainer {
         super.init()
     }
 
-    public func load(successHandler:(()->Void)) {
+    open func load(_ successHandler:@escaping (()->Void)) {
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let sort = NSSortDescriptor(key: "date", ascending: false)
         let query = CKQuery(recordType: "PassActivity", predicate: predicate)
         query.sortDescriptors = [sort]
 
-        func createClassList(records: [CKRecord]) {
+        func createClassList(_ records: [CKRecord]) {
             passActivities = [String:[PassActivity]]()
 
             for record in records {
                 let newPassActivity = PassActivity(activityRecord : record)
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMMM yyyy"
-                let month = dateFormatter.stringFromDate(newPassActivity.date)
+                let month = dateFormatter.string(from: newPassActivity.date)
                 if(self.passActivities[month] != nil) {
                     self.passActivities[month]!.append(newPassActivity)
                 }
@@ -43,7 +43,7 @@ public class PassCollection: CloudKitContainer {
             successHandler()
         }
 
-        func errorHandler(error: NSError) {
+        func errorHandler(_ error: NSError) {
             print("Error: \(error) \(error.userInfo)")
         }
 

@@ -19,7 +19,7 @@ class RosterTableViewController: UITableViewController {
     func clientsDidLoad() -> Void {
         isLoading = false
         clientsIndexedList = clients.getIndexedList()
-        clientIndexes = Array(clientsIndexedList.keys).sort(<)
+        clientIndexes = Array(clientsIndexedList.keys).sorted(by: <)
         self.tableView.reloadData()
     }
 
@@ -31,7 +31,7 @@ class RosterTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         RosterTableView.reloadData()
     }
@@ -39,14 +39,14 @@ class RosterTableViewController: UITableViewController {
     /*******************/
     /* Load Table View */
     /*******************/
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if isLoading {
             return 1
         }
         return clientsIndexedList.count + 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
             return 1
         }
@@ -55,7 +55,7 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(section == 0){
             return ""
         }
@@ -63,42 +63,42 @@ class RosterTableViewController: UITableViewController {
             return clientIndexes[section-1]
         }
     }
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return clientIndexes
     }
 
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        if let index = clientIndexes.indexOf(title) {
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        if let index = clientIndexes.index(of: title) {
             return index + 1
         }
         return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var returnCell : UITableViewCell
 
         if ( indexPath.section != 0 ) {
 
             var cell : ClientTableViewCell
-            cell = tableView.dequeueReusableCellWithIdentifier("ClientCell") as! ClientTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "ClientCell") as! ClientTableViewCell
 
             //TODO add errors
             let client = clientsIndexedList[clientIndexes[indexPath.section-1]]![indexPath.row]
 
-            cell.checkmarkImage.hidden = true
+            cell.checkmarkImage.isHidden = true
             cell.nameLabel.text = client.name
 
 
             //Date
             if let lastCheckIn = client.lastCheckIn {
-                if(NSCalendar.currentCalendar().isDate(lastCheckIn, inSameDayAsDate: NSDate())) {
-                    cell.checkmarkImage.hidden = false
+                if(Calendar.current.isDate(lastCheckIn as Date, inSameDayAs: Date())) {
+                    cell.checkmarkImage.isHidden = false
                     cell.lastCheckInLabel.text = "Today"
                 }
                 else {
-                    let dateFormatter = NSDateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "M/d/y"
-                    cell.lastCheckInLabel.text = dateFormatter.stringFromDate(lastCheckIn)
+                    cell.lastCheckInLabel.text = dateFormatter.string(from: lastCheckIn as Date)
                 }
             }
             else {
@@ -109,9 +109,9 @@ class RosterTableViewController: UITableViewController {
         }
         else {
             var cell : AddClientTableViewCell
-            cell = tableView.dequeueReusableCellWithIdentifier("AddClientCell") as! AddClientTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "AddClientCell") as! AddClientTableViewCell
 
-            func completionHandler(client: Client) -> Void {
+            func completionHandler(_ client: Client) -> Void {
                 isLoading = true
                 clients.append(client)
                 clientsDidLoad()
@@ -125,28 +125,28 @@ class RosterTableViewController: UITableViewController {
         return returnCell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section > 0) {
-            self.performSegueWithIdentifier("ClientClicked", sender: self)
+            self.performSegue(withIdentifier: "ClientClicked", sender: self)
         }
         else {
-            tableView.cellForRowAtIndexPath(indexPath)?.selected = false
+            tableView.cellForRow(at: indexPath)?.isSelected = false
         }
     }
 
     /**********/
     /* Segues */
     /**********/
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "ClientClicked") {
-            let controller = (segue.destinationViewController as! ClientViewController)
+            let controller = (segue.destination as! ClientViewController)
             let section = self.RosterTableView.indexPathForSelectedRow!.section
             let row = self.RosterTableView.indexPathForSelectedRow!.row
             let client = clientsIndexedList[clientIndexes[section-1]]![row]
             controller.client = client
         }
         if (segue.identifier == "ClassListClicked") {
-            let tabBarController = (segue.destinationViewController as! UITabBarController)
+            let tabBarController = (segue.destination as! UITabBarController)
             let classTableVC = tabBarController.viewControllers?[0] as! ClassTableViewController
             let passTableVC = tabBarController.viewControllers?[1] as! PassTableViewController
 

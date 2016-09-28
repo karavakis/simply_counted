@@ -8,15 +8,15 @@
 
 import CloudKit
 
-public class CloudKitRecord: CloudKitContainer {
+open class CloudKitRecord: CloudKitContainer {
     var record: CKRecord? = nil
 
-    func saveRecord(successHandler:(()->Void)?, errorHandler:((error: NSError)->Void)?) {
-        privateDatabase!.saveRecord(record!) {
-            record, error in dispatch_async(dispatch_get_main_queue()) {
+    func saveRecord(_ successHandler:(()->Void)?, errorHandler:((_ error: NSError)->Void)?) {
+        privateDatabase!.save(record!, completionHandler: {
+            record, error in DispatchQueue.main.async {
                 if let err = error {
                     if let errorHandler = errorHandler {
-                        errorHandler(error: err)
+                        errorHandler(err as NSError)
                     }
                 } else {
                     self.record = record!
@@ -25,15 +25,15 @@ public class CloudKitRecord: CloudKitContainer {
                     }
                 }
             }
-        }
+        }) 
     }
 
-    func deleteRecord(successHandler:(()->Void), errorHandler:((error: NSError)->Void)) {
-        privateDatabase!.deleteRecordWithID(record!.recordID) {
+    func deleteRecord(_ successHandler:@escaping (()->Void), errorHandler:@escaping ((_ error: NSError)->Void)) {
+        privateDatabase!.delete(withRecordID: record!.recordID) {
             record, error in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if let err = error {
-                    errorHandler(error: err)
+                    errorHandler(err as NSError)
                 } else {
                     successHandler()
                 }

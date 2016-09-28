@@ -17,9 +17,9 @@ class ClientTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         //Set header
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, MMM d, yyyy"
-        self.navigationItem.title = dateFormatter.stringFromDate(classDate.date) + " - " + String(classDate.checkIns.count);
+        self.navigationItem.title = dateFormatter.string(from: classDate.date) + " - " + String(classDate.checkIns.count) + " students";
 
         //Sort clients
         for checkIn in classDate.checkIns {
@@ -28,28 +28,28 @@ class ClientTableViewController: UITableViewController {
             }
         }
 
-        sortedClientList.sortInPlace { $0.name.compare($1.name) == .OrderedAscending }
+        sortedClientList.sort { $0.name.compare($1.name) == .orderedAscending }
 
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     //TODO: Don't load events here, find a way to just load new ones.
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedClientList.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         var cell : SimpleLabelTableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier("ClientCell") as! SimpleLabelTableViewCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "ClientCell") as! SimpleLabelTableViewCell
 
         //TODO add errors
         let client = sortedClientList[indexPath.row]
@@ -59,13 +59,13 @@ class ClientTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("ClientClicked", sender: self);
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ClientClicked", sender: self);
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "ClientClicked") {
-            let controller = (segue.destinationViewController as! ClientViewController)
+            let controller = (segue.destination as! ClientViewController)
             let row = self.clientTableView.indexPathForSelectedRow!.row
             let client = sortedClientList[row]
             controller.client = client

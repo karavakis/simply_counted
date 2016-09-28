@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-public class ClientCollection: CloudKitContainer {
+open class ClientCollection: CloudKitContainer {
 
     var clients = [CKRecordID: Client]()
 
@@ -21,11 +21,11 @@ public class ClientCollection: CloudKitContainer {
         return self.clients[id]
     }
 
-    public func count() -> Int {
+    open func count() -> Int {
         return self.clients.count
     }
 
-    public func append(client:Client) {
+    open func append(_ client:Client) {
         clients[client.record!.recordID] = client
     }
 
@@ -34,7 +34,7 @@ public class ClientCollection: CloudKitContainer {
 
         for client in clients.values
         {
-            let firstLetter = String(client.name[client.name.startIndex]).uppercaseString
+            let firstLetter = String(client.name[client.name.startIndex]).uppercased()
 
             if (indexedList[firstLetter] != nil) {
                 indexedList[firstLetter]!.append(client)
@@ -47,12 +47,12 @@ public class ClientCollection: CloudKitContainer {
         return indexedList
     }
 
-    func load(successHandler:(()->Void)) {
+    func load(_ successHandler:@escaping (()->Void)) {
 
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let query = CKQuery(recordType: "Client", predicate: predicate)
 
-        func createClientList(records: [CKRecord]) {
+        func createClientList(_ records: [CKRecord]) {
             self.clients.removeAll()
             for record in records {
                 let newClient = Client(clientRecord : record)
@@ -61,7 +61,7 @@ public class ClientCollection: CloudKitContainer {
             successHandler()
         }
 
-        func errorHandler(error: NSError) {
+        func errorHandler(_ error: NSError) {
             print("Error: \(error) \(error.userInfo)")
         }
 

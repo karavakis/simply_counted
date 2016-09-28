@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-public class ClassCollection: CloudKitContainer {
+open class ClassCollection: CloudKitContainer {
 
     //Make an array for each month
     var classDates = [ClassDate]()
@@ -22,22 +22,22 @@ public class ClassCollection: CloudKitContainer {
         return self.classDates[id]
     }
 
-    public func count() -> Int {
+    open func count() -> Int {
         return self.classDates.count
     }
 
-    public func load(successHandler:(()->Void)) {
+    open func load(_ successHandler:@escaping (()->Void)) {
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let query = CKQuery(recordType: "CheckIn", predicate: predicate)
 
-        func createClassList(records: [CKRecord]) {
+        func createClassList(_ records: [CKRecord]) {
             classDates.removeAll()
 
             for record in records {
                 let newCheckIn = CheckIn(activityRecord : record)
                 var foundDate = false
                 for classDate in self.classDates {
-                    if(NSCalendar.currentCalendar().isDate(classDate.date, inSameDayAsDate: newCheckIn.date)) {
+                    if(Calendar.current.isDate(classDate.date as Date, inSameDayAs: newCheckIn.date)) {
                         classDate.append(newCheckIn)
                         foundDate = true
                         break
@@ -48,11 +48,11 @@ public class ClassCollection: CloudKitContainer {
                     self.classDates.append(newClassDate)
                 }
             }
-            self.classDates.sortInPlace({ $0.date.compare($1.date) == .OrderedDescending })
+            self.classDates.sort(by: { $0.date.compare($1.date) == .orderedDescending })
             successHandler()
         }
 
-        func errorHandler(error: NSError) {
+        func errorHandler(_ error: NSError) {
             print("Error: \(error) \(error.userInfo)")
         }
 

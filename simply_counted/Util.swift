@@ -9,17 +9,17 @@
 import UIKit
 
 //TODO Animate is not working
-let MOVE_VIEW_ANIMATE_TIME : NSTimeInterval = 10
+let MOVE_VIEW_ANIMATE_TIME : TimeInterval = 10
 
 
-func unwrapOptionalAsString(optionalString: String?) -> String {
+func unwrapOptionalAsString(_ optionalString: String?) -> String {
     if( optionalString != nil && !optionalString!.isEmpty ) {
         return optionalString!
     }
     return ""
 }
 
-func convertEnteredStringValueToInt(enteredStringValue: String) -> Int {
+func convertEnteredStringValueToInt(_ enteredStringValue: String) -> Int {
     if( Int(enteredStringValue) != nil ) {
         return Int(enteredStringValue)!
     }
@@ -29,7 +29,7 @@ func convertEnteredStringValueToInt(enteredStringValue: String) -> Int {
 /*********************/
 /* add round corners */
 /*********************/
-func roundCorners(element : AnyObject, radius: CGFloat = 3.0) {
+func roundCorners(_ element : AnyObject, radius: CGFloat = 3.0) {
     element.layer.masksToBounds = true
     element.layer.cornerRadius = radius
 }
@@ -38,10 +38,10 @@ func roundCorners(element : AnyObject, radius: CGFloat = 3.0) {
 /***********************/
 /* Keyboard moves view */
 /***********************/
-func calculateViewMovementWhenKeyboardAppears(view: UIViewController, notification:NSNotification, bottomOfElements: CGFloat) -> CGFloat {
+func calculateViewMovementWhenKeyboardAppears(_ view: UIViewController, notification:Notification, bottomOfElements: CGFloat) -> CGFloat {
     var movement : CGFloat = 0
     var info = notification.userInfo!
-    let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+    let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
     let extraSpace = view.view.bounds.maxY - bottomOfElements
     movement = extraSpace - keyboardFrame.size.height
     if (movement > 0) {
@@ -57,7 +57,7 @@ func calculateViewMovementWhenKeyboardAppears(view: UIViewController, notificati
 /*****************/
 /* Hide keyboard */
 /*****************/
-func hideKeyboard(viewController : UIViewController) {
+func hideKeyboard(_ viewController : UIViewController) {
     viewController.view.endEditing(true)
 }
 func shouldReturn() -> Bool {
@@ -68,14 +68,10 @@ func shouldReturn() -> Bool {
 /*********/
 /* Delay */
 /*********/
-func delay(delay: Double, closure: ()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(),
-        closure
+func delay(_ delay: Double, closure: @escaping ()->()) {
+    DispatchQueue.main.asyncAfter(
+        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+        execute: closure
     )
 }
 
@@ -100,13 +96,13 @@ func delay(delay: Double, closure: ()->()) {
 //
 extension UIViewController
 {
-    func fixIOS9PopOverAnchor(segue:UIStoryboardSegue?)
+    func fixIOS9PopOverAnchor(_ segue:UIStoryboardSegue?)
     {
         guard #available(iOS 9.0, *) else { return }
-        if let popOver = segue?.destinationViewController.popoverPresentationController,
+        if let popOver = segue?.destination.popoverPresentationController,
             let anchor  = popOver.sourceView
-            where popOver.sourceRect == CGRect()
-                && segue!.sourceViewController === self
+            , popOver.sourceRect == CGRect()
+                && segue!.source === self
         { popOver.sourceRect = anchor.bounds }
     }       
 }

@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class ClassDate: NSObject {
+open class ClassDate: NSObject {
 
     //Make an array for each month
     var checkIns = [CheckIn]()
-    var date : NSDate
+    var date : Date
 
     override init() {
-        date = NSDate()
+        date = Date()
         super.init()
     }
 
@@ -26,15 +26,15 @@ public class ClassDate: NSObject {
         super.init()
     }
 
-    public func append(checkIn: CheckIn) {
+    open func append(_ checkIn: CheckIn) {
         checkIns.append(checkIn)
     }
 
-    public func getCheckInById(id: Int) -> CheckIn? {
+    open func getCheckInById(_ id: Int) -> CheckIn? {
         return self.checkIns[id]
     }
 
-    public func count() -> Int {
+    open func count() -> Int {
         return self.checkIns.count
     }
 

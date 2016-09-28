@@ -9,13 +9,13 @@
 import UIKit
 import CloudKit
 
-public class Activity: CloudKitRecord {
+open class Activity: CloudKitRecord {
 
     var clientReference: CKReference?
-    var date: NSDate
+    var date: Date
 
-    init(className: String, clientId: CKRecordID, date: NSDate) {
-        self.clientReference = CKReference(recordID: clientId, action: .DeleteSelf)
+    init(className: String, clientId: CKRecordID, date: Date) {
+        self.clientReference = CKReference(recordID: clientId, action: .deleteSelf)
         self.date = date
 
         super.init()
@@ -23,16 +23,16 @@ public class Activity: CloudKitRecord {
     }
 
     init(activityRecord: CKRecord!) {
-        self.clientReference = activityRecord.objectForKey("client") as? CKReference
-        self.date = activityRecord.objectForKey("date") as! NSDate
+        self.clientReference = activityRecord.object(forKey: "client") as? CKReference
+        self.date = activityRecord.object(forKey: "date") as! Date
 
         super.init()
         self.record = activityRecord
     }
 
-    public func save() {
+    open func save() {
         record!.setObject(self.clientReference, forKey: "client")
-        record!.setObject(self.date, forKey: "date")
+        record!.setObject(self.date as CKRecordValue?, forKey: "date")
         self.saveRecord(nil, errorHandler: nil)
     }
 }

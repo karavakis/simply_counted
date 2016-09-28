@@ -15,32 +15,32 @@ class AddPassTypeTableViewCell: UITableViewCell {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var savedLabel: UILabel!
 
-    var completionHandler:((passType:PassType)->Void)!
+    var completionHandler:((_ passType:PassType)->Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func addButtonClicked(sender: AnyObject) {
+    @IBAction func addButtonClicked(_ sender: AnyObject) {
 
         if let passCountString = self.passCountTextField.text {
             if let passCount = Int(passCountString) {
                 if let priceString = self.priceTextField.text {
-                    let price = priceString == "" ? NSDecimalNumber(integer: 0) : NSDecimalNumber(string: priceString)
+                    let price = priceString == "" ? NSDecimalNumber(value: 0 as Int) : NSDecimalNumber(string: priceString)
                     let newPassType = PassType(passCount: passCount, price: price)
 
                     func saveComplete() {
-                        self.addButton.hidden = false
-                        self.savedLabel.hidden = true
+                        self.addButton.isHidden = false
+                        self.savedLabel.isHidden = true
                         if self.completionHandler != nil {
-                            self.completionHandler(passType: newPassType)
+                            self.completionHandler?(newPassType)
                         }
                     }
 
@@ -48,8 +48,8 @@ class AddPassTypeTableViewCell: UITableViewCell {
 
                     self.passCountTextField.text = ""
                     self.priceTextField.text = ""
-                    self.addButton.hidden = true
-                    self.savedLabel.hidden = false
+                    self.addButton.isHidden = true
+                    self.savedLabel.isHidden = false
                 }
             }
         }

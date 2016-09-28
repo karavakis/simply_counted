@@ -23,7 +23,7 @@ class PassTableViewController: UITableViewController {
         isLoading = false
         passActivities = passCollection.passActivities
         passActivityMonths = Array(passActivities.keys)
-        isSectionCollapsed = [Bool](count: passActivityMonths.count, repeatedValue: true)
+        isSectionCollapsed = [Bool](repeating: true, count: passActivityMonths.count)
         passTableView.reloadData()
     }
 
@@ -38,14 +38,14 @@ class PassTableViewController: UITableViewController {
     }
 
     //TODO: Don't load events here, find a way to just load new ones.
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if( !isLoading ) {
             isLoading = true
             passCollection.load(passesDidLoad)
         }
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if isLoading {
             return 0
         }
@@ -54,17 +54,17 @@ class PassTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(isSectionCollapsed[section]) {
             return 0
         }
         return passActivities[passActivityMonths[section]]!.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         var cell : SimpleLabelTableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier("PassCell") as! SimpleLabelTableViewCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "PassCell") as! SimpleLabelTableViewCell
 
         if let passActivityMothList = passActivities[passActivityMonths[indexPath.section]] {
             let passActivity = passActivityMothList[indexPath.row]
@@ -79,28 +79,34 @@ class PassTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 18))
+    // Need to have this for the headers to work for some reason
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "section"
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 18))
         headerView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
 
         //Month Label
-        let monthLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width - 16, 18))
-        monthLabel.font = UIFont.systemFontOfSize(14)
-        monthLabel.textAlignment = NSTextAlignment.Left
-        monthLabel.text = passActivityMonths[section]
+        let monthLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width - 16, height: 18))
+        monthLabel.font = UIFont.systemFont(ofSize: 14)
+        monthLabel.textAlignment = NSTextAlignment.left
+        let arrow = isSectionCollapsed[section] ? "\u{25b6}   " : "\u{25bc}   "
+        monthLabel.text = arrow + passActivityMonths[section]
         headerView.addSubview(monthLabel)
 
         //Price Label
-        let priceLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width - 16, 18))
-        priceLabel.font = UIFont.systemFontOfSize(14)
-        priceLabel.textAlignment = NSTextAlignment.Right
+        let priceLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width - 16, height: 18))
+        priceLabel.font = UIFont.systemFont(ofSize: 14)
+        priceLabel.textAlignment = NSTextAlignment.right
         var price : NSDecimalNumber = 0
         if let passActivityMonthList = passActivities[passActivityMonths[section]] {
             for passActivity in passActivityMonthList {
-                price = NSDecimalNumber(string: passActivity.price).decimalNumberByAdding(price)
+                price = NSDecimalNumber(string: passActivity.price).adding(price)
             }
         }
-        priceLabel.text = "$" + String(price)
+        priceLabel.text = "$" + String(describing: price)
         headerView.addSubview(priceLabel)
 
         //Make collapsible
@@ -110,28 +116,28 @@ class PassTableViewController: UITableViewController {
         return headerView
     }
 
-    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
-        let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
+    func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
+        let indexPath : IndexPath = IndexPath(row: 0, section:(recognizer.view?.tag as Int!)!)
         if (indexPath.row == 0) {
 
             isSectionCollapsed[indexPath.section] = !isSectionCollapsed[indexPath.section]
 
             //reload specific section animated
             let range = NSMakeRange(indexPath.section, 1)
-            let sectionToReload = NSIndexSet(indexesInRange: range)
-            self.tableView.reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
+            let sectionToReload = IndexSet(integersIn: range.toRange() ?? 0..<0)
+            self.tableView.reloadSections(sectionToReload, with:UITableViewRowAnimation.fade)
         }
         
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "passClicked") {
             let section = self.passTableView.indexPathForSelectedRow!.section
             let row = self.passTableView.indexPathForSelectedRow!.row
             if let passActivityMothList = passActivities[passActivityMonths[section]] {
                 let passActivity = passActivityMothList[row]
                 let client = fullClientList[passActivity.clientReference!.recordID]
-                let controller = (segue.destinationViewController as! ClientViewController)
+                let controller = (segue.destination as! ClientViewController)
                 controller.client = client
             }
         }

@@ -23,14 +23,14 @@ class NotesViewController: UIViewController {
     /* Save */
     /********/
     func setupBarButtonItems() {
-        let notesButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(NotesViewController.saveClicked))
+        let notesButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(NotesViewController.saveClicked))
         self.navigationItem.rightBarButtonItem = notesButton
     }
 
     func saveClicked() {
         client!.notes = notesTextField.text
         client!.save(nil)
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {

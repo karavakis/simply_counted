@@ -9,13 +9,13 @@
 import UIKit
 import CloudKit
 
-public class Client: CloudKitRecord {
+open class Client: CloudKitRecord {
 
     var name: String
     var passes: Int
     var notes : String
     var activities = [Activity]()
-    var lastCheckIn : NSDate? = nil
+    var lastCheckIn : Date? = nil
 
     /****************/
     /* Initializers */
@@ -30,10 +30,10 @@ public class Client: CloudKitRecord {
     }
 
     init(clientRecord: CKRecord!) {
-        self.name = clientRecord.objectForKey("name") as! String
-        self.passes = clientRecord.objectForKey("passes") as! Int
-        self.notes = clientRecord.objectForKey("notes") as! String
-        self.lastCheckIn = clientRecord.objectForKey("lastCheckIn") as? NSDate
+        self.name = clientRecord.object(forKey: "name") as! String
+        self.passes = clientRecord.object(forKey: "passes") as! Int
+        self.notes = clientRecord.object(forKey: "notes") as! String
+        self.lastCheckIn = clientRecord.object(forKey: "lastCheckIn") as? Date
 
         super.init()
         self.record = clientRecord
@@ -42,12 +42,12 @@ public class Client: CloudKitRecord {
     /****************/
     /* DB Functions */
     /****************/
-    public func save(successHandler:(()->Void)?) {
-        record!.setObject(self.name, forKey: "name")
-        record!.setObject(self.passes, forKey: "passes")
-        record!.setObject(self.notes, forKey: "notes")
+    open func save(_ successHandler:(()->Void)?) {
+        record!.setObject(self.name as CKRecordValue?, forKey: "name")
+        record!.setObject(self.passes as CKRecordValue?, forKey: "passes")
+        record!.setObject(self.notes as CKRecordValue?, forKey: "notes")
         if let lastCheckIn = self.lastCheckIn {
-            record!.setObject(lastCheckIn, forKey: "lastCheckIn")
+            record!.setObject(lastCheckIn as CKRecordValue?, forKey: "lastCheckIn")
         }
 
         self.saveRecord(successHandler, errorHandler: nil)
@@ -57,18 +57,18 @@ public class Client: CloudKitRecord {
     /* Check-Ins */
     /*************/
 
-    public func checkIn(date: NSDate) {
+    open func checkIn(_ date: Date) {
         let checkIn = CheckIn(clientId: self.record!.recordID, date: date)
         checkIn.save()
-        self.activities.insert(checkIn, atIndex: 0)
+        self.activities.insert(checkIn, at: 0)
         self.passes = self.passes - 1
         self.updateLastCheckIn(date)
         self.save(nil)
     }
 
-    func updateLastCheckIn(newCheckIn: NSDate) {
+    func updateLastCheckIn(_ newCheckIn: Date) {
         if let lastCheckIn = self.lastCheckIn {
-            if(lastCheckIn.compare(newCheckIn) == NSComparisonResult.OrderedDescending) {
+            if(lastCheckIn.compare(newCheckIn) == ComparisonResult.orderedDescending) {
                 //do not update lastCheckIn
                 return
             }
@@ -79,32 +79,32 @@ public class Client: CloudKitRecord {
     /**********/
     /* Passes */
     /**********/
-    public func addPasses(passTypeAdded: PassType) {
+    open func addPasses(_ passTypeAdded: PassType) {
         self.passes += passTypeAdded.passCount
         self.save(nil)
         let passActivity = PassActivity(clientId: self.record!.recordID,
-                                        date: NSDate(),
+                                        date: Date(),
                                         passType: passTypeAdded)
         passActivity.save()
-        self.activities.insert(passActivity, atIndex: 0)
+        self.activities.insert(passActivity, at: 0)
     }
 
     /**************/
     /* Activities */
     /**************/
-    public func loadActivities(successHandler:(()->Void)) {
+    open func loadActivities(_ successHandler:@escaping (()->Void)) {
         //clear activities
         activities = [Activity]()
 
         //get check-ins
-        let clientReference = CKReference(recordID: record!.recordID, action: .DeleteSelf)
+        let clientReference = CKReference(recordID: record!.recordID, action: .deleteSelf)
         let predicate = NSPredicate(format: "client == %@", clientReference)
         let sort = NSSortDescriptor(key: "date", ascending: false)
         let getCheckInsQuery = CKQuery(recordType: "CheckIn", predicate: predicate)
         getCheckInsQuery.sortDescriptors = [sort]
 
 
-        func checkInErrorHandler(error: NSError) {
+        func checkInErrorHandler(_ error: NSError) {
             if(error.domain == CKErrorDomain && error.code == 11) {
                 checkInsLoadSuccess([])
             }
@@ -113,10 +113,10 @@ public class Client: CloudKitRecord {
             }
         }
 
-        func checkInsLoadSuccess(records: [CKRecord]) {
+        func checkInsLoadSuccess(_ records: [CKRecord]) {
             var checkInRecords = records
 
-            func passActivitiesLoadSuccess(records: [CKRecord]) {
+            func passActivitiesLoadSuccess(_ records: [CKRecord]) {
                 var passActivityRecords = records
 
                 //Process Activities and Check-ins
@@ -133,7 +133,7 @@ public class Client: CloudKitRecord {
                     let newCheckIn = CheckIn(activityRecord : checkInRecord)
 
                     //Append any Pass Activity that occurs before this checkIn
-                    while(nextPassActivity != nil && nextPassActivity!.date.compare(newCheckIn.date) == NSComparisonResult.OrderedDescending) {
+                    while(nextPassActivity != nil && nextPassActivity!.date.compare(newCheckIn.date) == ComparisonResult.orderedDescending) {
                         self.activities.append(nextPassActivity!)
                         nextPassActivity = getNextPassActivity()
                     }
@@ -145,12 +145,12 @@ public class Client: CloudKitRecord {
                     nextPassActivity = getNextPassActivity()
                 }
                 if let lastCheckInRecord = checkInRecords.first {
-                    self.lastCheckIn = lastCheckInRecord.objectForKey("date") as? NSDate
+                    self.lastCheckIn = lastCheckInRecord.object(forKey: "date") as? Date
                 }
                 successHandler()
             }
 
-            func passActivityErrorHandler(error: NSError) {
+            func passActivityErrorHandler(_ error: NSError) {
                 if(error.domain == CKErrorDomain && error.code == 11) {
                     passActivitiesLoadSuccess([])
                 }

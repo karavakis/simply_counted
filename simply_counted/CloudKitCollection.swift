@@ -8,8 +8,8 @@
 
 import CloudKit
 
-public class CloudKitContainer: NSObject {
-    let container = CKContainer.defaultContainer()
+open class CloudKitContainer: NSObject {
+    let container = CKContainer.default()
     var privateDatabase: CKDatabase? = nil
 
     override init() {
@@ -17,18 +17,18 @@ public class CloudKitContainer: NSObject {
         super.init()
     }
 
-    func performQuery(query: CKQuery, successHandler:((records: [CKRecord])->Void)?, errorHandler:((error: NSError)->Void)?) {
+    func performQuery(_ query: CKQuery, successHandler:((_ records: [CKRecord])->Void)?, errorHandler:((_ error: NSError)->Void)?) {
 
-        self.privateDatabase!.performQuery(query, inZoneWithID: nil) { records, error in
-            dispatch_async(dispatch_get_main_queue(), {
+        self.privateDatabase!.perform(query, inZoneWith: nil) { records, error in
+            DispatchQueue.main.async(execute: {
                 if let err = error {
                     if let errorHandler = errorHandler {
-                        errorHandler(error: err)
+                        errorHandler(err as NSError)
                     }
                 } else {
                     if let successHandler = successHandler {
                         if let records = records {
-                            successHandler(records: records)
+                            successHandler(records)
                         }
                     }
                 }

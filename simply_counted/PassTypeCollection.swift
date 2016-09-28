@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-public class PassTypeCollection: CloudKitContainer {
+open class PassTypeCollection: CloudKitContainer {
 
     //Make an array for each month
     var passTypes = [PassType]()
@@ -22,28 +22,28 @@ public class PassTypeCollection: CloudKitContainer {
         return self.passTypes[id]
     }
 
-    public func count() -> Int {
+    open func count() -> Int {
         return self.passTypes.count
     }
 
-    public func add(passType: PassType) {
+    open func add(_ passType: PassType) {
         passTypes.append(passType)
-        passTypes.sortInPlace { $0.passCount > $1.passCount }
-        passTypes.sortInPlace { $0.price.compare($1.price) == .OrderedDescending }
+        passTypes.sort { $0.passCount > $1.passCount }
+        passTypes.sort { $0.price.compare($1.price) == .orderedDescending }
     }
 
-    public func removeAtIndex(index:Int) -> Void {
-        passTypes.removeAtIndex(index)
+    open func removeAtIndex(_ index:Int) -> Void {
+        passTypes.remove(at: index)
     }
 
-    public func load(successHandler:(()->Void)) {
+    open func load(_ successHandler:@escaping (()->Void)) {
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let sortPassCount = NSSortDescriptor(key: "passCount", ascending: false)
         let sortPrice = NSSortDescriptor(key: "price", ascending: false)
         let query = CKQuery(recordType: "PassType", predicate: predicate)
         query.sortDescriptors = [sortPassCount, sortPrice]
 
-        func createPassTypeLists(records: [CKRecord]) {
+        func createPassTypeLists(_ records: [CKRecord]) {
             passTypes = [PassType]()
 
             for record in records {
@@ -53,7 +53,7 @@ public class PassTypeCollection: CloudKitContainer {
             successHandler()
         }
 
-        func errorHandler(error: NSError) {
+        func errorHandler(_ error: NSError) {
             print("Error: \(error) \(error.userInfo)")
         }
 

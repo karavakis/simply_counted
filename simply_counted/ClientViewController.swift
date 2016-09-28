@@ -9,7 +9,8 @@
 import UIKit
 import LocalAuthentication
 
-class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+
     @IBOutlet weak var passesLabel: UILabel!
     @IBOutlet weak var checkInDatePicker: UIDatePicker!
     @IBOutlet weak var checkInButton: UIButton!
@@ -47,7 +48,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
 //        setupPickerView()
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 
@@ -60,7 +61,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /* Setup Date Picker */
     /*********************/
     func setupDatePicker() {
-        let today = NSDate()
+        let today = Date()
         checkInDatePicker.setDate(today, animated: true)
         checkInDatePicker.maximumDate = today
     }
@@ -74,29 +75,29 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
         }
     }
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
 
 
     /*********************/
     /* Authenticate User */
     /*********************/
-    func unlockUser(unlockSuccess: () -> Void) {
+    func unlockUser(_ unlockSuccess: @escaping () -> Void) {
         let context = LAContext()
 
-        if (LAContext().canEvaluatePolicy(.DeviceOwnerAuthentication, error: nil)) {
-            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { (success, error) in
+        if (LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)) {
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { (success, error) in
 
                 guard success else {
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         // show something here to block the user from continuing
                     }
 
                     return
                 }
 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     // do something here to continue loading your app, e.g. call a delegate method
                     unlockSuccess()
                 }
@@ -112,26 +113,26 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /*******************/
     /* Load Table View */
     /*******************/
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let client : Client = client {
             return client.activities.count
         }
         return 0
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> SimpleLabelTableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : SimpleLabelTableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier("CheckInCell") as! SimpleLabelTableViewCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell") as! SimpleLabelTableViewCell
 
         if let client : Client = client {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-            dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-            let dateText = dateFormatter.stringFromDate(client.activities[indexPath.row].date)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.full
+            dateFormatter.timeStyle = DateFormatter.Style.none
+            let dateText = dateFormatter.string(from: client.activities[indexPath.row].date)
             var passText = ""
             if let passActivity = client.activities[indexPath.row] as? PassActivity {
                 passText = String(passActivity.passesAdded) + " Pass"
@@ -143,7 +144,7 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
         return cell
     }
 
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    internal func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
@@ -152,27 +153,27 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /* Notes */
     /*********/
     func setupBarButtonItems() {
-        let notesButton = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: #selector(ClientViewController.notesClicked))
+        let notesButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(ClientViewController.notesClicked))
         self.navigationItem.rightBarButtonItem = notesButton
     }
 
     func notesClicked() {
-        performSegueWithIdentifier("NotesClicked", sender: nil)
+        performSegue(withIdentifier: "NotesClicked", sender: nil)
     }
 
     /************/
     /* Check-In */
     /************/
-    @IBAction func checkInClicked(sender: AnyObject) {
+    @IBAction func checkInClicked(_ sender: AnyObject) {
         if let client = client {
             if (client.passes <= 0) {
-                let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.Alert)
-                noPassesAlert.addAction(UIAlertAction(title: "Unlock", style: .Default, handler: { (action: UIAlertAction!) in
+                let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.alert)
+                noPassesAlert.addAction(UIAlertAction(title: "Unlock", style: .default, handler: { (action: UIAlertAction!) in
                     self.unlockUser(self.checkIn)
                 }))
-                noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+                noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
                 }))
-                presentViewController(noPassesAlert, animated: true, completion: nil)
+                present(noPassesAlert, animated: true, completion: nil)
             }
             else {
                 self.checkIn()
@@ -182,15 +183,15 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
 
     func checkIn() {
         client!.checkIn(checkInDatePicker.date)
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
 
     /************/
     /* Add Pass */
     /************/
-    @IBAction func addPassClicked(sender: AnyObject) {
+    @IBAction func addPassClicked(_ sender: AnyObject) {
         func addPass() {
-            performSegueWithIdentifier("AddPassClicked", sender: self)
+            performSegue(withIdentifier: "AddPassClicked", sender: self)
         }
         unlockUser(addPass)
     }
@@ -203,16 +204,16 @@ class ClientViewController: UIViewController, UITableViewDelegate, UIPopoverPres
     /**********/
     /* Segues */
     /**********/
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "NotesClicked") {
             if let client = client {
-                let controller = (segue.destinationViewController as! NotesViewController)
+                let controller = (segue.destination as! NotesViewController)
                 controller.client = client
             }
         }
         if (segue.identifier == "AddPassClicked") {
-            let popoverViewController = segue.destinationViewController as! AddPassViewController
-            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popoverViewController = segue.destination as! AddPassViewController
+            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             popoverViewController.popoverPresentationController!.delegate = self
             popoverViewController.client = client
             popoverViewController.passAddedHandler = passAddedHandler

@@ -9,7 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class AddPassViewController: UIViewController, UITableViewDelegate {
+class AddPassViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var client : Client? = nil
     var passTypes = PassTypeCollection()
@@ -38,14 +38,14 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
     /*******************/
     /* Load Table View */
     /*******************/
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if isLoading {
             return 1
         }
         return 2
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
             return 1
         }
@@ -54,14 +54,14 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
         }
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var returnCell : UITableViewCell
 
         if(indexPath.section == 0) {
             var cell : AddPassTypeTableViewCell
-            cell = tableView.dequeueReusableCellWithIdentifier("AddPassTypeCell") as! AddPassTypeTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "AddPassTypeCell") as! AddPassTypeTableViewCell
 
-            func completionHandler(passType: PassType) -> Void {
+            func completionHandler(_ passType: PassType) -> Void {
                 passTypes.add(passType)
                 self.passTypeTableView.reloadData()
             }
@@ -72,10 +72,10 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
         }
         else {
             var cell : SimpleLabelTableViewCell
-            cell = tableView.dequeueReusableCellWithIdentifier("PassTypeCell") as! SimpleLabelTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "PassTypeCell") as! SimpleLabelTableViewCell
             if let passType = passTypes[indexPath.row] {
                 cell.label.text = String(passType.passCount) + " Pass"
-                cell.label2.text = "$" + String(passType.price)
+                cell.label2.text = "$" + String(describing: passType.price) //TODO check
             }
             returnCell = cell
         }
@@ -83,9 +83,9 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
         return returnCell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section > 0) {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             if let passType = passTypes[indexPath.row] {
                 if let client = client {
                     client.addPasses(passType)
@@ -96,23 +96,23 @@ class AddPassViewController: UIViewController, UITableViewDelegate {
             }
         }
         else {
-            tableView.cellForRowAtIndexPath(indexPath)?.selected = false
+            tableView.cellForRow(at: indexPath)?.isSelected = false
         }
     }
 
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    internal func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
 
             func deleteSuccess() {
                 passTypes.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             }
 
-            func errorHandler(error: NSError) {
+            func errorHandler(_ error: NSError) {
                 print("Error: \(error) \(error.userInfo)")
             }
 
