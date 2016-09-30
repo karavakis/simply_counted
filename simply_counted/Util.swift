@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 //TODO Animate is not working
 let MOVE_VIEW_ANIMATE_TIME : TimeInterval = 10
@@ -74,6 +75,38 @@ func delay(_ delay: Double, closure: @escaping ()->()) {
         execute: closure
     )
 }
+
+
+/*********************/
+/* Authenticate User */
+/*********************/
+func unlockUser(_ unlockSuccess: @escaping () -> Void) {
+    let context = LAContext()
+
+    if (LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)) {
+        context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { (success, error) in
+
+            guard success else {
+                DispatchQueue.main.async {
+                    // show something here to block the user from continuing
+                }
+
+                return
+            }
+
+            DispatchQueue.main.async {
+                // do something here to continue loading your app, e.g. call a delegate method
+                unlockSuccess()
+            }
+        }
+    }
+    else {
+        //Passcode not set
+        unlockSuccess()
+    }
+    return
+}
+
 
 /********************/
 /* Arrow Anchor Bug */

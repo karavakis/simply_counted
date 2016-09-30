@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import LocalAuthentication
 
 class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
 
@@ -79,37 +78,6 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         return UIModalPresentationStyle.none
     }
 
-
-    /*********************/
-    /* Authenticate User */
-    /*********************/
-    func unlockUser(_ unlockSuccess: @escaping () -> Void) {
-        let context = LAContext()
-
-        if (LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)) {
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Please authenticate to proceed.") { (success, error) in
-
-                guard success else {
-                    DispatchQueue.main.async {
-                        // show something here to block the user from continuing
-                    }
-
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    // do something here to continue loading your app, e.g. call a delegate method
-                    unlockSuccess()
-                }
-            }
-        }
-        else {
-            //Passcode not set
-            unlockSuccess()
-        }
-        return
-    }
-
     /*******************/
     /* Load Table View */
     /*******************/
@@ -169,7 +137,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
             if (client.passes <= 0) {
                 let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.alert)
                 noPassesAlert.addAction(UIAlertAction(title: "Unlock", style: .default, handler: { (action: UIAlertAction!) in
-                    self.unlockUser(self.checkIn)
+                    unlockUser(self.checkIn)
                 }))
                 noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
                 }))

@@ -134,6 +134,42 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+
+            func deleteClient() {
+                func deleteSuccess() {
+                    clientsIndexedList[clientIndexes[indexPath.section-1]]?.remove(at: indexPath.row)
+                    if(clientsIndexedList[clientIndexes[indexPath.section-1]]?.count == 0) {
+                        clientsIndexedList.removeValue(forKey: clientIndexes[indexPath.section-1])
+                        clientIndexes.remove(at: indexPath.section-1)
+                        var indexSet = IndexSet()
+                        indexSet.insert(indexPath.section)
+                        tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
+                    }
+                    else {
+                        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    }
+                }
+
+                func errorHandler(_ error: NSError) {
+                    print("Error: \(error) \(error.userInfo)")
+                }
+
+                clientsIndexedList[clientIndexes[indexPath.section-1]]?[indexPath.row].deleteRecord(deleteSuccess, errorHandler: errorHandler)
+            }
+
+            let deleteClientWarning = UIAlertController(title: "Warning", message: "Deleting a client will delete all Check-Ins and Passes associated with the client.", preferredStyle: UIAlertControllerStyle.alert)
+            deleteClientWarning.addAction(UIAlertAction(title: "Keep", style: .default, handler: { (action: UIAlertAction!) in
+                tableView.setEditing(false, animated: true)
+            }))
+            deleteClientWarning.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action: UIAlertAction!) in
+                unlockUser(deleteClient)
+            }))
+            present(deleteClientWarning, animated: true, completion: nil)
+        }
+    }
+
     /**********/
     /* Segues */
     /**********/
