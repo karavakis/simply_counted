@@ -17,6 +17,11 @@ open class Client: CloudKitRecord {
     var activities = [Activity]()
     var lastCheckIn : Date? = nil
 
+    //calculated variables
+    var totalCheckIns = 0
+    var totalPasses = 0
+    var totalPrice : NSDecimalNumber = 0
+
     /****************/
     /* Initializers */
     /****************/
@@ -115,14 +120,20 @@ open class Client: CloudKitRecord {
 
         func checkInsLoadSuccess(_ records: [CKRecord]) {
             var checkInRecords = records
+            totalCheckIns = checkInRecords.count
 
             func passActivitiesLoadSuccess(_ records: [CKRecord]) {
                 var passActivityRecords = records
+                totalPasses = 0
+                totalPrice = 0
 
                 //Process Activities and Check-ins
                 func getNextPassActivity() -> PassActivity? {
                     if let nextPassActivityObject = passActivityRecords.popLast() {
-                        return PassActivity(activityRecord: nextPassActivityObject)
+                        let passActivity = PassActivity(activityRecord: nextPassActivityObject)
+                        totalPasses += passActivity.passesAdded
+                        totalPrice = NSDecimalNumber(string: passActivity.price).adding(totalPrice)
+                        return passActivity
                     }
                     return nil
                 }

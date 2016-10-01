@@ -72,7 +72,7 @@ class PassTableViewController: UITableViewController {
                 cell.label.text = client.name
             }
             cell.label2.text = String(passActivity.passesAdded)
-            cell.label3.text = "$" + String(passActivity.price)
+            cell.label3.text = "$" + passActivity.price
         }
 
 

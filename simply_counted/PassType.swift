@@ -11,9 +11,9 @@ import CloudKit
 
 open class PassType: CloudKitRecord {
     var passCount: Int
-    var price: NSDecimalNumber
+    var price: String
 
-    init(passCount: Int, price: NSDecimalNumber) {
+    init(passCount: Int, price: String) {
         self.passCount = passCount
         self.price = price
 
@@ -23,8 +23,7 @@ open class PassType: CloudKitRecord {
 
     init(passTypeRecord: CKRecord!) {
         self.passCount = passTypeRecord.object(forKey: "passCount") as! Int
-        let priceString = passTypeRecord.object(forKey: "price") as! String
-        self.price = NSDecimalNumber(string: priceString)
+        self.price = passTypeRecord.object(forKey: "price") as! String
 
         super.init()
         self.record = passTypeRecord
@@ -32,8 +31,7 @@ open class PassType: CloudKitRecord {
 
     open func save(_ successHandler:(()->Void)?) {
         record!.setObject(self.passCount as CKRecordValue?, forKey: "passCount")
-        let priceString = String(describing: self.price)
-        record!.setObject(priceString as CKRecordValue?, forKey: "price")
+        record!.setObject(self.price as CKRecordValue?, forKey: "price")
         self.saveRecord(successHandler, errorHandler: nil)
     }
 }

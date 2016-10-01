@@ -33,7 +33,7 @@ class AddPassTypeTableViewCell: UITableViewCell {
         if let passCountString = self.passCountTextField.text {
             if let passCount = Int(passCountString) {
                 if let priceString = self.priceTextField.text {
-                    let price = priceString == "" ? NSDecimalNumber(value: 0 as Int) : NSDecimalNumber(string: priceString)
+                    let price = priceString == "" ? "0" : priceString
                     let newPassType = PassType(passCount: passCount, price: price)
 
                     func saveComplete() {

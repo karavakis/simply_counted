@@ -10,18 +10,16 @@ import UIKit
 
 class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
 
-    @IBOutlet weak var passesLabel: UILabel!
+    @IBOutlet weak var numPassesLeftLabel: UILabel!
+    @IBOutlet weak var numTotalCheckInsLabel: UILabel!
+    @IBOutlet weak var numTotalPassesLabel: UILabel!
+    @IBOutlet weak var priceTotalAmountPaidLabel: UILabel!
     @IBOutlet weak var checkInDatePicker: UIDatePicker!
     @IBOutlet weak var checkInButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var passTextField: UITextField!
     @IBOutlet weak var activitiesTableView: UITableView!
-
-    // Hideable
     @IBOutlet weak var addPassButton: UIButton!
-    @IBOutlet weak var addClassPassButton: UIButton!
-    @IBOutlet weak var removeClassPathButton: UIButton!
-    @IBOutlet weak var addClassPassesButtons: UISegmentedControl!
 
     var client : Client? = nil
     var allowNegative = false
@@ -29,6 +27,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
 
     func reloadActivitiesTable() -> Void {
         activitiesTableView.reloadData()
+        populateClientInfo()
     }
 
     override func viewDidLoad() {
@@ -44,7 +43,6 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view, typically from a nib.
         populateClientInfo()
         setupDatePicker()
-//        setupPickerView()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,7 +68,10 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /************************/
     func populateClientInfo() {
         if let client : Client = client {
-            passesLabel.text = "Passes Remaining: " + String(client.passes)
+            numPassesLeftLabel.text = String(client.passes)
+            numTotalCheckInsLabel.text = String(client.totalCheckIns)
+            numTotalPassesLabel.text = String(client.totalPasses)
+            priceTotalAmountPaidLabel.text = "$" + String(describing: client.totalPrice)
         }
     }
 
@@ -97,16 +98,25 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell") as! SimpleLabelTableViewCell
 
         if let client : Client = client {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = DateFormatter.Style.full
-            dateFormatter.timeStyle = DateFormatter.Style.none
-            let dateText = dateFormatter.string(from: client.activities[indexPath.row].date)
+
+
+            // Price and Pass Count
+            var price = ""
             var passText = ""
             if let passActivity = client.activities[indexPath.row] as? PassActivity {
-                passText = String(passActivity.passesAdded) + " Pass"
+                cell = tableView.dequeueReusableCell(withIdentifier: "PassCell") as! SimpleLabelTableViewCell
+                passText = String(passActivity.passesAdded)
+                price = "$" + passActivity.price
+
+                cell.label3.text = price
+                cell.label2.text = passText
             }
+            
+            //Date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "E, MMM d, yyyy"
+            let dateText = dateFormatter.string(from: client.activities[indexPath.row].date)
             cell.label.text = dateText
-            cell.label2.text = passText
         }
 
         return cell
