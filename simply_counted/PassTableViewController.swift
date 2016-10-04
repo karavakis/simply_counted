@@ -24,6 +24,7 @@ class PassTableViewController: UITableViewController {
         passActivities = passCollection.passActivities
         passActivityMonths = Array(passActivities.keys)
         isSectionCollapsed = [Bool](repeating: true, count: passActivityMonths.count)
+        isSectionCollapsed[0] = false
         passTableView.reloadData()
     }
 
@@ -75,7 +76,6 @@ class PassTableViewController: UITableViewController {
             cell.label3.text = "$" + passActivity.price
         }
 
-
         return cell
     }
 
@@ -87,6 +87,8 @@ class PassTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 18))
         headerView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+
+        headerView.tag = section
 
         //Month Label
         let monthLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width - 16, height: 18))

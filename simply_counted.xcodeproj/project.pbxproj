@@ -17,11 +17,12 @@
 		B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */; };
 		B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4D1D7B343000DF529F /* PassCollection.swift */; };
 		B9AD0C511D7F4EE300DF529F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9AD0C501D7F4EE300DF529F /* CloudKit.framework */; };
+		B9B613131DA1B5DF00B9B02A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B613121DA1B5DF00B9B02A /* Assets.xcassets */; };
+		B9B613151DA1B90F00B9B02A /* simply_counted_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */; };
 		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */; };
 		B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635171D6FA5B000D9B15F /* AppDelegate.swift */; };
-		B9D635531D6FA5B000D9B15F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D635181D6FA5B000D9B15F /* Assets.xcassets */; };
 		B9D635541D6FA5B000D9B15F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9D635191D6FA5B000D9B15F /* LaunchScreen.storyboard */; };
 		B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9D6351B1D6FA5B000D9B15F /* Main.storyboard */; };
 		B9D635561D6FA5B000D9B15F /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6351E1D6FA5B000D9B15F /* CheckIn.swift */; };
@@ -55,11 +56,12 @@
 		B9AD0C4D1D7B343000DF529F /* PassCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCollection.swift; sourceTree = "<group>"; };
 		B9AD0C4F1D7E62A800DF529F /* simply_counted.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = simply_counted.entitlements; sourceTree = "<group>"; };
 		B9AD0C501D7F4EE300DF529F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		B9B613121DA1B5DF00B9B02A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = simply_counted_logo.jpg; sourceTree = "<group>"; };
 		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClientTableViewCell.swift; sourceTree = "<group>"; };
 		B9D635171D6FA5B000D9B15F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B9D635181D6FA5B000D9B15F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9D6351A1D6FA5B000D9B15F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9D6351C1D6FA5B000D9B15F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9D6351E1D6FA5B000D9B15F /* CheckIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
@@ -133,13 +135,14 @@
 		B9D635701D6FA60600D9B15F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B9B613121DA1B5DF00B9B02A /* Assets.xcassets */,
 				B9D635191D6FA5B000D9B15F /* LaunchScreen.storyboard */,
 				B9D6351B1D6FA5B000D9B15F /* Main.storyboard */,
-				B9D635181D6FA5B000D9B15F /* Assets.xcassets */,
 				B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */,
 				B9D635011D6FA5B000D9B15F /* Ok-48.png */,
 				B9D6353C1D6FA5B000D9B15F /* Todo List-50.png */,
 				B9AD0C491D7B321500DF529F /* US Dollar-52.png */,
+				B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */,
 				B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */,
 				B9D635251D6FA5B000D9B15F /* ClientTableViewCell.swift */,
 				B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */,
@@ -260,8 +263,9 @@
 				B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */,
 				B9D6356D1D6FA5B000D9B15F /* Todo List-50.png in Resources */,
 				B9AD0C4A1D7B321500DF529F /* US Dollar-52.png in Resources */,
+				B9B613131DA1B5DF00B9B02A /* Assets.xcassets in Resources */,
+				B9B613151DA1B90F00B9B02A /* simply_counted_logo.jpg in Resources */,
 				B9D635541D6FA5B000D9B15F /* LaunchScreen.storyboard in Resources */,
-				B9D635531D6FA5B000D9B15F /* Assets.xcassets in Resources */,
 				B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

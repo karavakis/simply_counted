@@ -13,17 +13,10 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var numPassesLeftLabel: UILabel!
     @IBOutlet weak var numTotalCheckInsLabel: UILabel!
     @IBOutlet weak var numTotalPassesLabel: UILabel!
-    @IBOutlet weak var priceTotalAmountPaidLabel: UILabel!
-    @IBOutlet weak var checkInDatePicker: UIDatePicker!
     @IBOutlet weak var checkInButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var passTextField: UITextField!
     @IBOutlet weak var activitiesTableView: UITableView!
-    @IBOutlet weak var addPassButton: UIButton!
 
     var client : Client? = nil
-    var allowNegative = false
-    var ifAddClicked = true
 
     func reloadActivitiesTable() -> Void {
         activitiesTableView.reloadData()
@@ -36,31 +29,15 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         if let client = self.client {
             //Set header
             self.navigationItem.title = client.name
-
+            populateClientInfo()
             client.loadActivities(reloadActivitiesTable)
         }
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        populateClientInfo()
-        setupDatePicker()
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    /*********************/
-    /* Setup Date Picker */
-    /*********************/
-    func setupDatePicker() {
-        let today = Date()
-        checkInDatePicker.setDate(today, animated: true)
-        checkInDatePicker.maximumDate = today
     }
 
     /************************/
@@ -71,12 +48,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
             numPassesLeftLabel.text = String(client.passes)
             numTotalCheckInsLabel.text = String(client.totalCheckIns)
             numTotalPassesLabel.text = String(client.totalPasses)
-            priceTotalAmountPaidLabel.text = "$" + String(describing: client.totalPrice)
         }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
 
     /*******************/
@@ -126,17 +98,16 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         return true
     }
 
-
-    /*********/
-    /* Notes */
-    /*********/
+    /***************/
+    /* Edit Client */
+    /***************/
     func setupBarButtonItems() {
-        let notesButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(ClientViewController.notesClicked))
-        self.navigationItem.rightBarButtonItem = notesButton
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(ClientViewController.editClicked))
+        self.navigationItem.rightBarButtonItem = editButton
     }
 
-    func notesClicked() {
-        performSegue(withIdentifier: "NotesClicked", sender: nil)
+    func editClicked() {
+        performSegue(withIdentifier: "EditClicked", sender: nil)
     }
 
     /************/
@@ -144,58 +115,26 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /************/
     @IBAction func checkInClicked(_ sender: AnyObject) {
         if let client = client {
-            if (client.passes <= 0) {
-                let noPassesAlert = UIAlertController(title: "Error", message: "Please load passes before checking in.", preferredStyle: UIAlertControllerStyle.alert)
-                noPassesAlert.addAction(UIAlertAction(title: "Unlock", style: .default, handler: { (action: UIAlertAction!) in
-                    unlockUser(self.checkIn)
-                }))
-                noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
-                }))
-                present(noPassesAlert, animated: true, completion: nil)
-            }
-            else {
+            if (client.passes > 0) {
                 self.checkIn()
             }
         }
     }
 
     func checkIn() {
-        client!.checkIn(checkInDatePicker.date)
+        client!.checkIn(Date())
         _ = navigationController?.popViewController(animated: true)
-    }
-
-    /************/
-    /* Add Pass */
-    /************/
-    @IBAction func addPassClicked(_ sender: AnyObject) {
-        func addPass() {
-            performSegue(withIdentifier: "AddPassClicked", sender: self)
-        }
-        unlockUser(addPass)
-    }
-
-    func passAddedHandler() {
-        reloadActivitiesTable()
-        populateClientInfo()
     }
 
     /**********/
     /* Segues */
     /**********/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "NotesClicked") {
+        if (segue.identifier == "EditClicked") {
             if let client = client {
                 let controller = (segue.destination as! NotesViewController)
                 controller.client = client
             }
-        }
-        if (segue.identifier == "AddPassClicked") {
-            let popoverViewController = segue.destination as! AddPassViewController
-            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-            popoverViewController.popoverPresentationController!.delegate = self
-            popoverViewController.client = client
-            popoverViewController.passAddedHandler = passAddedHandler
-            fixIOS9PopOverAnchor(segue)
         }
     }
 

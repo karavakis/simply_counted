@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,14 +16,30 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="simply_counted_logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bfh-N9-IwK">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bfh-N9-IwK" secondAttribute="height" multiplier="320:249" id="7pB-gA-9a7"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59215686274509804" green="0.83529411764705885" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bfh-N9-IwK" secondAttribute="trailing" id="Ggi-N2-Idc"/>
+                            <constraint firstItem="bfh-N9-IwK" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="WFF-w0-9y5"/>
+                            <constraint firstItem="bfh-N9-IwK" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="jfx-m2-xvc"/>
+                            <constraint firstItem="bfh-N9-IwK" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="sKE-Fm-mUB"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="50.625" y="373.75"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="simply_counted_logo.jpg" width="1087" height="840"/>
+    </resources>
 </document>
