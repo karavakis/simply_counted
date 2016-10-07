@@ -28,8 +28,8 @@ open class PassTypeCollection: CloudKitContainer {
 
     open func add(_ passType: PassType) {
         passTypes.append(passType)
-        passTypes.sort { $0.passCount > $1.passCount }
         passTypes.sort { $0.price.compare($1.price) == .orderedDescending }
+        passTypes.sort { $0.passCount > $1.passCount }
     }
 
     open func removeAtIndex(_ index:Int) -> Void {

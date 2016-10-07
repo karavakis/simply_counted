@@ -16,6 +16,7 @@ class RosterTableViewController: UITableViewController {
     var clientsIndexedList = [String:[Client]]()
     var clientIndexes = [String]()
     var isLoading = false
+    var currentDay = Date()
 
     func clientsDidLoad() -> Void {
         isLoading = false
@@ -33,12 +34,27 @@ class RosterTableViewController: UITableViewController {
         isLoading = true
         clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
 
-        // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+
+    func refreshOnNewDay() {
+        let newDay = Date()
+        if(!Calendar.current.isDate(currentDay as Date, inSameDayAs: newDay)) {
+            currentDay = newDay
+
+            isLoading = true
+            clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
+        }
+    }
+
+    func applicationDidBecomeActive(notification: NSNotification) {
+        refreshOnNewDay()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         RosterTableView.reloadData()
+        self.refreshOnNewDay()
     }
 
     func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
