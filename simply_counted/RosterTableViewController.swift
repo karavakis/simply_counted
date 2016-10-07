@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class RosterTableViewController: UITableViewController {
 
@@ -23,10 +24,14 @@ class RosterTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
+    func clientsFailedLoad() -> Void {
+        checkICloudAccountStatus(okClicked: viewDidLoad)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = true
-        clients.load(clientsDidLoad)
+        clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
 
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -34,6 +39,18 @@ class RosterTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         RosterTableView.reloadData()
+    }
+
+    func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
+        CKContainer.default().accountStatus { (accountStat, error) in
+            if (accountStat != .available) {
+                let iCloudNotEnabledAlert = UIAlertController(title: "iCloud Login Error", message: "To load clients, sign in to your iCloud account.\n\nOn the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID.\n\nThen press OK.", preferredStyle: UIAlertControllerStyle.alert)
+                iCloudNotEnabledAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                    okClicked()
+                }))
+                self.present(iCloudNotEnabledAlert, animated: true, completion: nil)
+            }
+        }
     }
 
     /*******************/
@@ -93,20 +110,17 @@ class RosterTableViewController: UITableViewController {
             if let lastCheckIn = client.lastCheckIn {
                 if(Calendar.current.isDate(lastCheckIn as Date, inSameDayAs: Date())) {
                     cell.checkmarkImage.isHidden = false
-                    cell.lastCheckInLabel.text = "Today"
-                }
-                else {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "M/d/y"
-                    cell.lastCheckInLabel.text = dateFormatter.string(from: lastCheckIn as Date)
                 }
             }
-            else {
-                cell.lastCheckInLabel.text = ""
-            }
+
+            //Passes remaining
+            cell.passesLeftLabel.text = String(client.passes) + " Passes Left"
 
             returnCell = cell
         }
+    /**************/
+    /* Add Client */
+    /**************/
         else {
             var cell : AddClientTableViewCell
             cell = tableView.dequeueReusableCell(withIdentifier: "AddClientCell") as! AddClientTableViewCell
@@ -134,22 +148,16 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
+    /*****************/
+    /* Delete Client */
+    /*****************/
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-
+            let clientToDelete = clientsIndexedList[clientIndexes[indexPath.section-1]]?[indexPath.row]
             func deleteClient() {
                 func deleteSuccess() {
-                    clientsIndexedList[clientIndexes[indexPath.section-1]]?.remove(at: indexPath.row)
-                    if(clientsIndexedList[clientIndexes[indexPath.section-1]]?.count == 0) {
-                        clientsIndexedList.removeValue(forKey: clientIndexes[indexPath.section-1])
-                        clientIndexes.remove(at: indexPath.section-1)
-                        var indexSet = IndexSet()
-                        indexSet.insert(indexPath.section)
-                        tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
-                    }
-                    else {
-                        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                    }
+                    clients.removeValue(forId: (clientToDelete?.record?.recordID)!)
+                    clientsDidLoad()
                 }
 
                 func errorHandler(_ error: NSError) {

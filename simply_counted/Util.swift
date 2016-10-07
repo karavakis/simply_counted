@@ -54,6 +54,21 @@ func calculateViewMovementWhenKeyboardAppears(_ view: UIViewController, notifica
     return movement
 }
 
+/***********************/
+/* Keyboard moves view */
+/***********************/
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
+    }
+
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 
 /*****************/
 /* Hide keyboard */

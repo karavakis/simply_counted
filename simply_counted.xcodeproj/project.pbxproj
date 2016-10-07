@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B91D0D801DA45A22007F82DB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D0D7F1DA45A22007F82DB /* File.swift */; };
 		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
 		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
-		B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* NotesViewController.swift */; };
+		B96CA3F21D764FBA008166E2 /* EditClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */; };
 		B99E4CCF1D8A126D00AF52E2 /* CloudKitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E4CCE1D8A126D00AF52E2 /* CloudKitRecord.swift */; };
 		B99E4CD11D8C9FC000AF52E2 /* CloudKitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E4CD01D8C9FC000AF52E2 /* CloudKitCollection.swift */; };
 		B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */; };
@@ -45,9 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B91D0D7F1DA45A22007F82DB /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
 		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		B96CA3F11D764FBA008166E2 /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditClientViewController.swift; sourceTree = "<group>"; };
 		B99E4CCE1D8A126D00AF52E2 /* CloudKitRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitRecord.swift; sourceTree = "<group>"; };
 		B99E4CD01D8C9FC000AF52E2 /* CloudKitCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitCollection.swift; sourceTree = "<group>"; };
 		B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassTypeTableViewCell.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 				B9D635221D6FA5B000D9B15F /* ClassTableViewController.swift */,
 				B9D635261D6FA5B000D9B15F /* ClientTableViewController.swift */,
 				B9D635271D6FA5B000D9B15F /* ClientViewController.swift */,
-				B96CA3F11D764FBA008166E2 /* NotesViewController.swift */,
+				B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */,
 				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
 				B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */,
 			);
@@ -173,6 +175,7 @@
 		B9F730161D67A57F0031E099 = {
 			isa = PBXGroup;
 			children = (
+				B91D0D7F1DA45A22007F82DB /* File.swift */,
 				B9AD0C501D7F4EE300DF529F /* CloudKit.framework */,
 				B9D635151D6FA5B000D9B15F /* simply_counted */,
 				B9D635331D6FA5B000D9B15F /* simply_counted.xcodeproj */,
@@ -293,10 +296,11 @@
 				B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */,
 				B9D635581D6FA5B000D9B15F /* ClassCollection.swift in Sources */,
 				B9D635571D6FA5B000D9B15F /* RosterTableViewController.swift in Sources */,
+				B91D0D801DA45A22007F82DB /* File.swift in Sources */,
 				B9D6355B1D6FA5B000D9B15F /* Client.swift in Sources */,
 				B99E4CD11D8C9FC000AF52E2 /* CloudKitCollection.swift in Sources */,
 				B9D6355D1D6FA5B000D9B15F /* ClientTableViewCell.swift in Sources */,
-				B96CA3F21D764FBA008166E2 /* NotesViewController.swift in Sources */,
+				B96CA3F21D764FBA008166E2 /* EditClientViewController.swift in Sources */,
 				B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */,
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,
 				B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */,

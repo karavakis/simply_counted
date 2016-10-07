@@ -13,7 +13,7 @@ class ClientTableViewCell: UITableViewCell {
     
     @IBOutlet weak var checkmarkImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var lastCheckInLabel: UILabel!
+    @IBOutlet weak var passesLeftLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -24,7 +24,9 @@ class PassTableViewController: UITableViewController {
         passActivities = passCollection.passActivities
         passActivityMonths = Array(passActivities.keys)
         isSectionCollapsed = [Bool](repeating: true, count: passActivityMonths.count)
-        isSectionCollapsed[0] = false
+        if(isSectionCollapsed.count > 0) {
+            isSectionCollapsed[0] = false
+        }
         passTableView.reloadData()
     }
 

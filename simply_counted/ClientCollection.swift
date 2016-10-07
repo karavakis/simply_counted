@@ -29,6 +29,10 @@ open class ClientCollection: CloudKitContainer {
         clients[client.record!.recordID] = client
     }
 
+    open func removeValue(forId: CKRecordID) {
+        clients.removeValue(forKey: forId)
+    }
+
     func getIndexedList() -> [String:[Client]] {
         var indexedList = [String:[Client]]()
 
@@ -44,13 +48,18 @@ open class ClientCollection: CloudKitContainer {
                 indexedList[firstLetter]!.append(client)
             }
         }
-        return indexedList
+        var indexedListSorted = [String:[Client]]()
+        for list in indexedList {
+            indexedListSorted[list.key] = list.value.sorted(by: { $0.name < $1.name })
+        }
+        return indexedListSorted
     }
 
-    func load(_ successHandler:@escaping (()->Void)) {
+    func load(successHandler:@escaping (()->Void), errorHandler: @escaping (()->Void)) {
 
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let query = CKQuery(recordType: "Client", predicate: predicate)
+        let sort = NSSortDescriptor(key: "name", ascending: true)
 
         func createClientList(_ records: [CKRecord]) {
             self.clients.removeAll()
@@ -61,10 +70,11 @@ open class ClientCollection: CloudKitContainer {
             successHandler()
         }
 
-        func errorHandler(_ error: NSError) {
+        func handleError(_ error: NSError) {
             print("Error: \(error) \(error.userInfo)")
+            errorHandler()
         }
 
-        performQuery(query, successHandler: createClientList, errorHandler: errorHandler)
+        performQuery(query, successHandler: createClientList, errorHandler: handleError)
     }
 }

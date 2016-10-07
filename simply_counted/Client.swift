@@ -65,20 +65,30 @@ open class Client: CloudKitRecord {
     open func checkIn(_ date: Date) {
         let checkIn = CheckIn(clientId: self.record!.recordID, date: date)
         checkIn.save()
-        self.activities.insert(checkIn, at: 0)
-        self.passes = self.passes - 1
-        self.updateLastCheckIn(date)
+        self.passes -= 1
+        self.totalCheckIns += 1
+
+        var insertAt = activities.count
+        for (index, activity) in activities.enumerated() {
+            if( activity.date.compare(date) == ComparisonResult.orderedAscending) {
+                insertAt = index
+                break
+            }
+        }
+        self.activities.insert(checkIn, at: insertAt)
+
+        self.updateLastCheckIn()
         self.save(nil)
     }
 
-    func updateLastCheckIn(_ newCheckIn: Date) {
-        if let lastCheckIn = self.lastCheckIn {
-            if(lastCheckIn.compare(newCheckIn) == ComparisonResult.orderedDescending) {
-                //do not update lastCheckIn
-                return
+    func updateLastCheckIn() {
+        self.lastCheckIn = nil
+        for activity in self.activities {
+            if let checkIn = activity as? CheckIn {
+                self.lastCheckIn = checkIn.date
+                break;
             }
         }
-        self.lastCheckIn = newCheckIn
     }
 
     /**********/
@@ -86,12 +96,48 @@ open class Client: CloudKitRecord {
     /**********/
     open func addPasses(_ passTypeAdded: PassType) {
         self.passes += passTypeAdded.passCount
+        self.totalPasses += passTypeAdded.passCount
+        self.totalPrice = self.totalPrice.adding(NSDecimalNumber(string: passTypeAdded.price))
         self.save(nil)
         let passActivity = PassActivity(clientId: self.record!.recordID,
                                         date: Date(),
                                         passType: passTypeAdded)
         passActivity.save()
         self.activities.insert(passActivity, at: 0)
+    }
+
+    /***************/
+    /* Update Note */
+    /***************/
+    open func updateNotes(_ notes: String) {
+        self.notes = notes
+        self.save(nil)
+    }
+
+    /**********************/
+    /* Update Passes Left */
+    /**********************/
+    open func updatePassesLeft(_ passesLeft: Int, successHandler:(()->Void)?) {
+        self.passes = passesLeft
+        self.save(successHandler)
+    }
+
+    /*******************/
+    /* Remove Activity */
+    /*******************/
+    func removeActivity(activityIndex: Int) {
+        if let passActivity = self.activities[activityIndex] as? PassActivity {
+            self.passes -= passActivity.passesAdded
+            self.totalPasses -= passActivity.passesAdded
+            self.totalPrice = self.totalPrice.subtracting(NSDecimalNumber(string: passActivity.price))
+        }
+        else {
+            self.passes += 1
+            self.totalCheckIns -= 1
+        }
+        self.activities.remove(at: activityIndex)
+        updateLastCheckIn()
+        self.save(nil)
     }
 
     /**************/
@@ -171,6 +217,7 @@ open class Client: CloudKitRecord {
             }
 
             let getPassActivitiesQuery = CKQuery(recordType: "PassActivity", predicate: predicate)
+            let sort = NSSortDescriptor(key: "date", ascending: true)
             getPassActivitiesQuery.sortDescriptors = [sort]
             self.performQuery(getPassActivitiesQuery, successHandler: passActivitiesLoadSuccess, errorHandler: passActivityErrorHandler)
         }

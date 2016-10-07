@@ -24,7 +24,6 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     override func viewDidLoad() {
-
         setupBarButtonItems()
         if let client = self.client {
             //Set header
@@ -33,6 +32,11 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
             client.loadActivities(reloadActivitiesTable)
         }
         super.viewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        populateClientInfo()
+        reloadActivitiesTable() 
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,7 +111,10 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func editClicked() {
-        performSegue(withIdentifier: "EditClicked", sender: nil)
+        func goToEditPage() {
+            performSegue(withIdentifier: "EditClicked", sender: nil)
+        }
+        unlockUser(goToEditPage)
     }
 
     /************/
@@ -115,7 +122,13 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /************/
     @IBAction func checkInClicked(_ sender: AnyObject) {
         if let client = client {
-            if (client.passes > 0) {
+            if (client.passes <= 0) {
+                let noPassesAlert = UIAlertController(title: "Error", message: "No passes remaining.\n\nPlease click edit to unlock check-in with no passes.", preferredStyle: UIAlertControllerStyle.alert)
+                noPassesAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                }))
+                present(noPassesAlert, animated: true, completion: nil)
+            }
+            else {
                 self.checkIn()
             }
         }
@@ -132,7 +145,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "EditClicked") {
             if let client = client {
-                let controller = (segue.destination as! NotesViewController)
+                let controller = (segue.destination as! EditClientViewController)
                 controller.client = client
             }
         }
