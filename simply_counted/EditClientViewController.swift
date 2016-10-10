@@ -14,13 +14,14 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var numTotalCheckInsLabel: UILabel!
     @IBOutlet weak var numTotalPassesLabel: UILabel!
     @IBOutlet weak var priceTotalAmountPaidLabel: UILabel!
-    @IBOutlet weak var checkInDatePicker: UIDatePicker!
-    @IBOutlet weak var checkInButton: UIButton!
     @IBOutlet weak var activitiesTableView: UITableView!
     @IBOutlet weak var addPassButton: UIButton!
-    @IBOutlet weak var notesTextField: UITextView!
+    @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var passesLeftTextField: UITextField!
-    let passPickerView = UIPickerView()
+    @IBOutlet weak var dateTextField: UITextField!
+    var checkInButton: UIBarButtonItem!
+    var checkInDatePicker = UIDatePicker()
+    var passPickerView = UIPickerView()
 
     var client:Client? = nil //passed in from last view
 
@@ -37,18 +38,22 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
             reloadActivitiesTable()
         }
         super.viewDidLoad()
+        setupBorders()
         setupPickerView()
         setupDatePicker()
+        setupBarButtonItems()
         addKeyboardNotifications()
     }
 
-    /*********************/
-    /* Setup Date Picker */
-    /*********************/
-    func setupDatePicker() {
-        let today = Date()
-        checkInDatePicker.setDate(today, animated: true)
-        checkInDatePicker.maximumDate = today
+
+    /*****************/
+    /* Setup Borders */
+    /*****************/
+    func setupBorders() {
+        //Notes
+        self.notesTextView.layer.borderColor = UIColor.gray.cgColor
+        self.notesTextView.layer.borderWidth = 1.0;
+        self.notesTextView.layer.cornerRadius = 8;
     }
 
 
@@ -58,7 +63,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     func populateClientInfo() {
         if let client : Client = client {
             self.automaticallyAdjustsScrollViewInsets = false
-            notesTextField.text = client.notes
+            notesTextView.text = client.notes
             numPassesLeftLabel.text = String(client.passes)
             numTotalCheckInsLabel.text = String(client.totalCheckIns)
             numTotalPassesLabel.text = String(client.totalPasses)
@@ -80,6 +85,10 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         return 0
     }
 
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Activities"
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : SimpleLabelTableViewCell
         cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell") as! SimpleLabelTableViewCell
@@ -92,7 +101,8 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
             var passText = ""
             if let passActivity = client.activities[indexPath.row] as? PassActivity {
                 cell = tableView.dequeueReusableCell(withIdentifier: "PassCell") as! SimpleLabelTableViewCell
-                passText = String(passActivity.passesAdded)
+                let passesString = passActivity.passesAdded == 1 ? " Pass" : " Passes"
+                passText = String(passActivity.passesAdded) + passesString
                 price = "$" + passActivity.price
 
                 cell.label3.text = price
@@ -134,26 +144,64 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     /************/
     /* Check-In */
     /************/
-    @IBAction func checkInClicked(_ sender: AnyObject) {
+    func setupBarButtonItems() {
+        checkInButton = UIBarButtonItem(title: "Check-In", style: .plain, target: self, action: #selector(ClientViewController.checkInClicked))
+        self.navigationItem.rightBarButtonItem = checkInButton
+    }
+
+    func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
                 let noPassesAlert = UIAlertController(title: "Warning", message: "Client has no passes remaining.", preferredStyle: UIAlertControllerStyle.alert)
-                noPassesAlert.addAction(UIAlertAction(title: "Check-in", style: .default, handler: { (action: UIAlertAction!) in
-                    self.checkIn()
-                }))
                 noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
+                }))
+                noPassesAlert.addAction(UIAlertAction(title: "Check-in", style: .default, handler: { (action: UIAlertAction!) in
+                    self.dateTextField.becomeFirstResponder()
                 }))
                 present(noPassesAlert, animated: true, completion: nil)
             }
             else {
-                self.checkIn()
+                self.dateTextField.becomeFirstResponder()
             }
         }
     }
 
-    func checkIn() {
+    func checkInDoneClicked() {
         client!.checkIn(checkInDatePicker.date)
         _ = navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
+    }
+
+    func checkInCancelClicked() {
+        dateTextField.resignFirstResponder()
+    }
+
+    /*********************/
+    /* Setup Date Picker */
+    /*********************/
+    func setupDatePicker() {
+        let today = Date()
+        checkInDatePicker.datePickerMode = UIDatePickerMode.date
+        checkInDatePicker.setDate(today, animated: false)
+        checkInDatePicker.maximumDate = today
+
+        dateTextField = UITextField();
+        self.view.addSubview(dateTextField)
+        dateTextField.inputView = checkInDatePicker
+        dateTextField.isHidden = true
+
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditClientViewController.checkInCancelClicked))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(title: "Check-In", style: .plain, target: self, action: #selector(EditClientViewController.checkInDoneClicked))
+
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        titleLabel.text = "Pick Check-In Date"
+        titleLabel.textAlignment = NSTextAlignment.center
+        let title = UIBarButtonItem(customView: titleLabel)
+
+        let pickerToolbar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
+        pickerToolbar.setItems([cancelButton, flexSpace, title, flexSpace, doneButton], animated: true)
+        dateTextField.inputAccessoryView = pickerToolbar
     }
 
     /************/
@@ -184,9 +232,9 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         passesLeftTextField.inputView = passPickerView
         passesLeftTextField.isHidden = true
 
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditClientViewController.cancelPressed))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditClientViewController.cancelClicked))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(EditClientViewController.donePressed))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(EditClientViewController.doneClicked))
 
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         titleLabel.text = "Update Passes Left"
@@ -200,11 +248,11 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         passesLeftTextField.text = "0"
     }
 
-    func cancelPressed() {
+    func cancelClicked() {
         passesLeftTextField.resignFirstResponder()
     }
 
-    func donePressed() {
+    func doneClicked() {
         passesLeftTextField.resignFirstResponder()
         if let passes = passesLeftTextField.text {
             if let passNumber = Int(passes) {
@@ -241,7 +289,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
 
     func saveNote() {
         if let client = client {
-            client.updateNotes(notesTextField.text)
+            client.updateNotes(notesTextView.text)
         }
     }
 
@@ -283,9 +331,9 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         var info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
-        if( notesTextField.isFirstResponder ) {
+        if( notesTextView.isFirstResponder ) {
             UIView.animate(withDuration: MOVE_VIEW_ANIMATE_TIME, animations: { () -> Void in
-                let shift = (self.notesTextField.frame.maxY - keyboardFrame.minY) > 0 ? self.notesTextField.frame.maxY - keyboardFrame.minY + 8 : 0
+                let shift = (self.notesTextView.frame.maxY - keyboardFrame.minY) > 0 ? self.notesTextView.frame.maxY - keyboardFrame.minY + 8 : 0
                 self.bottomConstraint.constant += shift
                 self.topConstraint.constant -= shift
                 self.topConstraint2.constant -= shift
@@ -297,7 +345,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
 
     func keyboardWillHide(notification:Notification) {
         resetConstraints()
-        if( notesTextField.isFirstResponder ) {
+        if( notesTextView.isFirstResponder ) {
             saveNote()
         }
     }

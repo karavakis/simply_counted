@@ -11,18 +11,22 @@ import CloudKit
 
 class RosterTableViewController: UITableViewController {
 
-    @IBOutlet weak var RosterTableView: UITableView!
+    @IBOutlet weak var rosterTableView: UITableView!
+    @IBOutlet weak var historyBarButtonItem: UIBarButtonItem!
     var clients = ClientCollection()
     var clientsIndexedList = [String:[Client]]()
     var clientIndexes = [String]()
     var isLoading = false
     var currentDay = Date()
+    var indicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
 
     func clientsDidLoad() -> Void {
         isLoading = false
+
         clientsIndexedList = clients.getIndexedList()
         clientIndexes = Array(clientsIndexedList.keys).sorted(by: <)
         self.tableView.reloadData()
+        indicator.stopAnimating()
     }
 
     func clientsFailedLoad() -> Void {
@@ -34,17 +38,20 @@ class RosterTableViewController: UITableViewController {
         isLoading = true
         clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
 
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
     func refreshOnNewDay() {
         let newDay = Date()
         if(!Calendar.current.isDate(currentDay as Date, inSameDayAs: newDay)) {
-            currentDay = newDay
+
+        currentDay = newDay
 
             isLoading = true
             clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
         }
+        indicator.stopAnimating()
     }
 
     func applicationDidBecomeActive(notification: NSNotification) {
@@ -53,8 +60,15 @@ class RosterTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        RosterTableView.reloadData()
+        rosterTableView.reloadData()
+
+        indicator.center = view.center
+        view.addSubview(indicator)
+        indicator.bringSubview(toFront: view)
+        indicator.startAnimating()
+
         self.refreshOnNewDay()
+
     }
 
     func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
@@ -96,6 +110,7 @@ class RosterTableViewController: UITableViewController {
             return clientIndexes[section-1]
         }
     }
+
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return clientIndexes
     }
@@ -141,10 +156,23 @@ class RosterTableViewController: UITableViewController {
             var cell : AddClientTableViewCell
             cell = tableView.dequeueReusableCell(withIdentifier: "AddClientCell") as! AddClientTableViewCell
 
-            func completionHandler(_ client: Client) -> Void {
+            func completionHandler(_ newClient: Client) -> Void {
                 isLoading = true
-                clients.append(client)
+                clients.append(newClient)
                 clientsDidLoad()
+
+                for (sectionIndex, section) in clientIndexes.enumerated() {
+                    for (rowIndex, client) in clientsIndexedList[section]!.enumerated() {
+                        if( client == newClient ) {
+                            let indexPath = IndexPath(row: rowIndex, section: sectionIndex + 1)
+                            rosterTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
+                            self.performSegue(withIdentifier: "ClientClicked", sender: self)
+                            break
+                        }
+                    }
+                }
+
+
             }
 
             cell.completionHandler = completionHandler
@@ -154,6 +182,10 @@ class RosterTableViewController: UITableViewController {
 
         return returnCell
     }
+
+    /*****************/
+    /* Select Client */
+    /*****************/
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section > 0) {
@@ -184,7 +216,7 @@ class RosterTableViewController: UITableViewController {
             }
 
             let deleteClientWarning = UIAlertController(title: "Warning", message: "Deleting a client will delete all Check-Ins and Passes associated with the client.", preferredStyle: UIAlertControllerStyle.alert)
-            deleteClientWarning.addAction(UIAlertAction(title: "Keep", style: .default, handler: { (action: UIAlertAction!) in
+            deleteClientWarning.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
                 tableView.setEditing(false, animated: true)
             }))
             deleteClientWarning.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action: UIAlertAction!) in
@@ -200,8 +232,8 @@ class RosterTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "ClientClicked") {
             let controller = (segue.destination as! ClientViewController)
-            let section = self.RosterTableView.indexPathForSelectedRow!.section
-            let row = self.RosterTableView.indexPathForSelectedRow!.row
+            let section = self.rosterTableView.indexPathForSelectedRow!.section
+            let row = self.rosterTableView.indexPathForSelectedRow!.row
             let client = clientsIndexedList[clientIndexes[section-1]]![row]
             controller.client = client
         }

@@ -16,11 +16,6 @@ class ClientTableViewController: UITableViewController {
     var sortedClientList = [Client]()
 
     override func viewDidLoad() {
-        //Set header
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, MMM d, yyyy"
-        self.navigationItem.title = dateFormatter.string(from: classDate.date) + " - " + String(classDate.checkIns.count) + " students";
-
         //Sort clients
         for checkIn in classDate.checkIns {
             if let client = fullClientList[checkIn.clientReference!.recordID] {
@@ -44,6 +39,13 @@ class ClientTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedClientList.count
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {//Set header
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, MMM d, yyyy"
+
+        return dateFormatter.string(from: classDate.date) + " - " + String(classDate.checkIns.count) + " students"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -13,8 +13,9 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var numPassesLeftLabel: UILabel!
     @IBOutlet weak var numTotalCheckInsLabel: UILabel!
     @IBOutlet weak var numTotalPassesLabel: UILabel!
-    @IBOutlet weak var checkInButton: UIButton!
+    @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var activitiesTableView: UITableView!
+    var checkInButton: UIBarButtonItem!
 
     var client : Client? = nil
 
@@ -69,6 +70,10 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         return 0
     }
 
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Activities"
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : SimpleLabelTableViewCell
         cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell") as! SimpleLabelTableViewCell
@@ -81,7 +86,8 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
             var passText = ""
             if let passActivity = client.activities[indexPath.row] as? PassActivity {
                 cell = tableView.dequeueReusableCell(withIdentifier: "PassCell") as! SimpleLabelTableViewCell
-                passText = String(passActivity.passesAdded)
+                let passesString = passActivity.passesAdded == 1 ? " Pass" : " Passes"
+                passText = String(passActivity.passesAdded) + passesString
                 price = "$" + passActivity.price
 
                 cell.label3.text = price
@@ -105,14 +111,9 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /***************/
     /* Edit Client */
     /***************/
-    func setupBarButtonItems() {
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(ClientViewController.editClicked))
-        self.navigationItem.rightBarButtonItem = editButton
-    }
-
-    func editClicked() {
+    @IBAction func moreOptionsClicked(_ sender: AnyObject) {
         func goToEditPage() {
-            performSegue(withIdentifier: "EditClicked", sender: nil)
+            performSegue(withIdentifier: "MoreOptionsClicked", sender: nil)
         }
         unlockUser(goToEditPage)
     }
@@ -120,10 +121,15 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /************/
     /* Check-In */
     /************/
-    @IBAction func checkInClicked(_ sender: AnyObject) {
+    func setupBarButtonItems() {
+        checkInButton = UIBarButtonItem(title: "Check-In", style: .plain, target: self, action: #selector(ClientViewController.checkInClicked))
+        self.navigationItem.rightBarButtonItem = checkInButton
+    }
+
+    func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
-                let noPassesAlert = UIAlertController(title: "Error", message: "No passes remaining.\n\nPlease click edit to unlock check-in with no passes.", preferredStyle: UIAlertControllerStyle.alert)
+                let noPassesAlert = UIAlertController(title: "Error", message: "No passes remaining.\n\nPlease click more options to add a pass.", preferredStyle: UIAlertControllerStyle.alert)
                 noPassesAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
                 }))
                 present(noPassesAlert, animated: true, completion: nil)
@@ -143,9 +149,12 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /* Segues */
     /**********/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "EditClicked") {
+        if (segue.identifier == "MoreOptionsClicked") {
             if let client = client {
                 let controller = (segue.destination as! EditClientViewController)
+                let backItem = UIBarButtonItem()
+                backItem.title = "Back"
+                navigationItem.backBarButtonItem = backItem
                 controller.client = client
             }
         }
