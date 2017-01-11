@@ -429,6 +429,7 @@
 				CODE_SIGN_ENTITLEMENTS = simply_counted/simply_counted.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = B3N8BR97GQ;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = simply_counted/Info.plist;
@@ -448,6 +449,7 @@
 				CODE_SIGN_ENTITLEMENTS = simply_counted/simply_counted.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = B3N8BR97GQ;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = simply_counted/Info.plist;

@@ -17,23 +17,41 @@ class RosterTableViewController: UITableViewController {
     var clientIndexes = [String]()
     var isLoading = false
     var currentDay = Date()
-
+let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
     func clientsDidLoad() -> Void {
+        dismissLoadingView()
         isLoading = false
         clientsIndexedList = clients.getIndexedList()
         clientIndexes = Array(clientsIndexedList.keys).sorted(by: <)
+        
         self.tableView.reloadData()
     }
 
     func clientsFailedLoad() -> Void {
+        dismissLoadingView()
         checkICloudAccountStatus(okClicked: viewDidLoad)
     }
 
+    func dismissLoadingView() -> Void {
+        dismiss(animated: false, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = true
-        clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
+        
+        
+        alert.view.tintColor = UIColor.black
+        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+        
 
+        clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
