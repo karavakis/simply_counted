@@ -1033,7 +1033,7 @@
     </scenes>
     <resources>
         <image name="Calendar-50.png" width="30" height="30"/>
-        <image name="Ok-48.png" width="48" height="48"/>
+        <image name="Ok-48.png" width="144" height="144"/>
         <image name="US Dollar-52.png" width="52" height="52"/>
     </resources>
     <inferredMetricsTieBreakers>
