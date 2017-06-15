@@ -21,9 +21,7 @@ class ClassTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
-        self.navigationItem.title = "Class Dates";
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
         isLoading = true
 
@@ -32,6 +30,9 @@ class ClassTableViewController: UITableViewController {
 
     //TODO: Don't load events here, find a way to just load new ones.
     override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.view.backgroundColor = UIColor.white
+        self.tabBarController?.navigationItem.title = "Classes"
+        
         if( !isLoading ) {
             isLoading = true
             classes.load(classesDidLoad)

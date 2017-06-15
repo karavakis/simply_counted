@@ -12,7 +12,6 @@ class AddClientTableViewCell: UITableViewCell {
 
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var savedLabel: UILabel!
     @IBOutlet weak var presentInView: UIView!
     
     var completionHandler:((_ client: Client)->Void)?
@@ -35,8 +34,6 @@ class AddClientTableViewCell: UITableViewCell {
                 let newClient = Client(name: name)
 
                 func saveComplete() {
-                    self.savedLabel.isHidden = true
-                    self.addButton.isHidden = false
                     if self.completionHandler != nil {
                         self.completionHandler?(newClient)
                     }
@@ -45,8 +42,6 @@ class AddClientTableViewCell: UITableViewCell {
                 newClient.save(saveComplete)
 
                 self.nameTextField.text = ""
-                self.addButton.isHidden = true
-                self.savedLabel.isHidden = false
             }
         }
     }

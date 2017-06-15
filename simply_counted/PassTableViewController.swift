@@ -31,9 +31,7 @@ class PassTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
-        self.navigationItem.title = "Class Dates";
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
         isLoading = true
 
@@ -42,6 +40,9 @@ class PassTableViewController: UITableViewController {
 
     //TODO: Don't load events here, find a way to just load new ones.
     override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.view.backgroundColor = UIColor.white
+        self.tabBarController?.navigationItem.title = "Passes"
+
         if( !isLoading ) {
             isLoading = true
             passCollection.load(passesDidLoad)

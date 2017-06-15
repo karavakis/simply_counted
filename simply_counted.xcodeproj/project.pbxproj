@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B91D0D801DA45A22007F82DB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D0D7F1DA45A22007F82DB /* File.swift */; };
+		B96AFD871DAC127A00456B55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B96AFD861DAC127A00456B55 /* Assets.xcassets */; };
 		B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3E91D715474008166E2 /* PassActivity.swift */; };
 		B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3EB1D71586A008166E2 /* Activity.swift */; };
 		B96CA3F21D764FBA008166E2 /* EditClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */; };
@@ -18,9 +19,8 @@
 		B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */; };
 		B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD0C4D1D7B343000DF529F /* PassCollection.swift */; };
 		B9AD0C511D7F4EE300DF529F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9AD0C501D7F4EE300DF529F /* CloudKit.framework */; };
-		B9B613131DA1B5DF00B9B02A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B613121DA1B5DF00B9B02A /* Assets.xcassets */; };
 		B9B613151DA1B90F00B9B02A /* simply_counted_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */; };
-		B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */; };
+		B9CFA8A91DA9884500B22423 /* Calendar-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CFA8A81DA9884500B22423 /* Calendar-50.png */; };
 		B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D635011D6FA5B000D9B15F /* Ok-48.png */; };
 		B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */; };
 		B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635171D6FA5B000D9B15F /* AppDelegate.swift */; };
@@ -39,7 +39,6 @@
 		B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */; };
 		B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B9D6352E1D6FA5B000D9B15F /* simply_counted.xcdatamodeld */; };
 		B9D635681D6FA5B000D9B15F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D635321D6FA5B000D9B15F /* Util.swift */; };
-		B9D6356D1D6FA5B000D9B15F /* Todo List-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D6353C1D6FA5B000D9B15F /* Todo List-50.png */; };
 		B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */; };
 		B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7941D7A64DC0018E568 /* PassType.swift */; };
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
@@ -47,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		B91D0D7F1DA45A22007F82DB /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B96AFD861DAC127A00456B55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B96CA3E91D715474008166E2 /* PassActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassActivity.swift; sourceTree = "<group>"; };
 		B96CA3EB1D71586A008166E2 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditClientViewController.swift; sourceTree = "<group>"; };
@@ -58,9 +58,8 @@
 		B9AD0C4D1D7B343000DF529F /* PassCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCollection.swift; sourceTree = "<group>"; };
 		B9AD0C4F1D7E62A800DF529F /* simply_counted.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = simply_counted.entitlements; sourceTree = "<group>"; };
 		B9AD0C501D7F4EE300DF529F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		B9B613121DA1B5DF00B9B02A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = simply_counted_logo.jpg; sourceTree = "<group>"; };
-		B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compact Camera-50.png"; path = "../Compact Camera-50.png"; sourceTree = "<group>"; };
+		B9CFA8A81DA9884500B22423 /* Calendar-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-50.png"; sourceTree = "<group>"; };
 		B9D635011D6FA5B000D9B15F /* Ok-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ok-48.png"; path = "../Ok-48.png"; sourceTree = "<group>"; };
 		B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClientTableViewCell.swift; sourceTree = "<group>"; };
 		B9D635171D6FA5B000D9B15F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +80,6 @@
 		B9D6352F1D6FA5B000D9B15F /* simply_counted.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = simply_counted.xcdatamodel; sourceTree = "<group>"; };
 		B9D635321D6FA5B000D9B15F /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		B9D635331D6FA5B000D9B15F /* simply_counted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = simply_counted.xcodeproj; sourceTree = "<group>"; };
-		B9D6353C1D6FA5B000D9B15F /* Todo List-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Todo List-50.png"; path = "../Todo List-50.png"; sourceTree = "<group>"; };
 		B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassViewController.swift; sourceTree = "<group>"; };
 		B9EFE7941D7A64DC0018E568 /* PassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassType.swift; sourceTree = "<group>"; };
 		B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTypeCollection.swift; sourceTree = "<group>"; };
@@ -137,12 +135,11 @@
 		B9D635701D6FA60600D9B15F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B9B613121DA1B5DF00B9B02A /* Assets.xcassets */,
+				B96AFD861DAC127A00456B55 /* Assets.xcassets */,
 				B9D635191D6FA5B000D9B15F /* LaunchScreen.storyboard */,
 				B9D6351B1D6FA5B000D9B15F /* Main.storyboard */,
-				B9D635001D6FA5B000D9B15F /* Compact Camera-50.png */,
 				B9D635011D6FA5B000D9B15F /* Ok-48.png */,
-				B9D6353C1D6FA5B000D9B15F /* Todo List-50.png */,
+				B9CFA8A81DA9884500B22423 /* Calendar-50.png */,
 				B9AD0C491D7B321500DF529F /* US Dollar-52.png */,
 				B9B613141DA1B90F00B9B02A /* simply_counted_logo.jpg */,
 				B9D635161D6FA5B000D9B15F /* AddClientTableViewCell.swift */,
@@ -262,12 +259,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9D6353D1D6FA5B000D9B15F /* Compact Camera-50.png in Resources */,
 				B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */,
-				B9D6356D1D6FA5B000D9B15F /* Todo List-50.png in Resources */,
 				B9AD0C4A1D7B321500DF529F /* US Dollar-52.png in Resources */,
-				B9B613131DA1B5DF00B9B02A /* Assets.xcassets in Resources */,
+				B9CFA8A91DA9884500B22423 /* Calendar-50.png in Resources */,
 				B9B613151DA1B90F00B9B02A /* simply_counted_logo.jpg in Resources */,
+				B96AFD871DAC127A00456B55 /* Assets.xcassets in Resources */,
 				B9D635541D6FA5B000D9B15F /* LaunchScreen.storyboard in Resources */,
 				B9D6353E1D6FA5B000D9B15F /* Ok-48.png in Resources */,
 			);
