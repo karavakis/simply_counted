@@ -3,7 +3,7 @@
 //  GiftStash
 //
 //  Created by Jennifer Karavakis on 11/25/15.
-//  Copyright © 2016 Jennifer Karavakis. All rights reserved.
+//  Copyright © 2017 Jennifer Karavakis. All rights reserved.
 //
 
 import UIKit

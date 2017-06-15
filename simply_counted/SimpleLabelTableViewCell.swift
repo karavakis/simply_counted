@@ -3,7 +3,7 @@
 //  simply_counted
 //
 //  Created by Jennifer Karavakis on 8/20/16.
-//  Copyright © 2016 Jennifer Karavakis. All rights reserved.
+//  Copyright © 2017 Jennifer Karavakis. All rights reserved.
 //
 
 import UIKit
