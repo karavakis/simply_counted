@@ -20,7 +20,6 @@ class RosterTableViewController: UITableViewController {
     var currentDay = Date()
 
     let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-    var indicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
     func clientsDidLoad() -> Void {
         dismissLoadingView()
@@ -30,7 +29,6 @@ class RosterTableViewController: UITableViewController {
         clientIndexes = Array(clientsIndexedList.keys).sorted(by: <)
         
         self.tableView.reloadData()
-        indicator.stopAnimating()
     }
 
     func clientsFailedLoad() -> Void {
@@ -68,7 +66,6 @@ class RosterTableViewController: UITableViewController {
             isLoading = true
             clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
         }
-        indicator.stopAnimating()
     }
 
     func applicationDidBecomeActive(notification: NSNotification) {
@@ -79,13 +76,7 @@ class RosterTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         rosterTableView.reloadData()
 
-        indicator.center = view.center
-        view.addSubview(indicator)
-        indicator.bringSubview(toFront: view)
-        indicator.startAnimating()
-
         self.refreshOnNewDay()
-
     }
 
     func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
