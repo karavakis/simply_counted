@@ -19,10 +19,10 @@ class RosterTableViewController: UITableViewController {
     var isLoading = false
     var currentDay = Date()
 
-    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+    let waitAlert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
   
     func clientsDidLoad() -> Void {
-        dismissLoadingView()
+        waitAlert.dismiss(animated: false, completion: nil)
         isLoading = false
 
         clientsIndexedList = clients.getIndexedList()
@@ -32,27 +32,25 @@ class RosterTableViewController: UITableViewController {
     }
 
     func clientsFailedLoad() -> Void {
-        dismissLoadingView()
-        checkICloudAccountStatus(okClicked: viewDidLoad)
+        waitAlert.dismiss(animated: false, completion: {
+            self.checkICloudAccountStatus(okClicked: self.viewDidLoad)
+        })
+
     }
 
-    func dismissLoadingView() -> Void {
-        dismiss(animated: false, completion: nil)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = true
-        
-        
-        alert.view.tintColor = UIColor.black
+
+        waitAlert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         loadingIndicator.startAnimating();
         
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-        
+        waitAlert.view.addSubview(loadingIndicator)
+        present(waitAlert, animated: true, completion: nil)
+
         clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
@@ -82,7 +80,7 @@ class RosterTableViewController: UITableViewController {
     func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
         CKContainer.default().accountStatus { (accountStat, error) in
             if (accountStat != .available) {
-                let iCloudNotEnabledAlert = UIAlertController(title: "iCloud Login Error", message: "To load clients, sign in to your iCloud account.\n\nOn the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID.\n\nThen press OK.", preferredStyle: UIAlertControllerStyle.alert)
+                let iCloudNotEnabledAlert = UIAlertController(title: "iCloud Login Error", message: "To load clients, sign in to your iCloud account.\n\nOn the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID.\n\nThen press OK.", preferredStyle: .alert)
                 iCloudNotEnabledAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
                     okClicked()
                 }))
