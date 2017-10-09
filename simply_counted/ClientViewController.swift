@@ -8,17 +8,19 @@
 
 import UIKit
 
-class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, LoginViewControllerDelegate {
 
     @IBOutlet weak var numPassesLeftLabel: UILabel!
     @IBOutlet weak var numTotalCheckInsLabel: UILabel!
     @IBOutlet weak var numTotalPassesLabel: UILabel!
     @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var activitiesTableView: UITableView!
+
     var checkInButton: UIBarButtonItem!
-
     var client : Client? = nil
-
+    var successfulLogin: Bool = false
+    let touchAuth = TouchIDAuth()
+    
     func reloadActivitiesTable() -> Void {
         activitiesTableView.reloadData()
         populateClientInfo()
@@ -32,6 +34,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
             populateClientInfo()
             client.loadActivities(reloadActivitiesTable)
         }
+        self.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         super.viewDidLoad()
     }
 
@@ -107,17 +110,62 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     internal func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    func dismissed(_ successfulLogin: Bool) {
+        self.successfulLogin = successfulLogin
+    }
 
     /***************/
     /* Edit Client */
     /***************/
     @IBAction func moreOptionsClicked(_ sender: AnyObject) {
-        func goToEditPage() {
-            performSegue(withIdentifier: "MoreOptionsClicked", sender: nil)
+        
+        var useTouchId = UserDefaults.standard.object(forKey: "use_touchid")
+        
+        if (useTouchId == nil) {
+            let alertController = UIAlertController(title: "Use TouchID?", message: "Would you like to use TouchID to authenticate modifying clients?", preferredStyle: .actionSheet)
+        
+            let confirmAction = UIAlertAction(title: "Yes", style: .default) { (_) in
+                UserDefaults.standard.set(true, forKey: "use_touchid")
+                self.authenticateUser()
+            }
+        
+            let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in
+                UserDefaults.standard.set(false, forKey: "use_touchid")
+                self.performSegue(withIdentifier: "EditClient", sender: nil)
+            }
+        
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+        
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            if((useTouchId as! Bool) == true) {
+                authenticateUser()
+            }
+            else {
+                self.performSegue(withIdentifier: "EditClient", sender: nil)
+            }
         }
-        unlockUser(goToEditPage)
     }
 
+    func authenticateUser() {
+        touchAuth.authenticateUser() { message in
+            
+            if let message = message {
+                let alertView = UIAlertController(title: "Error",
+                                                  message: message,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default)
+                alertView.addAction(okAction)
+                self.present(alertView, animated: true)
+                
+            } else {
+                self.performSegue(withIdentifier: "EditClient", sender: nil)
+            }
+        }
+    }
+    
     /************/
     /* Check-In */
     /************/
@@ -150,6 +198,11 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /**********/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "MoreOptionsClicked") {
+            if let loginViewController = segue.destination as? LoginViewController {
+                loginViewController.delegate = self
+            }
+        }
+        if (segue.identifier == "EditClient") {
             if let client = client {
                 let controller = (segue.destination as! EditClientViewController)
                 let backItem = UIBarButtonItem()

@@ -42,7 +42,23 @@
 		B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */; };
 		B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7941D7A64DC0018E568 /* PassType.swift */; };
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
+		FD3667E91F29A1F00081F4F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */; };
+		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
+		FD3667ED1F3AC96E0081F4F7 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EC1F3AC96E0081F4F7 /* KeychainPasswordItem.swift */; };
+		FD4C6CC41F6B8C1C00C8AB40 /* Simply_CountedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */; };
+		FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */; };
+		FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FDA3332E1F7B41C3001DB77A /* Settings.bundle */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FD4C6CC61F6B8C1C00C8AB40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9F730171D67A57F0031E099 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9F7301E1D67A57F0031E099;
+			remoteInfo = simply_counted;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B91D0D7F1DA45A22007F82DB /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -84,6 +100,14 @@
 		B9EFE7941D7A64DC0018E568 /* PassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassType.swift; sourceTree = "<group>"; };
 		B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTypeCollection.swift; sourceTree = "<group>"; };
 		B9F7301F1D67A57F0031E099 /* simply_counted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simply_counted.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIDAuthentication.swift; sourceTree = "<group>"; };
+		FD3667EC1F3AC96E0081F4F7 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_CountedTests.swift; sourceTree = "<group>"; };
+		FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
+		FDA3332E1F7B41C3001DB77A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +116,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9AD0C511D7F4EE300DF529F /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD4C6CBE1F6B8C1C00C8AB40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +136,8 @@
 				B9D635171D6FA5B000D9B15F /* AppDelegate.swift */,
 				B9D635291D6FA5B000D9B15F /* Info.plist */,
 				B9D6352E1D6FA5B000D9B15F /* simply_counted.xcdatamodeld */,
+				FD3667EC1F3AC96E0081F4F7 /* KeychainPasswordItem.swift */,
+				FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */,
 				B9D635321D6FA5B000D9B15F /* Util.swift */,
 				B9D6356F1D6FA5FA00D9B15F /* Controller */,
 				B9D635701D6FA60600D9B15F /* View */,
@@ -128,6 +161,7 @@
 				B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */,
 				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
 				B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */,
+				FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -172,10 +206,12 @@
 		B9F730161D67A57F0031E099 = {
 			isa = PBXGroup;
 			children = (
+				FDA3332E1F7B41C3001DB77A /* Settings.bundle */,
 				B91D0D7F1DA45A22007F82DB /* File.swift */,
 				B9AD0C501D7F4EE300DF529F /* CloudKit.framework */,
 				B9D635151D6FA5B000D9B15F /* simply_counted */,
 				B9D635331D6FA5B000D9B15F /* simply_counted.xcodeproj */,
+				FD4C6CC21F6B8C1C00C8AB40 /* Simply CountedTests */,
 				B9F730201D67A57F0031E099 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -184,8 +220,19 @@
 			isa = PBXGroup;
 			children = (
 				B9F7301F1D67A57F0031E099 /* simply_counted.app */,
+				FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FD4C6CC21F6B8C1C00C8AB40 /* Simply CountedTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */,
+				FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */,
+				FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */,
+			);
+			path = "Simply CountedTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,13 +255,31 @@
 			productReference = B9F7301F1D67A57F0031E099 /* simply_counted.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FD4C6CC01F6B8C1C00C8AB40 /* Simply CountedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD4C6CCA1F6B8C1C00C8AB40 /* Build configuration list for PBXNativeTarget "Simply CountedTests" */;
+			buildPhases = (
+				FD4C6CBD1F6B8C1C00C8AB40 /* Sources */,
+				FD4C6CBE1F6B8C1C00C8AB40 /* Frameworks */,
+				FD4C6CBF1F6B8C1C00C8AB40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FD4C6CC71F6B8C1C00C8AB40 /* PBXTargetDependency */,
+			);
+			name = "Simply CountedTests";
+			productName = "Simply CountedTests";
+			productReference = FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B9F730171D67A57F0031E099 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Jennifer Karavakis";
 				TargetAttributes = {
@@ -227,6 +292,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					FD4C6CC01F6B8C1C00C8AB40 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B9F7301E1D67A57F0031E099;
 					};
 				};
 			};
@@ -250,6 +320,7 @@
 			projectRoot = "";
 			targets = (
 				B9F7301E1D67A57F0031E099 /* simply_counted */,
+				FD4C6CC01F6B8C1C00C8AB40 /* Simply CountedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -259,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */,
 				B9D635551D6FA5B000D9B15F /* Main.storyboard in Resources */,
 				B9AD0C4A1D7B321500DF529F /* US Dollar-52.png in Resources */,
 				B9CFA8A91DA9884500B22423 /* Calendar-50.png in Resources */,
@@ -269,6 +341,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD4C6CBF1F6B8C1C00C8AB40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -276,15 +355,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD3667E91F29A1F00081F4F7 /* LoginViewController.swift in Sources */,
 				B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */,
 				B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */,
 				B9D635681D6FA5B000D9B15F /* Util.swift in Sources */,
 				B96CA3EA1D715474008166E2 /* PassActivity.swift in Sources */,
+				FD3667ED1F3AC96E0081F4F7 /* KeychainPasswordItem.swift in Sources */,
 				B9D635521D6FA5B000D9B15F /* AppDelegate.swift in Sources */,
 				B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */,
 				B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */,
 				B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */,
 				B9D635561D6FA5B000D9B15F /* CheckIn.swift in Sources */,
+				FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */,
 				B9D6355A1D6FA5B000D9B15F /* ClassTableViewController.swift in Sources */,
 				B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */,
 				B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */,
@@ -306,7 +388,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD4C6CBD1F6B8C1C00C8AB40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */,
+				FD4C6CC41F6B8C1C00C8AB40 /* Simply_CountedTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FD4C6CC71F6B8C1C00C8AB40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9F7301E1D67A57F0031E099 /* simply_counted */;
+			targetProxy = FD4C6CC61F6B8C1C00C8AB40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B9D635191D6FA5B000D9B15F /* LaunchScreen.storyboard */ = {
@@ -458,6 +557,39 @@
 			};
 			name = Release;
 		};
+		FD4C6CC81F6B8C1C00C8AB40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = "Simply CountedTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/simply_counted.app/simply_counted";
+			};
+			name = Debug;
+		};
+		FD4C6CC91F6B8C1C00C8AB40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = "Simply CountedTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/simply_counted.app/simply_counted";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -475,6 +607,15 @@
 			buildConfigurations = (
 				B9F7304B1D67A5800031E099 /* Debug */,
 				B9F7304C1D67A5800031E099 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD4C6CCA1F6B8C1C00C8AB40 /* Build configuration list for PBXNativeTarget "Simply CountedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD4C6CC81F6B8C1C00C8AB40 /* Debug */,
+				FD4C6CC91F6B8C1C00C8AB40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
