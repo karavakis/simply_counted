@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, LoginViewControllerDelegate {
+class ClientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var numPassesLeftLabel: UILabel!
     @IBOutlet weak var numTotalCheckInsLabel: UILabel!
@@ -197,11 +197,6 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /* Segues */
     /**********/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "MoreOptionsClicked") {
-            if let loginViewController = segue.destination as? LoginViewController {
-                loginViewController.delegate = self
-            }
-        }
         if (segue.identifier == "EditClient") {
             if let client = client {
                 let controller = (segue.destination as! EditClientViewController)

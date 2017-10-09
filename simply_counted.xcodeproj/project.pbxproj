@@ -42,7 +42,6 @@
 		B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */; };
 		B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7941D7A64DC0018E568 /* PassType.swift */; };
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
-		FD3667E91F29A1F00081F4F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */; };
 		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
 		FD3667ED1F3AC96E0081F4F7 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EC1F3AC96E0081F4F7 /* KeychainPasswordItem.swift */; };
 		FD4C6CC41F6B8C1C00C8AB40 /* Simply_CountedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */; };
@@ -100,7 +99,6 @@
 		B9EFE7941D7A64DC0018E568 /* PassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassType.swift; sourceTree = "<group>"; };
 		B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTypeCollection.swift; sourceTree = "<group>"; };
 		B9F7301F1D67A57F0031E099 /* simply_counted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simply_counted.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIDAuthentication.swift; sourceTree = "<group>"; };
 		FD3667EC1F3AC96E0081F4F7 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,7 +159,6 @@
 				B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */,
 				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
 				B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */,
-				FD3667E81F29A1F00081F4F7 /* LoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -355,7 +352,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD3667E91F29A1F00081F4F7 /* LoginViewController.swift in Sources */,
 				B9AD0C4C1D7B330A00DF529F /* PassTableViewController.swift in Sources */,
 				B9D635661D6FA5B000D9B15F /* simply_counted.xcdatamodeld in Sources */,
 				B9D635681D6FA5B000D9B15F /* Util.swift in Sources */,

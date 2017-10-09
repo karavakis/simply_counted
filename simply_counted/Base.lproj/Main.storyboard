@@ -644,78 +644,6 @@
             </objects>
             <point key="canvasLocation" x="2573" y="-159"/>
         </scene>
-        <!--Login View Controller-->
-        <scene sceneID="kdB-Qc-fXv">
-            <objects>
-                <viewController id="8DV-lx-Kel" customClass="LoginViewController" customModule="simply_counted" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9YO-5N-toj"/>
-                        <viewControllerLayoutGuide type="bottom" id="wo8-b2-LHH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PHt-Ui-AcW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E8H-dO-bfX">
-                                <rect key="frame" x="139" y="155" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uGQ-q4-Z6W">
-                                <rect key="frame" x="139" y="216" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUN-xS-sG1">
-                                <rect key="frame" x="166" y="88" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tH-ZO-g7L">
-                                <rect key="frame" x="152" y="545" width="70" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="Touch-icon-lg"/>
-                                <connections>
-                                    <action selector="touchIdButton:" destination="8DV-lx-Kel" eventType="touchUpInside" id="Xp0-Ex-toa"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="470-0q-53T">
-                                <rect key="frame" x="160" y="284" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <action selector="login:" destination="8DV-lx-Kel" eventType="touchUpInside" id="wSR-5d-6aX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfJ-hr-Tag">
-                                <rect key="frame" x="163" y="318" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelButtonAction:" destination="8DV-lx-Kel" eventType="touchUpInside" id="bol-2y-0tx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="cfJ-hr-Tag" id="PFm-ci-0mA"/>
-                        <outlet property="loginButton" destination="470-0q-53T" id="rgQ-Ac-Rd9"/>
-                        <outlet property="passwordTextField" destination="uGQ-q4-Z6W" id="fSg-tg-Odb"/>
-                        <outlet property="touchIdButton" destination="3tH-ZO-g7L" id="2pw-4M-oZx"/>
-                        <outlet property="usernameTextField" destination="E8H-dO-bfX" id="sKT-Bq-ShD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kxu-I8-iWk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2980" y="-1318"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="8eH-Qe-78w">
             <objects>
@@ -1162,7 +1090,6 @@
     <resources>
         <image name="Calendar-50.png" width="30" height="30"/>
         <image name="Ok-48.png" width="144" height="144"/>
-        <image name="Touch-icon-lg" width="138" height="137"/>
         <image name="US Dollar-52.png" width="52" height="52"/>
     </resources>
     <inferredMetricsTieBreakers>
