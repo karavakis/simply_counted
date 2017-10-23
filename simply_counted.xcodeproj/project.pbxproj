@@ -43,7 +43,6 @@
 		B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7941D7A64DC0018E568 /* PassType.swift */; };
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
 		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
-		FD4C6CC41F6B8C1C00C8AB40 /* Simply_CountedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */; };
 		FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */; };
 		FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FDA3332E1F7B41C3001DB77A /* Settings.bundle */; };
 /* End PBXBuildFile section */
@@ -100,7 +99,6 @@
 		B9F7301F1D67A57F0031E099 /* simply_counted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simply_counted.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIDAuthentication.swift; sourceTree = "<group>"; };
 		FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_CountedTests.swift; sourceTree = "<group>"; };
 		FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		FDA3332E1F7B41C3001DB77A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 		FD4C6CC21F6B8C1C00C8AB40 /* Simply CountedTests */ = {
 			isa = PBXGroup;
 			children = (
-				FD4C6CC31F6B8C1C00C8AB40 /* Simply_CountedTests.swift */,
 				FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */,
 				FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */,
 			);
@@ -385,7 +382,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */,
-				FD4C6CC41F6B8C1C00C8AB40 /* Simply_CountedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
