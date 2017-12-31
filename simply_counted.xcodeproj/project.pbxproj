@@ -44,11 +44,19 @@
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
 		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
 		FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */; };
+		FD72C3E71F9D991A004FF49F /* Simply_CountedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */; };
 		FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FDA3332E1F7B41C3001DB77A /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		FD4C6CC61F6B8C1C00C8AB40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9F730171D67A57F0031E099 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9F7301E1D67A57F0031E099;
+			remoteInfo = simply_counted;
+		};
+		FD72C3E91F9D991A004FF49F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B9F730171D67A57F0031E099 /* Project object */;
 			proxyType = 1;
@@ -101,6 +109,9 @@
 		FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
+		FD72C3E41F9D991A004FF49F /* Simply CountedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_CountedUITests.swift; sourceTree = "<group>"; };
+		FD72C3E81F9D991A004FF49F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDA3332E1F7B41C3001DB77A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +125,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FD4C6CBE1F6B8C1C00C8AB40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD72C3E11F9D991A004FF49F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -204,6 +222,7 @@
 				B9D635151D6FA5B000D9B15F /* simply_counted */,
 				B9D635331D6FA5B000D9B15F /* simply_counted.xcodeproj */,
 				FD4C6CC21F6B8C1C00C8AB40 /* Simply CountedTests */,
+				FD72C3E51F9D991A004FF49F /* Simply CountedUITests */,
 				B9F730201D67A57F0031E099 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -213,6 +232,7 @@
 			children = (
 				B9F7301F1D67A57F0031E099 /* simply_counted.app */,
 				FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */,
+				FD72C3E41F9D991A004FF49F /* Simply CountedUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,6 +244,15 @@
 				FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */,
 			);
 			path = "Simply CountedTests";
+			sourceTree = "<group>";
+		};
+		FD72C3E51F9D991A004FF49F /* Simply CountedUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */,
+				FD72C3E81F9D991A004FF49F /* Info.plist */,
+			);
+			path = "Simply CountedUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,13 +293,31 @@
 			productReference = FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FD72C3E31F9D991A004FF49F /* Simply CountedUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD72C3EB1F9D991A004FF49F /* Build configuration list for PBXNativeTarget "Simply CountedUITests" */;
+			buildPhases = (
+				FD72C3E01F9D991A004FF49F /* Sources */,
+				FD72C3E11F9D991A004FF49F /* Frameworks */,
+				FD72C3E21F9D991A004FF49F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FD72C3EA1F9D991A004FF49F /* PBXTargetDependency */,
+			);
+			name = "Simply CountedUITests";
+			productName = "Simply CountedUITests";
+			productReference = FD72C3E41F9D991A004FF49F /* Simply CountedUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B9F730171D67A57F0031E099 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Jennifer Karavakis";
 				TargetAttributes = {
@@ -286,6 +333,12 @@
 					};
 					FD4C6CC01F6B8C1C00C8AB40 = {
 						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B9F7301E1D67A57F0031E099;
+					};
+					FD72C3E31F9D991A004FF49F = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = B3N8BR97GQ;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B9F7301E1D67A57F0031E099;
 					};
@@ -312,6 +365,7 @@
 			targets = (
 				B9F7301E1D67A57F0031E099 /* simply_counted */,
 				FD4C6CC01F6B8C1C00C8AB40 /* Simply CountedTests */,
+				FD72C3E31F9D991A004FF49F /* Simply CountedUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,6 +387,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FD4C6CBF1F6B8C1C00C8AB40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD72C3E21F9D991A004FF49F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,6 +446,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD72C3E01F9D991A004FF49F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD72C3E71F9D991A004FF49F /* Simply_CountedUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -392,6 +461,11 @@
 			isa = PBXTargetDependency;
 			target = B9F7301E1D67A57F0031E099 /* simply_counted */;
 			targetProxy = FD4C6CC61F6B8C1C00C8AB40 /* PBXContainerItemProxy */;
+		};
+		FD72C3EA1F9D991A004FF49F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9F7301E1D67A57F0031E099 /* simply_counted */;
+			targetProxy = FD72C3E91F9D991A004FF49F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -578,6 +652,63 @@
 			};
 			name = Release;
 		};
+		FD72C3EC1F9D991A004FF49F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3N8BR97GQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Simply CountedUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = simply_counted;
+			};
+			name = Debug;
+		};
+		FD72C3ED1F9D991A004FF49F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3N8BR97GQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Simply CountedUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = simply_counted;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,6 +735,15 @@
 			buildConfigurations = (
 				FD4C6CC81F6B8C1C00C8AB40 /* Debug */,
 				FD4C6CC91F6B8C1C00C8AB40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD72C3EB1F9D991A004FF49F /* Build configuration list for PBXNativeTarget "Simply CountedUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD72C3EC1F9D991A004FF49F /* Debug */,
+				FD72C3ED1F9D991A004FF49F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

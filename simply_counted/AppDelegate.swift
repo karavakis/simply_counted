@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        if CommandLine.arguments.contains("--uitesting") {
+            UserDefaults.standard.set(false, forKey: "use_touchid")
+        }
         return true
     }
 
