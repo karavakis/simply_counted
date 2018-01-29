@@ -66,7 +66,7 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
-    func applicationDidBecomeActive(notification: NSNotification) {
+    @objc func applicationDidBecomeActive(notification: NSNotification) {
         refreshOnNewDay()
     }
 

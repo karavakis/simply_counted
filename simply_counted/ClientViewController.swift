@@ -16,7 +16,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var activitiesTableView: UITableView!
 
-    var checkInButton: UIBarButtonItem!
+    @objc var checkInButton: UIBarButtonItem!
     var client : Client? = nil
     var successfulLogin: Bool = false
     let touchAuth = TouchIDAuth()
@@ -120,7 +120,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /***************/
     @IBAction func moreOptionsClicked(_ sender: AnyObject) {
         
-        var useTouchId = UserDefaults.standard.object(forKey: "use_touchid")
+        let useTouchId = UserDefaults.standard.object(forKey: "use_touchid")
         
         if (useTouchId == nil) {
             let alertController = UIAlertController(title: "Use TouchID?", message: "Would you like to use TouchID to authenticate modifying clients?", preferredStyle: .actionSheet)
@@ -174,7 +174,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         self.navigationItem.rightBarButtonItem = checkInButton
     }
 
-    func checkInClicked() {
+    @objc func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
                 let noPassesAlert = UIAlertController(title: "!", message: "No passes remaining.\n\nPlease click more options to add a pass.", preferredStyle: UIAlertControllerStyle.alert)

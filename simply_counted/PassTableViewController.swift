@@ -121,15 +121,15 @@ class PassTableViewController: UITableViewController {
         return headerView
     }
 
-    func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
         let indexPath : IndexPath = IndexPath(row: 0, section:(recognizer.view?.tag as Int!)!)
         if (indexPath.row == 0) {
 
             isSectionCollapsed[indexPath.section] = !isSectionCollapsed[indexPath.section]
 
             //reload specific section animated
-            let range = NSMakeRange(indexPath.section, 1)
-            let sectionToReload = IndexSet(integersIn: range.toRange() ?? 0..<0)
+            let range = NSRange(location: indexPath.section, length:1)
+            let sectionToReload = IndexSet(integersIn: Range(range) ?? 0..<0)
             self.tableView.reloadSections(sectionToReload, with:UITableViewRowAnimation.fade)
         }
         

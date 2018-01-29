@@ -64,7 +64,7 @@ extension UIViewController {
         tap.cancelsTouchesInView = false
     }
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
