@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if CommandLine.arguments.contains("--uitesting") {
             UserDefaults.standard.set(false, forKey: "use_touchid")
+        } else {
+            var use_touchid = UserDefaults.standard.bool(forKey: "use_touchid")
+            
+            if(use_touchid == false) {
+                var appDefaults = Dictionary<String, Bool>()
+                appDefaults["use_touchid"] = false
+                
+                UserDefaults.standard.register(defaults: appDefaults)
+            }
         }
         return true
     }

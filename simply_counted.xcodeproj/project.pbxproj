@@ -45,6 +45,8 @@
 		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
 		FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */; };
 		FD72C3E71F9D991A004FF49F /* Simply_CountedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */; };
+		FDA103072031111A0001ED8F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA103062031111A0001ED8F /* SettingsTableViewController.swift */; };
+		FDA103092032A3650001ED8F /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA103082032A3650001ED8F /* SettingsTableViewCell.swift */; };
 		FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FDA3332E1F7B41C3001DB77A /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +114,8 @@
 		FD72C3E41F9D991A004FF49F /* Simply CountedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_CountedUITests.swift; sourceTree = "<group>"; };
 		FD72C3E81F9D991A004FF49F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDA103062031111A0001ED8F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		FDA103082032A3650001ED8F /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		FDA3332E1F7B41C3001DB77A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +176,7 @@
 				B96CA3F11D764FBA008166E2 /* EditClientViewController.swift */,
 				B9EFE7921D7A41A60018E568 /* AddPassViewController.swift */,
 				B9AD0C4B1D7B330A00DF529F /* PassTableViewController.swift */,
+				FDA103062031111A0001ED8F /* SettingsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				B9D635251D6FA5B000D9B15F /* ClientTableViewCell.swift */,
 				B9D6352D1D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift */,
 				B9AD0C471D7A7E8600DF529F /* AddPassTypeTableViewCell.swift */,
+				FDA103082032A3650001ED8F /* SettingsTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -416,10 +422,12 @@
 				B9EFE7931D7A41A60018E568 /* AddPassViewController.swift in Sources */,
 				B9D6355E1D6FA5B000D9B15F /* ClientTableViewController.swift in Sources */,
 				B9EFE7951D7A64DC0018E568 /* PassType.swift in Sources */,
+				FDA103092032A3650001ED8F /* SettingsTableViewCell.swift in Sources */,
 				B9D635561D6FA5B000D9B15F /* CheckIn.swift in Sources */,
 				FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */,
 				B9D6355A1D6FA5B000D9B15F /* ClassTableViewController.swift in Sources */,
 				B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */,
+				FDA103072031111A0001ED8F /* SettingsTableViewController.swift in Sources */,
 				B9D635591D6FA5B000D9B15F /* ClassDate.swift in Sources */,
 				B9D6355C1D6FA5B000D9B15F /* ClientCollection.swift in Sources */,
 				B96CA3EC1D71586A008166E2 /* Activity.swift in Sources */,

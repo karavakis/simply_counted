@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Use TouchId</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>use_touchid</string>
 		</dict>

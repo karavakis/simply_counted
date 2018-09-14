@@ -120,7 +120,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     /***************/
     @IBAction func moreOptionsClicked(_ sender: AnyObject) {
         
-        let useTouchId = UserDefaults.standard.object(forKey: "use_touchid")
+        let useTouchId = TouchIDAuth().useTouchId as Bool?
         
         if (useTouchId == nil) {
             let alertController = UIAlertController(title: "Use TouchID?", message: "Would you like to use TouchID to authenticate modifying clients?", preferredStyle: .actionSheet)
