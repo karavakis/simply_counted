@@ -18,6 +18,8 @@ class RosterTableViewController: UITableViewController {
     var clientIndexes = [String]()
     var isLoading = false
     var currentDay = Date()
+    let touchAuth = TouchIDAuth()
+    
 
     let waitAlert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
   
@@ -66,7 +68,7 @@ class RosterTableViewController: UITableViewController {
         }
     }
 
-    func applicationDidBecomeActive(notification: NSNotification) {
+    @objc func applicationDidBecomeActive(notification: NSNotification) {
         refreshOnNewDay()
     }
 
@@ -250,6 +252,26 @@ class RosterTableViewController: UITableViewController {
 
             classTableVC.fullClientList = clients
             passTableVC.fullClientList = clients
+        }
+        if (segue.identifier == "SettingsClicked") {
+            
+            let useTouchId = TouchIDAuth().useTouchId!
+            if ((useTouchId != nil) && (useTouchId == true)) {
+                //this code is duplicated in clientviewcontroller. look into moving it into helper class
+                touchAuth.authenticateUser() { message in
+                    if let message = message {
+                        let alertView = UIAlertController(title: "Error",
+                                                          message: message,
+                                                          preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default)
+                        alertView.addAction(okAction)
+                        self.present(alertView, animated: true)
+                        
+                    } else {
+                        //show the settings toggle for using touchId
+                    }
+                }
+            }
         }
     }
 

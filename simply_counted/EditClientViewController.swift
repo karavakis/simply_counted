@@ -166,13 +166,13 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    func checkInDoneClicked() {
+    @objc func checkInDoneClicked() {
         client!.checkIn(checkInDatePicker.date)
         _ = navigationController?.popViewController(animated: true)
         _ = navigationController?.popViewController(animated: true)
     }
 
-    func checkInCancelClicked() {
+    @objc func checkInCancelClicked() {
         dateTextField.resignFirstResponder()
     }
 
@@ -248,11 +248,11 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         passesLeftTextField.text = "0"
     }
 
-    func cancelClicked() {
+    @objc func cancelClicked() {
         passesLeftTextField.resignFirstResponder()
     }
 
-    func doneClicked() {
+    @objc func doneClicked() {
         passesLeftTextField.resignFirstResponder()
         if let passes = passesLeftTextField.text {
             if let passNumber = Int(passes) {
@@ -326,7 +326,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     //TODO pull into a new class so we can just import the class at the top instead of duplicating
-    func keyboardWillShow(notification:Notification) {
+    @objc func keyboardWillShow(notification:Notification) {
         resetConstraints()
         var info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -343,7 +343,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    func keyboardWillHide(notification:Notification) {
+    @objc func keyboardWillHide(notification:Notification) {
         resetConstraints()
         if( notesTextView.isFirstResponder ) {
             saveNote()

@@ -65,7 +65,7 @@ open class Client: CloudKitRecord {
     open func checkIn(_ date: Date) {
         let checkIn = CheckIn(clientId: self.record!.recordID, date: date)
         checkIn.save()
-        self.passes -= 1
+        self.passes -= 1 //TODO: Do we want to let them go into negative passes if they dont have any left?
         self.totalCheckIns += 1
 
         var insertAt = activities.count
