@@ -130,7 +130,7 @@ class PassTableViewController: UITableViewController {
             //reload specific section animated
             let range = NSRange(location: indexPath.section, length:1)
             let sectionToReload = IndexSet(integersIn: Range(range) ?? 0..<0)
-            self.tableView.reloadSections(sectionToReload, with:UITableViewRowAnimation.fade)
+            self.tableView.reloadSections(sectionToReload, with:UITableView.RowAnimation.fade)
         }
         
     }

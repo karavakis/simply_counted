@@ -104,12 +104,12 @@ class AddPassViewController: UIViewController, UITableViewDataSource, UITableVie
         return true
     }
 
-    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
 
             func deleteSuccess() {
                 passTypes.removeAtIndex(indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             }
 
             func errorHandler(_ error: NSError) {

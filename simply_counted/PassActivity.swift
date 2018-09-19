@@ -13,7 +13,7 @@ open class PassActivity: Activity {
     var passesAdded : Int
     var price : String
 
-    init(clientId: CKRecordID, date: Date, passType: PassType) {
+    init(clientId: CKRecord.ID, date: Date, passType: PassType) {
         self.passesAdded = passType.passCount
         self.price = String(describing: passType.price)
         super.init(className: "PassActivity", clientId: clientId, date: date)

@@ -11,11 +11,11 @@ import CloudKit
 
 open class Activity: CloudKitRecord {
 
-    var clientReference: CKReference?
+    var clientReference: CKRecord.Reference?
     var date: Date
 
-    init(className: String, clientId: CKRecordID, date: Date) {
-        self.clientReference = CKReference(recordID: clientId, action: .deleteSelf)
+    init(className: String, clientId: CKRecord.ID, date: Date) {
+        self.clientReference = CKRecord.Reference(recordID: clientId, action: .deleteSelf)
         self.date = date
 
         super.init()
@@ -23,7 +23,7 @@ open class Activity: CloudKitRecord {
     }
 
     init(activityRecord: CKRecord!) {
-        self.clientReference = activityRecord.object(forKey: "client") as? CKReference
+        self.clientReference = activityRecord.object(forKey: "client") as? CKRecord.Reference
         self.date = activityRecord.object(forKey: "date") as! Date
 
         super.init()

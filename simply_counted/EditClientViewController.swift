@@ -123,13 +123,13 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         return true
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             if let client = client {
                 func deleteSuccess() {
                     client.removeActivity(activityIndex: indexPath.row)
                     populateClientInfo()
-                    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
                 }
 
                 func errorHandler(_ error: NSError) {
@@ -152,7 +152,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
-                let noPassesAlert = UIAlertController(title: "Warning", message: "Client has no passes remaining.", preferredStyle: UIAlertControllerStyle.alert)
+                let noPassesAlert = UIAlertController(title: "Warning", message: "Client has no passes remaining.", preferredStyle: UIAlertController.Style.alert)
                 noPassesAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
                 }))
                 noPassesAlert.addAction(UIAlertAction(title: "Check-in", style: .default, handler: { (action: UIAlertAction!) in
@@ -181,7 +181,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     /*********************/
     func setupDatePicker() {
         let today = Date()
-        checkInDatePicker.datePickerMode = UIDatePickerMode.date
+        checkInDatePicker.datePickerMode = UIDatePicker.Mode.date
         checkInDatePicker.setDate(today, animated: false)
         checkInDatePicker.maximumDate = today
 
@@ -190,8 +190,8 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         dateTextField.inputView = checkInDatePicker
         dateTextField.isHidden = true
 
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditClientViewController.checkInCancelClicked))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(EditClientViewController.checkInCancelClicked))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         let doneButton = UIBarButtonItem(title: "Check-In", style: .plain, target: self, action: #selector(EditClientViewController.checkInDoneClicked))
 
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
@@ -232,9 +232,9 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         passesLeftTextField.inputView = passPickerView
         passesLeftTextField.isHidden = true
 
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditClientViewController.cancelClicked))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(EditClientViewController.doneClicked))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(EditClientViewController.cancelClicked))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(EditClientViewController.doneClicked))
 
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         titleLabel.text = "Update Passes Left"
@@ -321,15 +321,15 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     func addKeyboardNotifications() {
         setOriginalConstraints()
         self.hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: self.view.window)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: self.view.window)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: self.view.window)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: self.view.window)
     }
 
     //TODO pull into a new class so we can just import the class at the top instead of duplicating
     @objc func keyboardWillShow(notification:Notification) {
         resetConstraints()
         var info = notification.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
         if( notesTextView.isFirstResponder ) {
             UIView.animate(withDuration: MOVE_VIEW_ANIMATE_TIME, animations: { () -> Void in
