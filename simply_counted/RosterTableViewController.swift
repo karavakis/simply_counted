@@ -47,14 +47,14 @@ class RosterTableViewController: UITableViewController {
         waitAlert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
         loadingIndicator.startAnimating();
         
         waitAlert.view.addSubview(loadingIndicator)
         present(waitAlert, animated: true, completion: nil)
 
         clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     func refreshOnNewDay() {
@@ -173,7 +173,7 @@ class RosterTableViewController: UITableViewController {
                     for (rowIndex, client) in clientsIndexedList[section]!.enumerated() {
                         if( client == newClient ) {
                             let indexPath = IndexPath(row: rowIndex, section: sectionIndex + 1)
-                            rosterTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
+                            rosterTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableView.ScrollPosition.middle)
                             self.performSegue(withIdentifier: "ClientClicked", sender: self)
                             break
                         }
@@ -207,8 +207,8 @@ class RosterTableViewController: UITableViewController {
     /*****************/
     /* Delete Client */
     /*****************/
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             let clientToDelete = clientsIndexedList[clientIndexes[indexPath.section-1]]?[indexPath.row]
             func deleteClient() {
                 func deleteSuccess() {
@@ -223,7 +223,7 @@ class RosterTableViewController: UITableViewController {
                 clientsIndexedList[clientIndexes[indexPath.section-1]]?[indexPath.row].deleteRecord(deleteSuccess, errorHandler: errorHandler)
             }
 
-            let deleteClientWarning = UIAlertController(title: "Warning", message: "Deleting a client will delete all Check-Ins and Passes associated with the client.", preferredStyle: UIAlertControllerStyle.alert)
+            let deleteClientWarning = UIAlertController(title: "Warning", message: "Deleting a client will delete all Check-Ins and Passes associated with the client.", preferredStyle: UIAlertController.Style.alert)
             deleteClientWarning.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
                 tableView.setEditing(false, animated: true)
             }))

@@ -148,7 +148,7 @@ open class Client: CloudKitRecord {
         activities = [Activity]()
 
         //get check-ins
-        let clientReference = CKReference(recordID: record!.recordID, action: .deleteSelf)
+        let clientReference = CKRecord.Reference(recordID: record!.recordID, action: .deleteSelf)
         let predicate = NSPredicate(format: "client == %@", clientReference)
         let sort = NSSortDescriptor(key: "date", ascending: false)
         let getCheckInsQuery = CKQuery(recordType: "CheckIn", predicate: predicate)

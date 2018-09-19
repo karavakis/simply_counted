@@ -177,7 +177,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
     @objc func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
-                let noPassesAlert = UIAlertController(title: "!", message: "No passes remaining.\n\nPlease click more options to add a pass.", preferredStyle: UIAlertControllerStyle.alert)
+                let noPassesAlert = UIAlertController(title: "!", message: "No passes remaining.\n\nPlease click more options to add a pass.", preferredStyle: UIAlertController.Style.alert)
                 noPassesAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
                 }))
                 present(noPassesAlert, animated: true, completion: nil)

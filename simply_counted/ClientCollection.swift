@@ -11,13 +11,13 @@ import CloudKit
 
 open class ClientCollection: CloudKitContainer {
 
-    var clients = [CKRecordID: Client]()
+    var clients = [CKRecord.ID: Client]()
 
     override init() {
         super.init()
     }
 
-    subscript(id:CKRecordID) -> Client? {
+    subscript(id:CKRecord.ID) -> Client? {
         return self.clients[id]
     }
 
@@ -29,7 +29,7 @@ open class ClientCollection: CloudKitContainer {
         clients[client.record!.recordID] = client
     }
 
-    open func removeValue(forId: CKRecordID) {
+    open func removeValue(forId: CKRecord.ID) {
         clients.removeValue(forKey: forId)
     }
 

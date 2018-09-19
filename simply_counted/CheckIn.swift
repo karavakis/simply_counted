@@ -11,7 +11,7 @@ import CloudKit
 
 open class CheckIn: Activity {
     
-    init(clientId: CKRecordID, date: Date) {
+    init(clientId: CKRecord.ID, date: Date) {
         super.init(className: "CheckIn", clientId: clientId, date: date)
     }
 

@@ -42,7 +42,7 @@ func roundCorners(_ element : AnyObject, radius: CGFloat = 3.0) {
 func calculateViewMovementWhenKeyboardAppears(_ view: UIViewController, notification:Notification, bottomOfElements: CGFloat) -> CGFloat {
     var movement : CGFloat = 0
     var info = notification.userInfo!
-    let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+    let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
     let extraSpace = view.view.bounds.maxY - bottomOfElements
     movement = extraSpace - keyboardFrame.size.height
     if (movement > 0) {
