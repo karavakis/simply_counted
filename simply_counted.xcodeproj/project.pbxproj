@@ -44,10 +44,12 @@
 		B9EFE7971D7A668F0018E568 /* PassTypeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFE7961D7A668F0018E568 /* PassTypeCollection.swift */; };
 		FD3667EB1F3AC4D00081F4F7 /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */; };
 		FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */; };
+		FD700AEB21657B5800246759 /* AppStoreReviewPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD700AEA21657B5800246759 /* AppStoreReviewPrompt.swift */; };
 		FD72C3E71F9D991A004FF49F /* Simply_CountedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */; };
 		FDA103072031111A0001ED8F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA103062031111A0001ED8F /* SettingsTableViewController.swift */; };
 		FDA103092032A3650001ED8F /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA103082032A3650001ED8F /* SettingsTableViewCell.swift */; };
 		FDA3332F1F7B41C3001DB77A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FDA3332E1F7B41C3001DB77A /* Settings.bundle */; };
+		FDB7E43E215F367000456B3D /* AppStoreReviewPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB7E43D215F367000456B3D /* AppStoreReviewPromptTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,12 +113,14 @@
 		FD4C6CC11F6B8C1C00C8AB40 /* Simply CountedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
+		FD700AEA21657B5800246759 /* AppStoreReviewPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewPrompt.swift; sourceTree = "<group>"; };
 		FD72C3E41F9D991A004FF49F /* Simply CountedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply CountedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD72C3E61F9D991A004FF49F /* Simply_CountedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_CountedUITests.swift; sourceTree = "<group>"; };
 		FD72C3E81F9D991A004FF49F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDA103062031111A0001ED8F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		FDA103082032A3650001ED8F /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		FDA3332E1F7B41C3001DB77A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		FDB7E43D215F367000456B3D /* AppStoreReviewPromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewPromptTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 				B9D635291D6FA5B000D9B15F /* Info.plist */,
 				B9D6352E1D6FA5B000D9B15F /* simply_counted.xcdatamodeld */,
 				FD3667EA1F3AC4D00081F4F7 /* TouchIDAuthentication.swift */,
+				FD700AEA21657B5800246759 /* AppStoreReviewPrompt.swift */,
 				B9D635321D6FA5B000D9B15F /* Util.swift */,
 				B9D6356F1D6FA5FA00D9B15F /* Controller */,
 				B9D635701D6FA60600D9B15F /* View */,
@@ -246,6 +251,7 @@
 		FD4C6CC21F6B8C1C00C8AB40 /* Simply CountedTests */ = {
 			isa = PBXGroup;
 			children = (
+				FDB7E43D215F367000456B3D /* AppStoreReviewPromptTests.swift */,
 				FD4C6CC51F6B8C1C00C8AB40 /* Info.plist */,
 				FD4C6CCB1F6B8C8500C8AB40 /* ClientTests.swift */,
 			);
@@ -442,6 +448,7 @@
 				B9AD0C4E1D7B343000DF529F /* PassCollection.swift in Sources */,
 				B9D635511D6FA5B000D9B15F /* AddClientTableViewCell.swift in Sources */,
 				B9D635651D6FA5B000D9B15F /* SimpleLabelTableViewCell.swift in Sources */,
+				FD700AEB21657B5800246759 /* AppStoreReviewPrompt.swift in Sources */,
 				B99E4CCF1D8A126D00AF52E2 /* CloudKitRecord.swift in Sources */,
 				B9D6355F1D6FA5B000D9B15F /* ClientViewController.swift in Sources */,
 				B9AD0C481D7A7E8600DF529F /* AddPassTypeTableViewCell.swift in Sources */,
@@ -453,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD4C6CCC1F6B8C8500C8AB40 /* ClientTests.swift in Sources */,
+				FDB7E43E215F367000456B3D /* AppStoreReviewPromptTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +552,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -592,7 +600,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -648,7 +656,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				INFOPLIST_FILE = "Simply CountedTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -665,7 +673,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				INFOPLIST_FILE = "Simply CountedTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -692,7 +700,7 @@
 				DEVELOPMENT_TEAM = B3N8BR97GQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Simply CountedUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -721,7 +729,7 @@
 				DEVELOPMENT_TEAM = B3N8BR97GQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Simply CountedUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
