@@ -19,8 +19,8 @@ class RosterTableViewController: UITableViewController {
     var isLoading = false
     var currentDay = Date()
     let touchAuth = TouchIDAuth()
+    let appStoreReviewPrompt = AppStoreReviewPrompt()
     
-
     let waitAlert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
   
     func clientsDidLoad() -> Void {
@@ -43,7 +43,6 @@ class RosterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = true
-
         waitAlert.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
@@ -74,6 +73,7 @@ class RosterTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        appStoreReviewPrompt.displayPrompt()
         rosterTableView.reloadData()
 
         self.refreshOnNewDay()
