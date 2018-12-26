@@ -62,7 +62,8 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     /************************/
     func populateClientInfo() {
         if let client : Client = client {
-            self.automaticallyAdjustsScrollViewInsets = false
+            //            self.automaticallyAdjustsScrollViewInsets = false //TODO: not sure if we should remove this, default value is true
+            
             notesTextView.text = client.notes
             numPassesLeftLabel.text = String(client.passes)
             numTotalCheckInsLabel.text = String(client.totalCheckIns)
@@ -185,7 +186,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         checkInDatePicker.setDate(today, animated: false)
         checkInDatePicker.maximumDate = today
 
-        dateTextField = UITextField();
+        let dateTextField = UITextField();
         self.view.addSubview(dateTextField)
         dateTextField.inputView = checkInDatePicker
         dateTextField.isHidden = true
@@ -227,7 +228,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
 
     func setupPickerView() {
         passPickerView.delegate = self
-        passesLeftTextField = UITextField();
+        let passesLeftTextField = UITextField();
         self.view.addSubview(passesLeftTextField)
         passesLeftTextField.inputView = passPickerView
         passesLeftTextField.isHidden = true

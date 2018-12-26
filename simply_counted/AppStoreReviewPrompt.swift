@@ -25,7 +25,7 @@ class AppStoreReviewPrompt {
         
         var app_store_prompt_counter = userDefaults.integer(forKey: "app_store_prompt_counter");
         
-        if app_store_prompt_counter == nil {
+        if app_store_prompt_counter == 0 {
             userDefaults.set(0, forKey: "app_store_prompt_counter")
         }
         else if app_store_prompt_counter < 20 {

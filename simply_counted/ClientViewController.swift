@@ -140,7 +140,7 @@ class ClientViewController: UIViewController, UITableViewDataSource, UITableView
         
             self.present(alertController, animated: true, completion: nil)
         } else {
-            if((useTouchId as! Bool) == true) {
+            if(useTouchId == true) {
                 authenticateUser()
             }
             else {

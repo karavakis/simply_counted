@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if CommandLine.arguments.contains("--uitesting") {
             UserDefaults.standard.set(false, forKey: "use_touchid")
         } else {
-            var use_touchid = UserDefaults.standard.bool(forKey: "use_touchid")
+            let use_touchid = UserDefaults.standard.bool(forKey: "use_touchid")
             
             if(use_touchid == false) {
                 var appDefaults = Dictionary<String, Bool>()
