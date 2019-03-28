@@ -124,7 +124,7 @@ class RosterTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        if let index = clientIndexes.index(of: title) {
+        if let index = clientIndexes.firstIndex(of: title) {
             return index + 1
         }
         return 0

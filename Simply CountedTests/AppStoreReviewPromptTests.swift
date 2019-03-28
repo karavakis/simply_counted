@@ -15,6 +15,7 @@ class AppStoreReviewPromptTests: XCTestCase {
     
     var appStoreReviewPrompt: AppStoreReviewPrompt!;
     var rosterTableView: UITableView!;
+    let CURRENT_BUNDLE_VERSION: String = "1.6.4";
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -30,7 +31,7 @@ class AppStoreReviewPromptTests: XCTestCase {
     func testUserDefaultsAppStorePromptCounterChanged() {
         let mockUserDefaults = MockUserDefaults(suiteName: "testing")!
         mockUserDefaults.setAppStorePromptCounter(value: 10)
-        mockUserDefaults.setPreviousBundleVersion(value: "1.6.2")
+        mockUserDefaults.setPreviousBundleVersion(value: CURRENT_BUNDLE_VERSION)
         appStoreReviewPrompt.userDefaults = mockUserDefaults
         appStoreReviewPrompt.displayPrompt()
         
@@ -41,7 +42,7 @@ class AppStoreReviewPromptTests: XCTestCase {
     func testUserDefaultsAppStorePromptCounterReset() {
         let mockUserDefaults = MockUserDefaults(suiteName: "testing")!
         mockUserDefaults.setAppStorePromptCounter(value: 20)
-        mockUserDefaults.setPreviousBundleVersion(value: "1.6.2")
+        mockUserDefaults.setPreviousBundleVersion(value: CURRENT_BUNDLE_VERSION)
         appStoreReviewPrompt.userDefaults = mockUserDefaults
         appStoreReviewPrompt.displayPrompt()
         
@@ -57,7 +58,7 @@ class AppStoreReviewPromptTests: XCTestCase {
         appStoreReviewPrompt.displayPrompt()
 
         XCTAssertTrue(mockUserDefaults.appStorePromptCounterWasChanged, "The app store prompt counter should have been changed")
-        XCTAssert(mockUserDefaults.previousBundleVersion == "1.6.2")
+        XCTAssert(mockUserDefaults.previousBundleVersion == CURRENT_BUNDLE_VERSION)
         XCTAssert(mockUserDefaults.appStorePromptCounter == 0)
     }
 }

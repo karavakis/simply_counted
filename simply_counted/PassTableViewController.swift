@@ -122,7 +122,7 @@ class PassTableViewController: UITableViewController {
     }
 
     @objc func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
-        let indexPath : IndexPath = IndexPath(row: 0, section:(recognizer.view?.tag as Int!)!)
+        let indexPath : IndexPath = IndexPath(row: 0, section:(recognizer.view?.tag as Int?)!)
         if (indexPath.row == 0) {
 
             isSectionCollapsed[indexPath.section] = !isSectionCollapsed[indexPath.section]

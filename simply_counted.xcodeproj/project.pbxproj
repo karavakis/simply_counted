@@ -336,7 +336,7 @@
 					B9F7301E1D67A57F0031E099 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = B3N8BR97GQ;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -345,14 +345,14 @@
 					};
 					FD4C6CC01F6B8C1C00C8AB40 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B9F7301E1D67A57F0031E099;
 					};
 					FD72C3E31F9D991A004FF49F = {
 						CreatedOnToolsVersion = 9.0.1;
 						DevelopmentTeam = B3N8BR97GQ;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B9F7301E1D67A57F0031E099;
 					};
@@ -363,6 +363,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -629,7 +630,7 @@
 				PRODUCT_NAME = simply_counted;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -649,7 +650,7 @@
 				PRODUCT_NAME = simply_counted;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -665,7 +666,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/simply_counted.app/simply_counted";
 			};
 			name = Debug;
@@ -681,7 +682,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/simply_counted.app/simply_counted";
 			};
 			name = Release;
@@ -709,7 +710,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = simply_counted;
 			};
@@ -737,7 +738,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simply-CountedUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = simply_counted;
 			};
