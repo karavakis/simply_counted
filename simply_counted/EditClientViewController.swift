@@ -329,7 +329,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     //TODO pull into a new class so we can just import the class at the top instead of duplicating
     @objc func keyboardWillShow(notification:Notification) {
         resetConstraints()
-        var info = notification.userInfo!
+        let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
         if( notesTextView.isFirstResponder ) {

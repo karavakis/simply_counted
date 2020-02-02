@@ -15,7 +15,7 @@ class AppStoreReviewPromptTests: XCTestCase {
     
     var appStoreReviewPrompt: AppStoreReviewPrompt!;
     var rosterTableView: UITableView!;
-    let CURRENT_BUNDLE_VERSION: String = "1.6.4";
+    let CURRENT_BUNDLE_VERSION: String = "1.6.5";
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
