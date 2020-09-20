@@ -17,11 +17,12 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var activitiesTableView: UITableView!
     @IBOutlet weak var addPassButton: UIButton!
     @IBOutlet weak var notesTextView: UITextView!
-    @IBOutlet weak var passesLeftTextField: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
+
+    var dateTextField = UITextField();
     var checkInButton: UIBarButtonItem!
     var checkInDatePicker = UIDatePicker()
     var passPickerView = UIPickerView()
+    var passesLeftTextField = UITextField();
 
     var client:Client? = nil //passed in from last view
 
@@ -146,11 +147,11 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
     /* Check-In */
     /************/
     func setupBarButtonItems() {
-        checkInButton = UIBarButtonItem(title: "Check-In", style: .plain, target: self, action: #selector(ClientViewController.checkInClicked))
+        checkInButton = UIBarButtonItem(title: "Past Check-In", style: .plain, target: self, action: #selector(EditClientViewController.checkInClicked))
         self.navigationItem.rightBarButtonItem = checkInButton
     }
 
-    func checkInClicked() {
+    @objc func checkInClicked() {
         if let client = client {
             if (client.passes <= 0) {
                 let noPassesAlert = UIAlertController(title: "Warning", message: "Client has no passes remaining.", preferredStyle: UIAlertController.Style.alert)
@@ -186,7 +187,6 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         checkInDatePicker.setDate(today, animated: false)
         checkInDatePicker.maximumDate = today
 
-        let dateTextField = UITextField();
         self.view.addSubview(dateTextField)
         dateTextField.inputView = checkInDatePicker
         dateTextField.isHidden = true
@@ -200,7 +200,7 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         titleLabel.textAlignment = NSTextAlignment.center
         let title = UIBarButtonItem(customView: titleLabel)
 
-        let pickerToolbar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
+        let pickerToolbar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height, width: self.view.frame.size.width, height: 40.0))
         pickerToolbar.setItems([cancelButton, flexSpace, title, flexSpace, doneButton], animated: true)
         dateTextField.inputAccessoryView = pickerToolbar
     }
@@ -228,7 +228,6 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
 
     func setupPickerView() {
         passPickerView.delegate = self
-        let passesLeftTextField = UITextField();
         self.view.addSubview(passesLeftTextField)
         passesLeftTextField.inputView = passPickerView
         passesLeftTextField.isHidden = true
@@ -260,8 +259,19 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
                 if let client = client {
                     var newPassNumber = passNumber-999
                     newPassNumber = newPassNumber >= 999 || newPassNumber <= -999 ? 0 : newPassNumber
+
                     passPickerView.selectRow(newPassNumber+999, inComponent: 0, animated: false)
                     client.updatePassesLeft(newPassNumber, successHandler: populateClientInfo)
+
+                    //Add note
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateStyle = .short
+                    dateFormatter.timeStyle = .short
+                    var noteString = dateFormatter.string(from: Date()) + ": Manually updated passes left from "
+                    noteString = noteString + numPassesLeftLabel.text! + " to "
+                    noteString = noteString + String(newPassNumber) + "\n" + notesTextView.text
+                    notesTextView.text = noteString
+                    saveNote()
                 }
             }
         }
