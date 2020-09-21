@@ -52,8 +52,8 @@ class RosterTableViewController: UITableViewController {
         waitAlert.view.addSubview(loadingIndicator)
         present(waitAlert, animated: true, completion: nil)
 
-        clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        clients.load(successHandler: clientsDidLoad, errorHandler: clientsFailedLoad)
     }
 
     func refreshOnNewDay() {
@@ -82,11 +82,13 @@ class RosterTableViewController: UITableViewController {
     func checkICloudAccountStatus(okClicked: @escaping (()->Void)) {
         CKContainer.default().accountStatus { (accountStat, error) in
             if (accountStat != .available) {
-                let iCloudNotEnabledAlert = UIAlertController(title: "iCloud Login Error", message: "To load clients, sign in to your iCloud account.\n\nOn the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID.\n\nThen press OK.", preferredStyle: .alert)
-                iCloudNotEnabledAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                    okClicked()
-                }))
-                self.present(iCloudNotEnabledAlert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    let iCloudNotEnabledAlert = UIAlertController(title: "iCloud Login Error", message: "To load clients, sign in to your iCloud account.\n\nOn the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID.\n\nThen press OK.", preferredStyle: .alert)
+                    iCloudNotEnabledAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                        okClicked()
+                    }))
+                    self.present(iCloudNotEnabledAlert, animated: true, completion: nil)
+                }
             }
         }
     }

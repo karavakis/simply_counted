@@ -188,8 +188,6 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
         checkInDatePicker.maximumDate = today
 
         self.view.addSubview(dateTextField)
-        dateTextField.inputView = checkInDatePicker
-        dateTextField.isHidden = true
 
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(EditClientViewController.checkInCancelClicked))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
@@ -202,6 +200,9 @@ class EditClientViewController: UIViewController, UITableViewDataSource, UITable
 
         let pickerToolbar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height, width: self.view.frame.size.width, height: 40.0))
         pickerToolbar.setItems([cancelButton, flexSpace, title, flexSpace, doneButton], animated: true)
+
+        dateTextField.isHidden = true
+        dateTextField.inputView = checkInDatePicker
         dateTextField.inputAccessoryView = pickerToolbar
     }
 
